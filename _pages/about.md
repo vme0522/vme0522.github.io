@@ -128,6 +128,21 @@ latest_posts:
     text-decoration: none;
   }
 
+  .about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(230px, 2fr);
+    align-items: start;
+    gap: 2rem;
+  }
+
+  .about-avatar {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.35rem;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+  }
+
   .home-section a {
     color: #111111;
     text-decoration-color: #aaaaaa;
@@ -238,6 +253,14 @@ latest_posts:
     .publications .abbr {
       margin-bottom: 1rem;
     }
+
+    .about-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .about-avatar {
+      width: min(100%, 360px);
+    }
   }
 </style>
 
@@ -256,21 +279,26 @@ latest_posts:
 
 <section id="about" class="home-section">
   <h2>About</h2>
-  <p>
-    I am <strong>Feixiang Ruan</strong>, an undergraduate student majoring in Automation at the College of Electronic and
-    Information Engineering, Tongji University. My research interests include dexterous manipulation and robot evaluation.
-  </p>
-  <p>
-    I also spent a wonderful year as a research assistant at the
-    <strong>Institute for Interdisciplinary Information Sciences, Tsinghua University</strong>, working with
-    <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>.
-    I have also joined <strong>SHARPA</strong> as an Algorithm Engineer in the <strong>Academia Group</strong>, under the guidance of
-    Kaifeng Zhang.
-  </p>
-  <div class="about-social">
-    <a href="https://scholar.google.com/citations?user=Yq6XCyIAAAAJ" aria-label="Google Scholar" title="Google Scholar">
-      <i class="ai ai-google-scholar ai-2x" aria-hidden="true"></i>
-    </a>
+  <div class="about-layout">
+    <div class="about-copy">
+      <p>
+        I am <strong>Feixiang Ruan</strong>, an undergraduate student majoring in Automation at the College of Electronic and
+        Information Engineering, Tongji University. My research interests include dexterous manipulation and robot evaluation.
+      </p>
+      <p>
+        I also spent a wonderful year as a research assistant at the
+        <strong>Institute for Interdisciplinary Information Sciences, Tsinghua University</strong>, working with
+        <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>.
+        I have also joined <strong>SHARPA</strong> as an Algorithm Engineer in the <strong>Academia Group</strong>, under the guidance of
+        Kaifeng Zhang.
+      </p>
+      <div class="about-social">
+        <a href="https://scholar.google.com/citations?user=Yq6XCyIAAAAJ" aria-label="Google Scholar" title="Google Scholar">
+          <i class="ai ai-google-scholar ai-2x" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+    <img class="about-avatar" src="{{ '/assets/img/profile-art-right.jpg' | relative_url }}" alt="Feixiang Ruan profile artwork">
   </div>
 </section>
 
