@@ -507,27 +507,27 @@ latest_posts:
         <li>
           <time datetime="2025-08"><strong>2025-08</strong></time>
           <strong class="competition-result">National Second Prize</strong>
-          <span class="competition-name">China Collegiate Intelligent Robot Creative Competition</span>
+          <span class="competition-name">China University Intelligent Robot Creative Competition</span>
         </li>
         <li>
           <time datetime="2025-05"><strong>2025-05</strong></time>
-          <strong class="competition-result">5th Place of Skills Challenge</strong>
-          <span class="competition-name">VEX Robotics World Championship — “High Stakes” Season</span>
+          <strong class="competition-result">5th Place, Robot Skills Challenge</strong>
+          <span class="competition-name">VEX Robotics World Championship — VEX U (High Stakes)</span>
         </li>
         <li>
           <time datetime="2024-12"><strong>2024-12</strong></time>
           <strong class="competition-result">National Second Prize</strong>
-          <span class="competition-name">China Intelligent Robot Combat and Athletics Competition</span>
+          <span class="competition-name">China Intelligent Robot Combat &amp; Competition</span>
         </li>
         <li>
           <time datetime="2024-11"><strong>2024-11</strong></time>
           <strong class="competition-result">National First Prize (Champion)</strong>
-          <span class="competition-name">China Robot Competition and RoboCup China Open</span>
+          <span class="competition-name">China Robot Competition &amp; RoboCup China Open</span>
         </li>
         <li>
           <time datetime="2024-05"><strong>2024-05</strong></time>
-          <strong class="competition-result">4th Place of Skills Challenge</strong>
-          <span class="competition-name">VEX Robotics World Championship — “Over Under” Season</span>
+          <strong class="competition-result">4th Place, Robot Skills Challenge</strong>
+          <span class="competition-name">VEX Robotics World Championship — VEX U (Over Under)</span>
         </li>
       </ul>
     </div>
