@@ -133,10 +133,26 @@ latest_posts:
   }
 
   .pub-spotlight {
-    display: block;
-    margin-top: 0.2rem;
     color: #c62828;
     font-weight: 700;
+  }
+
+  @media (min-width: 576px) {
+    .publications .row > .col-sm-2 {
+      flex: 0 0 32%;
+      max-width: 32%;
+      padding-right: 1.5rem;
+    }
+
+    .publications .row > .col-sm-8 {
+      flex: 0 0 68%;
+      max-width: 68%;
+    }
+
+    .publications .abbr figure,
+    .publications .abbr img.preview {
+      width: 100%;
+    }
   }
 
   .section-placeholder {
@@ -166,6 +182,16 @@ latest_posts:
     .home-section {
       padding: 2.25rem 0;
       scroll-margin-top: 112px;
+    }
+
+    .publications .row > .abbr,
+    .publications .row > .col-sm-8 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .publications .abbr {
+      margin-bottom: 1rem;
     }
   }
 </style>
