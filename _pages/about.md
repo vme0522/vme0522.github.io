@@ -226,6 +226,10 @@ latest_posts:
     <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>.
   </p>
   <p>
+    I have also joined <strong>SHARPA</strong> as an Algorithm Engineer in the <strong>Academia Group</strong>, under the guidance of
+    Kaifeng Zhang.
+  </p>
+  <p>
     You can find me on <a href="https://github.com/VVVVME50">GitHub</a> and
     <a href="https://scholar.google.com/citations?user=Yq6XCyIAAAAJ">Google Scholar</a>.
   </p>
