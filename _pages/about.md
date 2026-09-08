@@ -177,6 +177,54 @@ latest_posts:
     font-weight: 700;
   }
 
+  .experience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .experience-card {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    align-items: center;
+    gap: 1.35rem;
+    min-height: 172px;
+    padding: 1.4rem;
+    border: 1px solid #dddddd;
+    border-radius: 0.65rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  }
+
+  .experience-logo-link {
+    display: flex;
+    min-height: 92px;
+    align-items: center;
+    justify-content: center;
+    padding-right: 1.35rem;
+    border-right: 1px solid #eeeeee;
+    text-decoration: none;
+  }
+
+  .experience-logo {
+    display: block;
+    width: 100%;
+    max-height: 78px;
+    object-fit: contain;
+  }
+
+  .experience-card h3 {
+    margin: 0 0 0.8rem;
+    font-size: 1.08rem;
+    font-weight: 650;
+    line-height: 1.4;
+  }
+
+  .experience-card p {
+    margin: 0.35rem 0 0;
+    color: #555555;
+    line-height: 1.45;
+  }
+
   @media (min-width: 576px) {
     .publications .row > .col-sm-2 {
       flex: 0 0 32%;
@@ -324,6 +372,12 @@ latest_posts:
       width: 100%;
     }
   }
+
+  @media (max-width: 760px) {
+    .experience-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 
 <header class="home-header">
@@ -384,7 +438,27 @@ latest_posts:
 
 <section id="internships" class="home-section">
   <h2>Internships</h2>
-  <p class="section-placeholder">Details coming soon.</p>
+  <div class="experience-grid">
+    <article class="experience-card">
+      <a class="experience-logo-link" href="https://iiis.tsinghua.edu.cn/en/" aria-label="IIIS, Tsinghua University">
+        <img class="experience-logo" src="{{ '/assets/img/iiis-logo.png' | relative_url }}" alt="IIIS logo">
+      </a>
+      <div class="experience-content">
+        <h3>Research Assistant, <a href="https://iiis.tsinghua.edu.cn/en/">IIIS</a>, Tsinghua University</h3>
+        <p><strong>Advisor:</strong> <a href="https://www.mengdixu.me/">Mengdi Xu</a></p>
+        <p><strong>Collaborator:</strong> <a href="https://gcfy63821.github.io/">Ruoqu Chen</a></p>
+      </div>
+    </article>
+    <article class="experience-card">
+      <a class="experience-logo-link" href="https://www.sharpa.com/" aria-label="SHARPA">
+        <img class="experience-logo" src="{{ '/assets/img/sharpa-logo.svg' | relative_url }}" alt="SHARPA logo">
+      </a>
+      <div class="experience-content">
+        <h3>Algorithm Engineer, Academia Group, <a href="https://www.sharpa.com/">SHARPA</a></h3>
+        <p><strong>Mentor:</strong> Kaifeng Zhang</p>
+      </div>
+    </article>
+  </div>
 </section>
 
 <section id="awards" class="home-section">
