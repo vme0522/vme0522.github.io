@@ -130,17 +130,25 @@ latest_posts:
 
   .about-layout {
     display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(230px, 2fr);
+    grid-template-columns: minmax(0, 1fr) 28%;
     align-items: start;
     gap: 2rem;
   }
 
-  .about-avatar {
-    display: block;
+  .about-avatar-frame {
+    aspect-ratio: 8 / 9;
     width: 100%;
-    height: auto;
+    overflow: hidden;
     border-radius: 0.35rem;
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  .about-avatar {
+    display: block;
+    width: 200%;
+    max-width: none;
+    height: 100%;
+    transform: translateX(-50%);
   }
 
   .home-section a {
@@ -191,6 +199,10 @@ latest_posts:
     color: #777777;
   }
 
+  .honors-columns {
+    width: 100%;
+  }
+
   .honors-group + .honors-group {
     margin-top: 1.75rem;
   }
@@ -211,8 +223,16 @@ latest_posts:
 
   .honors-list li {
     display: grid;
-    grid-template-columns: 5.7rem minmax(0, 1fr);
-    gap: 0.8rem;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: 1rem;
+    width: 100%;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid #eeeeee;
+  }
+
+  .honors-list li:last-child {
+    border-bottom: 0;
   }
 
   .honors-list time {
@@ -258,8 +278,12 @@ latest_posts:
       grid-template-columns: 1fr;
     }
 
-    .about-avatar {
-      width: min(100%, 360px);
+    .about-avatar-frame {
+      width: min(70%, 250px);
+    }
+
+    .honors-columns {
+      width: 100%;
     }
   }
 </style>
@@ -298,7 +322,9 @@ latest_posts:
         </a>
       </div>
     </div>
-    <img class="about-avatar" src="{{ '/assets/img/profile-art-right.jpg' | relative_url }}" alt="Feixiang Ruan profile artwork">
+    <div class="about-avatar-frame">
+      <img class="about-avatar" src="{{ '/assets/img/profile-art-right.jpg' | relative_url }}" alt="Feixiang Ruan profile artwork">
+    </div>
   </div>
 </section>
 
@@ -325,38 +351,42 @@ latest_posts:
 
 <section id="awards" class="home-section">
   <h2>Awards &amp; Honors</h2>
-  <div class="honors-group">
-    <h3>Academic Honors</h3>
-    <ul class="honors-list">
-      <li><time datetime="2026-05"><strong>2026-05</strong></time><span>Qidi Scholarship</span></li>
-      <li><time datetime="2025-12"><strong>2025-12</strong></time><span>National Scholarship</span></li>
-      <li>
-        <time datetime="2024-12"><strong>2024-12</strong></time><span>Undergraduate First-Class Scholarship, Tongji University</span>
-      </li>
-      <li><time datetime="2023-12"><strong>2023-12</strong></time><span>National Scholarship</span></li>
-    </ul>
-  </div>
-  <div class="honors-group">
-    <h3>Competitions</h3>
-    <ul class="honors-list">
-      <li>
-        <time datetime="2025-08"><strong>2025-08</strong></time
-        ><span>National Second Prize, China Collegiate Intelligent Robot Creative Competition</span>
-      </li>
-      <li>
-        <time datetime="2025-05"><strong>2025-05</strong></time><span>5th Place, Skills Challenge, VEX Robotics World Championship</span>
-      </li>
-      <li>
-        <time datetime="2024-12"><strong>2024-12</strong></time
-        ><span>National Second Prize, China Intelligent Robot Combat and Athletics Competition</span>
-      </li>
-      <li>
-        <time datetime="2024-11"><strong>2024-11</strong></time
-        ><span>National First Prize (Champion), China Robot Competition and RoboCup China Open</span>
-      </li>
-      <li>
-        <time datetime="2024-05"><strong>2024-05</strong></time><span>4th Place, Skills Challenge, VEX Robotics World Championship</span>
-      </li>
-    </ul>
+  <div class="honors-columns">
+    <div class="honors-group">
+      <h3>Academic Honors</h3>
+      <ul class="honors-list">
+        <li><time datetime="2026-05"><strong>2026-05</strong></time><span>Qidi Scholarship</span></li>
+        <li><time datetime="2025-12"><strong>2025-12</strong></time><span>National Scholarship</span></li>
+        <li>
+          <time datetime="2024-12"><strong>2024-12</strong></time><span>Undergraduate First-Class Scholarship, Tongji University</span>
+        </li>
+        <li><time datetime="2023-12"><strong>2023-12</strong></time><span>National Scholarship</span></li>
+      </ul>
+    </div>
+    <div class="honors-group">
+      <h3>Competitions</h3>
+      <ul class="honors-list">
+        <li>
+          <time datetime="2025-08"><strong>2025-08</strong></time
+          ><span>National Second Prize, China Collegiate Intelligent Robot Creative Competition</span>
+        </li>
+        <li>
+          <time datetime="2025-05"><strong>2025-05</strong></time
+          ><span>5th Place, High Stakes Skills Challenge, VEX Robotics World Championship</span>
+        </li>
+        <li>
+          <time datetime="2024-12"><strong>2024-12</strong></time
+          ><span>National Second Prize, China Intelligent Robot Combat and Athletics Competition</span>
+        </li>
+        <li>
+          <time datetime="2024-11"><strong>2024-11</strong></time
+          ><span>National First Prize (Champion), China Robot Competition and RoboCup China Open</span>
+        </li>
+        <li>
+          <time datetime="2024-05"><strong>2024-05</strong></time
+          ><span>4th Place, Over Under Skills Challenge, VEX Robotics World Championship</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </section>
