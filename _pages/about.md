@@ -117,6 +117,10 @@ latest_posts:
   }
 
   .about-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
     margin-top: 1rem;
   }
 
@@ -409,6 +413,9 @@ latest_posts:
         Kaifeng Zhang.
       </p>
       <div class="about-social">
+        <a href="mailto:vme0522@gmail.com" aria-label="Email Feixiang Ruan" title="vme0522@gmail.com">
+          <i class="fa-solid fa-envelope fa-2x" aria-hidden="true"></i>
+        </a>
         <a href="https://scholar.google.com/citations?user=Yq6XCyIAAAAJ" aria-label="Google Scholar" title="Google Scholar">
           <i class="ai ai-google-scholar ai-2x" aria-hidden="true"></i>
         </a>
