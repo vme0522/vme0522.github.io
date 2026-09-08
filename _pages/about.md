@@ -241,13 +241,26 @@ latest_posts:
 
   .academic-list li,
   .competition-list li {
-    grid-template-columns: 6.5rem 15.5rem minmax(0, 1fr);
-    column-gap: 2.25rem;
+    grid-template-columns: 7rem 18rem minmax(0, 1fr);
+    column-gap: 4rem;
   }
 
   .academic-title,
   .competition-result {
     font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .academic-list li,
+    .competition-list li {
+      grid-template-columns: 5.7rem minmax(0, 1fr);
+      gap: 0.2rem 0.8rem;
+    }
+
+    .academic-institution,
+    .competition-name {
+      grid-column: 2;
+    }
   }
 
   @media (max-width: 640px) {
@@ -295,17 +308,6 @@ latest_posts:
 
     .honors-columns {
       width: 100%;
-    }
-
-    .academic-list li,
-    .competition-list li {
-      grid-template-columns: 5.7rem minmax(0, 1fr);
-      gap: 0.2rem 0.8rem;
-    }
-
-    .academic-institution,
-    .competition-name {
-      grid-column: 2;
     }
   }
 </style>
