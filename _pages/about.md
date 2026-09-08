@@ -239,6 +239,15 @@ latest_posts:
     white-space: nowrap;
   }
 
+  .competition-list li {
+    grid-template-columns: 6.5rem 15.5rem minmax(0, 1fr);
+    column-gap: 1.25rem;
+  }
+
+  .competition-result {
+    font-weight: 700;
+  }
+
   @media (max-width: 640px) {
     body.fixed-top-nav {
       padding-top: 104px;
@@ -284,6 +293,15 @@ latest_posts:
 
     .honors-columns {
       width: 100%;
+    }
+
+    .competition-list li {
+      grid-template-columns: 5.7rem minmax(0, 1fr);
+      gap: 0.2rem 0.8rem;
+    }
+
+    .competition-name {
+      grid-column: 2;
     }
   }
 </style>
@@ -354,7 +372,7 @@ latest_posts:
   <div class="honors-columns">
     <div class="honors-group">
       <h3>Academic Honors</h3>
-      <ul class="honors-list">
+      <ul class="honors-list academic-list">
         <li><time datetime="2026-05"><strong>2026-05</strong></time><span>Qidi Scholarship</span></li>
         <li><time datetime="2025-12"><strong>2025-12</strong></time><span>National Scholarship</span></li>
         <li>
@@ -365,26 +383,31 @@ latest_posts:
     </div>
     <div class="honors-group">
       <h3>Competitions</h3>
-      <ul class="honors-list">
+      <ul class="honors-list competition-list">
         <li>
-          <time datetime="2025-08"><strong>2025-08</strong></time
-          ><span>National Second Prize, China Collegiate Intelligent Robot Creative Competition</span>
+          <time datetime="2025-08"><strong>2025-08</strong></time>
+          <strong class="competition-result">National Second Prize</strong>
+          <span class="competition-name">China Collegiate Intelligent Robot Creative Competition</span>
         </li>
         <li>
-          <time datetime="2025-05"><strong>2025-05</strong></time
-          ><span>5th Place, High Stakes Skills Challenge, VEX Robotics World Championship</span>
+          <time datetime="2025-05"><strong>2025-05</strong></time>
+          <strong class="competition-result">5th Place of Skills Challenge</strong>
+          <span class="competition-name">VEX Robotics World Championship — “High Stakes” Season</span>
         </li>
         <li>
-          <time datetime="2024-12"><strong>2024-12</strong></time
-          ><span>National Second Prize, China Intelligent Robot Combat and Athletics Competition</span>
+          <time datetime="2024-12"><strong>2024-12</strong></time>
+          <strong class="competition-result">National Second Prize</strong>
+          <span class="competition-name">China Intelligent Robot Combat and Athletics Competition</span>
         </li>
         <li>
-          <time datetime="2024-11"><strong>2024-11</strong></time
-          ><span>National First Prize (Champion), China Robot Competition and RoboCup China Open</span>
+          <time datetime="2024-11"><strong>2024-11</strong></time>
+          <strong class="competition-result">National First Prize (Champion)</strong>
+          <span class="competition-name">China Robot Competition and RoboCup China Open</span>
         </li>
         <li>
-          <time datetime="2024-05"><strong>2024-05</strong></time
-          ><span>4th Place, Over Under Skills Challenge, VEX Robotics World Championship</span>
+          <time datetime="2024-05"><strong>2024-05</strong></time>
+          <strong class="competition-result">4th Place of Skills Challenge</strong>
+          <span class="competition-name">VEX Robotics World Championship — “Over Under” Season</span>
         </li>
       </ul>
     </div>
