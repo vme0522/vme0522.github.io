@@ -215,7 +215,7 @@ latest_posts:
 
   .honors-list {
     display: grid;
-    gap: 0.55rem;
+    gap: 0.75rem;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -227,7 +227,7 @@ latest_posts:
     align-items: baseline;
     gap: 1rem;
     width: 100%;
-    padding: 0.45rem 0;
+    padding: 0.65rem 0;
     border-bottom: 1px solid #eeeeee;
   }
 
