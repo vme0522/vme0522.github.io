@@ -239,11 +239,13 @@ latest_posts:
     white-space: nowrap;
   }
 
+  .academic-list li,
   .competition-list li {
     grid-template-columns: 6.5rem 15.5rem minmax(0, 1fr);
     column-gap: 1.25rem;
   }
 
+  .academic-title,
   .competition-result {
     font-weight: 700;
   }
@@ -295,11 +297,13 @@ latest_posts:
       width: 100%;
     }
 
+    .academic-list li,
     .competition-list li {
       grid-template-columns: 5.7rem minmax(0, 1fr);
       gap: 0.2rem 0.8rem;
     }
 
+    .academic-institution,
     .competition-name {
       grid-column: 2;
     }
@@ -373,12 +377,26 @@ latest_posts:
     <div class="honors-group">
       <h3>Academic Honors</h3>
       <ul class="honors-list academic-list">
-        <li><time datetime="2026-05"><strong>2026-05</strong></time><span>Qidi Scholarship</span></li>
-        <li><time datetime="2025-12"><strong>2025-12</strong></time><span>National Scholarship</span></li>
         <li>
-          <time datetime="2024-12"><strong>2024-12</strong></time><span>Undergraduate First-Class Scholarship, Tongji University</span>
+          <time datetime="2026-05"><strong>2026-05</strong></time>
+          <strong class="academic-title">Qidi Scholarship</strong>
+          <span class="academic-institution">Tongji University</span>
         </li>
-        <li><time datetime="2023-12"><strong>2023-12</strong></time><span>National Scholarship</span></li>
+        <li>
+          <time datetime="2025-12"><strong>2025-12</strong></time>
+          <strong class="academic-title">National Scholarship</strong>
+          <span class="academic-institution">Tongji University</span>
+        </li>
+        <li>
+          <time datetime="2024-12"><strong>2024-12</strong></time>
+          <strong class="academic-title">Undergraduate First-Class Scholarship</strong>
+          <span class="academic-institution">Tongji University</span>
+        </li>
+        <li>
+          <time datetime="2023-12"><strong>2023-12</strong></time>
+          <strong class="academic-title">National Scholarship</strong>
+          <span class="academic-institution">Tongji University</span>
+        </li>
       </ul>
     </div>
     <div class="honors-group">
