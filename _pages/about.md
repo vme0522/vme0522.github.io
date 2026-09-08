@@ -216,8 +216,10 @@ latest_posts:
 
 <section id="about" class="home-section">
   <h2>About</h2>
-  <p>你好，我是 <strong>Feixiang Ruan</strong>。</p>
-  <p>这里是我的个人主页，用来记录研究、项目和学习过程。网站正在持续完善中。</p>
+  <p>
+    I am <strong>Feixiang Ruan</strong>, an undergraduate student majoring in Automation at the College of Electronic and
+    Information Engineering, Tongji University. My research interests include dexterous manipulation and robot evaluation.
+  </p>
   <p>
     You can find me on <a href="https://github.com/VVVVME50">GitHub</a> and
     <a href="https://scholar.google.com/citations?user=Yq6XCyIAAAAJ">Google Scholar</a>.
