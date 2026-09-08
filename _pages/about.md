@@ -176,6 +176,16 @@ latest_posts:
     color: #777777;
   }
 
+  .honors-group + .honors-group {
+    margin-top: 1.75rem;
+  }
+
+  .honors-group h3 {
+    margin: 0 0 0.65rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
   @media (max-width: 640px) {
     body.fixed-top-nav {
       padding-top: 104px;
@@ -221,7 +231,7 @@ latest_posts:
       <a href="#news">News</a>
       <a href="#publications">Publications</a>
       <a href="#internships">Internships</a>
-      <a href="#awards">Awards</a>
+      <a href="#awards">Awards &amp; Honors</a>
     </nav>
   </div>
 </header>
@@ -268,6 +278,13 @@ latest_posts:
 </section>
 
 <section id="awards" class="home-section">
-  <h2>Awards</h2>
-  <p class="section-placeholder">Details coming soon.</p>
+  <h2>Awards &amp; Honors</h2>
+  <div class="honors-group">
+    <h3>Academic Honors</h3>
+    <p class="section-placeholder">Details coming soon.</p>
+  </div>
+  <div class="honors-group">
+    <h3>Competitions</h3>
+    <p class="section-placeholder">Details coming soon.</p>
+  </div>
 </section>
