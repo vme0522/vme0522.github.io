@@ -242,7 +242,7 @@ latest_posts:
   .academic-list li,
   .competition-list li {
     grid-template-columns: 6.5rem 15.5rem minmax(0, 1fr);
-    column-gap: 1.25rem;
+    column-gap: 2.25rem;
   }
 
   .academic-title,
