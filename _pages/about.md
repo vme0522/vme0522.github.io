@@ -226,7 +226,11 @@ latest_posts:
 
 <section id="news" class="home-section">
   <h2>News</h2>
-  <p class="section-placeholder">Updates coming soon.</p>
+  <p>
+    <time datetime="2026-09">2026-09</time> — Our paper
+    <a href="https://dexx-code.github.io/dexx-code/"><strong>DEX-X</strong></a> has been accepted to the
+    Conference on Robot Learning (CoRL) 2026.
+  </p>
 </section>
 
 <section id="publications" class="home-section">
