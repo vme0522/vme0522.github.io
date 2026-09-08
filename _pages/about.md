@@ -132,6 +132,13 @@ latest_posts:
     color: #222222;
   }
 
+  .pub-spotlight {
+    display: block;
+    margin-top: 0.2rem;
+    color: #c62828;
+    font-weight: 700;
+  }
+
   .section-placeholder {
     color: #777777;
   }
