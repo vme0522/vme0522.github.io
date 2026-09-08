@@ -186,6 +186,24 @@ latest_posts:
     font-weight: 600;
   }
 
+  .honors-list {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .honors-list li {
+    display: grid;
+    grid-template-columns: 5.7rem minmax(0, 1fr);
+    gap: 0.8rem;
+  }
+
+  .honors-list time {
+    white-space: nowrap;
+  }
+
   @media (max-width: 640px) {
     body.fixed-top-nav {
       padding-top: 104px;
@@ -281,10 +299,36 @@ latest_posts:
   <h2>Awards &amp; Honors</h2>
   <div class="honors-group">
     <h3>Academic Honors</h3>
-    <p class="section-placeholder">Details coming soon.</p>
+    <ul class="honors-list">
+      <li><time datetime="2026-05"><strong>2026-05</strong></time><span>Qidi Scholarship</span></li>
+      <li><time datetime="2025-12"><strong>2025-12</strong></time><span>National Scholarship</span></li>
+      <li>
+        <time datetime="2024-12"><strong>2024-12</strong></time><span>Undergraduate First-Class Scholarship, Tongji University</span>
+      </li>
+      <li><time datetime="2023-12"><strong>2023-12</strong></time><span>National Scholarship</span></li>
+    </ul>
   </div>
   <div class="honors-group">
     <h3>Competitions</h3>
-    <p class="section-placeholder">Details coming soon.</p>
+    <ul class="honors-list">
+      <li>
+        <time datetime="2025-08"><strong>2025-08</strong></time
+        ><span>National Second Prize, China Collegiate Intelligent Robot Creative Competition</span>
+      </li>
+      <li>
+        <time datetime="2025-05"><strong>2025-05</strong></time><span>5th Place, Skills Challenge, VEX Robotics World Championship</span>
+      </li>
+      <li>
+        <time datetime="2024-12"><strong>2024-12</strong></time
+        ><span>National Second Prize, China Intelligent Robot Combat and Athletics Competition</span>
+      </li>
+      <li>
+        <time datetime="2024-11"><strong>2024-11</strong></time
+        ><span>National First Prize (Champion), China Robot Competition and RoboCup China Open</span>
+      </li>
+      <li>
+        <time datetime="2024-05"><strong>2024-05</strong></time><span>4th Place, Skills Challenge, VEX Robotics World Championship</span>
+      </li>
+    </ul>
   </div>
 </section>
