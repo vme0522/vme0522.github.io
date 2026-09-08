@@ -130,7 +130,7 @@ latest_posts:
 
   .about-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 28%;
+    grid-template-columns: minmax(0, 1fr) 22.4%;
     align-items: start;
     gap: 2rem;
   }
@@ -290,7 +290,7 @@ latest_posts:
     }
 
     .about-avatar-frame {
-      width: min(70%, 250px);
+      width: min(56%, 200px);
     }
 
     .honors-columns {
