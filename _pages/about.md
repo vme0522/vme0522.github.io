@@ -132,6 +132,11 @@ latest_posts:
     color: #222222;
   }
 
+  .publications .author em {
+    font-style: normal;
+    font-weight: 700;
+  }
+
   .pub-spotlight {
     color: #c62828;
     font-weight: 700;
