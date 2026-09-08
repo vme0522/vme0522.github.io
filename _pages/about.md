@@ -139,6 +139,11 @@ latest_posts:
     gap: 2rem;
   }
 
+  .about-copy p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
   .about-avatar-frame {
     aspect-ratio: 8 / 9;
     width: 100%;
