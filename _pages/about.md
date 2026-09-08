@@ -116,6 +116,18 @@ latest_posts:
     margin-bottom: 0;
   }
 
+  .about-social {
+    margin-top: 1rem;
+  }
+
+  .about-social a {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.15rem;
+    line-height: 1;
+    text-decoration: none;
+  }
+
   .home-section a {
     color: #111111;
     text-decoration-color: #aaaaaa;
@@ -224,15 +236,14 @@ latest_posts:
     I also spent a wonderful year as a research assistant at the
     <strong>Institute for Interdisciplinary Information Sciences, Tsinghua University</strong>, working with
     <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>.
-  </p>
-  <p>
     I have also joined <strong>SHARPA</strong> as an Algorithm Engineer in the <strong>Academia Group</strong>, under the guidance of
     Kaifeng Zhang.
   </p>
-  <p>
-    You can find me on <a href="https://github.com/VVVVME50">GitHub</a> and
-    <a href="https://scholar.google.com/citations?user=Yq6XCyIAAAAJ">Google Scholar</a>.
-  </p>
+  <div class="about-social">
+    <a href="https://scholar.google.com/citations?user=Yq6XCyIAAAAJ" aria-label="Google Scholar" title="Google Scholar">
+      <i class="ai ai-google-scholar ai-2x" aria-hidden="true"></i>
+    </a>
+  </div>
 </section>
 
 <section id="news" class="home-section">
