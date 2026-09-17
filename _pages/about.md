@@ -504,7 +504,7 @@ latest_posts:
           <span class="academic-institution">Tongji University</span>
         </li>
         <li>
-          <time datetime="2023"><strong>2023</strong></time>
+          <time datetime="2023-12"><strong>2023-12</strong></time>
           <strong class="academic-title">Outstanding Student</strong>
           <span class="academic-institution">Tongji University</span>
         </li>
