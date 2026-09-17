@@ -411,11 +411,11 @@ latest_posts:
         Information Engineering, Tongji University. My research interests include dexterous manipulation and robot evaluation.
       </p>
       <p>
-        I also spent a wonderful year as a research assistant at the
-        <strong>Institute for Interdisciplinary Information Sciences, Tsinghua University</strong>, working with
-        <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>.
-        I have also joined <strong>SHARPA</strong> as an Algorithm Engineer in the <strong>Academia Group</strong>, under the guidance of
-        Kaifeng Zhang.
+        I spent a rewarding year as a research assistant at the
+        <strong>Institute for Interdisciplinary Information Sciences, Tsinghua University</strong>, where I worked with
+        <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>. Alongside my
+        academic research, I am an Algorithm Engineer in <strong>SHARPA</strong>'s <strong>Academia Group</strong>, advised by Kaifeng
+        Zhang.
       </p>
       <div class="about-social">
         <a href="mailto:vme0522@gmail.com" aria-label="Email Feixiang Ruan" title="vme0522@gmail.com">
