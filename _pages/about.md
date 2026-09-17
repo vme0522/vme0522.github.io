@@ -307,6 +307,10 @@ latest_posts:
     font-weight: 700;
   }
 
+  .competition-champion {
+    color: #c62828;
+  }
+
   .academic-title,
   .academic-institution,
   .competition-result,
@@ -499,6 +503,11 @@ latest_posts:
           <strong class="academic-title">National Scholarship</strong>
           <span class="academic-institution">Tongji University</span>
         </li>
+        <li>
+          <time datetime="2023"><strong>2023</strong></time>
+          <strong class="academic-title">Outstanding Student</strong>
+          <span class="academic-institution">Tongji University</span>
+        </li>
       </ul>
     </div>
     <div class="honors-group">
@@ -521,7 +530,7 @@ latest_posts:
         </li>
         <li>
           <time datetime="2024-11"><strong>2024-11</strong></time>
-          <strong class="competition-result">National First Prize (Champion)</strong>
+          <strong class="competition-result">National First Prize (<span class="competition-champion">Champion</span>)</strong>
           <span class="competition-name">China Robot Competition &amp; RoboCup China Open</span>
         </li>
         <li>
