@@ -416,7 +416,7 @@ latest_posts:
       </p>
       <p>
         I spent a rewarding year as a research assistant at the
-        <strong>Institute for Interdisciplinary Information Sciences, Tsinghua University</strong>, where I worked with
+        <strong>Institute for Interdisciplinary Information Sciences, Tsinghua University</strong>, working with
         <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>. Alongside my
         academic research, I am an Algorithm Engineer in <strong>SHARPA</strong>'s <strong>Academia Group</strong>, advised by Kaifeng
         Zhang.
