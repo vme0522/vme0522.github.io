@@ -413,7 +413,7 @@ latest_posts:
       <p>
         I am <strong>Feixiang Ruan</strong>, an undergraduate student majoring in Automation at the College of Electronic and
         Information Engineering, Tongji University. I will continue my studies at
-        <a href="https://english.pku.edu.cn/"><strong>Peking University</strong></a>, advised by
+        <a href="https://english.pkusz.edu.cn/"><strong>Shenzhen Graduate School, Peking University</strong></a>, advised by
         <a href="https://zhoudaquan.github.io/homepage.io/index.html">Prof. Daquan Zhou</a>. My research interests include dexterous
         manipulation and robot evaluation.
       </p>
