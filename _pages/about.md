@@ -412,18 +412,16 @@ latest_posts:
     <div class="about-copy">
       <p>
         I am <strong>Feixiang Ruan</strong>, an undergraduate student majoring in Automation at the College of Electronic and
-        Information Engineering, Tongji University. My research interests include dexterous manipulation and robot evaluation.
+        Information Engineering, Tongji University. I will continue my studies at
+        <a href="https://english.pku.edu.cn/"><strong>Peking University</strong></a>, advised by
+        <a href="https://zhoudaquan.github.io/homepage.io/index.html">Prof. Daquan Zhou</a>. My research interests include dexterous
+        manipulation and robot evaluation.
       </p>
       <p>
         I spent a rewarding year as a research assistant at the
         <strong>Institute for Interdisciplinary Information Sciences, Tsinghua University</strong>, working with
         <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>. I currently
         conduct research as an Algorithm Engineer in <strong>SHARPA</strong>'s <strong>Academia Group</strong>, advised by Kaifeng Zhang.
-      </p>
-      <p>
-        I will be joining the School of AI for Science at
-        <a href="https://english.pkusz.edu.cn/"><strong>Peking University Shenzhen Graduate School</strong></a> to continue my studies
-        under the supervision of <a href="https://zhoudaquan.github.io/homepage.io/index.html">Prof. Daquan Zhou</a>.
       </p>
       <div class="about-social">
         <a href="mailto:vme0522@gmail.com" aria-label="Email Feixiang Ruan" title="vme0522@gmail.com">
