@@ -420,6 +420,11 @@ latest_posts:
         <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>. I currently
         conduct research as an Algorithm Engineer in <strong>SHARPA</strong>'s <strong>Academia Group</strong>, advised by Kaifeng Zhang.
       </p>
+      <p>
+        I will be joining the School of AI for Science at
+        <a href="https://english.pkusz.edu.cn/"><strong>Peking University Shenzhen Graduate School</strong></a> to continue my studies
+        under the supervision of <a href="https://zhoudaquan.github.io/homepage.io/index.html">Prof. Daquan Zhou</a>.
+      </p>
       <div class="about-social">
         <a href="mailto:vme0522@gmail.com" aria-label="Email Feixiang Ruan" title="vme0522@gmail.com">
           <i class="fa-solid fa-envelope fa-2x" aria-hidden="true"></i>
