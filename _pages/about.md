@@ -420,8 +420,9 @@ latest_posts:
       <p>
         I spent a rewarding year as a research assistant at the
         <strong>Institute for Interdisciplinary Information Sciences, Tsinghua University</strong>, working with
-        <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>. I currently
-        conduct research as an Algorithm Engineer in <strong>SHARPA</strong>'s <strong>Academia Group</strong>, advised by Kaifeng Zhang.
+        <a href="https://gcfy63821.github.io/">Ruoqu Chen</a> and <a href="https://www.mengdixu.me/">Prof. Mengdi Xu</a>. From November
+        2025 to October 2026, I conducted research as an Algorithm Engineer in <strong>SHARPA</strong>'s <strong>Academia Group</strong>,
+        advised by Kaifeng Zhang.
       </p>
       <div class="about-social">
         <a href="mailto:vme0522@gmail.com" aria-label="Email Feixiang Ruan" title="vme0522@gmail.com">
@@ -473,6 +474,7 @@ latest_posts:
       </a>
       <div class="experience-content">
         <h3>Algorithm Engineer, Academia Group, <a href="https://www.sharpa.com/">SHARPA</a></h3>
+        <p><time datetime="2025-11">2025.11</time>–<time datetime="2026-10">2026.10</time></p>
         <p><strong>Mentor:</strong> Kaifeng Zhang</p>
       </div>
     </article>
