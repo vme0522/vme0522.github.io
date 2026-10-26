@@ -442,6 +442,11 @@ latest_posts:
 <section id="news" class="home-section">
   <h2>News</h2>
   <p>
+    <time datetime="2026-10"><strong>2026-10</strong></time> —
+    <a href="https://dagroup-pku.github.io/PyRUA-Lean/"><strong>PyRUA-Lean</strong></a> achieves the top overall ranking on the
+    <a href="https://robodojo-benchmark.com/LeaderBoard">RoboDojo-Sim leaderboard</a>.
+  </p>
+  <p>
     <time datetime="2026-09"><strong>2026-09</strong></time> — Our paper
     <a href="https://dexx-code.github.io/dexx-code/"><strong>DEX-X</strong></a> has been accepted to the
     Conference on Robot Learning (CoRL) 2026.
