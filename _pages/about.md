@@ -444,7 +444,7 @@ latest_posts:
   <p>
     <time datetime="2026-10"><strong>2026-10</strong></time> —
     <a href="https://dagroup-pku.github.io/PyRUA-Lean/"><strong>PyRUA-Lean</strong></a> achieves the
-    <strong class="pub-spotlight">top</strong> overall ranking on the
+    <strong class="pub-spotlight">TOP</strong> overall ranking on the
     <a href="https://robodojo-benchmark.com/LeaderBoard">RoboDojo-Sim leaderboard</a>.
   </p>
   <p>
