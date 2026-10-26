@@ -448,7 +448,7 @@ latest_posts:
     <a href="https://robodojo-benchmark.com/LeaderBoard">RoboDojo-Sim leaderboard</a>.
   </p>
   <p>
-    <time datetime="2026-09"><strong>2026-09</strong></time> — Our paper
+    <time datetime="2026-09"><strong>2026-09</strong></time> —
     <a href="https://dexx-code.github.io/dexx-code/"><strong>DEX-X</strong></a> has been accepted to the
     Conference on Robot Learning (<strong style="color: #7b1fa2;"><em>CoRL</em></strong>) 2026.
   </p>
