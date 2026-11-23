@@ -240,8 +240,8 @@
     </div>
 
     <figure class="fig rv">
-      <a class="zoom" href="static/images/paper/fig-method.webp"><img src="static/images/paper/fig-method.webp" alt="Overview of PyRUA-Dex: inputs, Stage 1 explore with eight parallel agents, Stage 2 practise on the weakest link, and the dev gate" width="1959" height="690" loading="lazy"></a>
-      <figcaption><b>PyRUA-Dex.</b> <b>Stage 1</b> (explore): eight agents work one task in parallel with rewinds and stage feedback; a distilling agent turns their frozen programs into a task library and a champion. <b>Stage 2</b> (practise): one agent practises the champion's weakest link over many layouts and lets failed stages try again. <b>Dev gate</b>: a new champion replaces the old one only if it is no worse on 32 development layouts. The champion runs frozen, with no language model.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-method.webp?v=20261124"><img src="static/images/paper/fig-method.webp?v=20261124" alt="Overview of PyRUA-Dex: the inputs; Stage 1, exploring with rewinds, round notes, frozen replay and distillation; Stage 2, the report, practice runs, second tries, batches and choosing the version; the dev gate; the frozen champion" width="1959" height="690" loading="lazy"></a>
+      <figcaption><b>PyRUA-Dex.</b> Every box is named after the paragraph of the paper's method section that describes it. <b>Stage 1</b> (explore): eight agents explore one task in parallel with rewinds, round notes tell every episode to all of them at once, and the programs that scored are replayed frozen and distilled into a task library and a champion. <b>Stage 2</b> (practise): one agent reads the champion's report link by link, practises the weakest link on many layouts, lets failed stages try again, measures each version in batches and keeps the one with the best held-out record. <b>Dev gate</b>: a new champion replaces the old one only if it is no worse on 32 dev layouts. The champion runs frozen, with no language model.</figcaption>
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-layers"/></svg>Two stages, one gate</h3>
@@ -480,8 +480,8 @@
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Real to sim to real</h3>
     <figure class="fig rv">
-      <a class="zoom" href="static/images/paper/fig-r2s2r.webp?v=20261123b"><img src="static/images/paper/fig-r2s2r.webp?v=20261123b" alt="Real to sim to real on the rig: what the twin shares with the robot, robot first (head and wrist cameras with the twin's outlines on the robot's pictures, the hands' drives, fingertip touch, objects, the user's instruction), learning in the twin, the frozen programs on the robot, and the dev layouts completed after each round" width="1959" height="858" loading="lazy"></a>
-      <figcaption><b>Real to sim to real on the rig.</b> (1) What the twin shares with the robot, the robot's view first: cameras, the hands' drives, fingertip touch, objects and the user's instructions; (2) learning in the twin, Stage 1 once and Stage 2 round after round; (3) the frozen programs on the robot; (4) dev layouts completed after each round, the twin adjusted between rounds.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-r2s2r.webp?v=20261124"><img src="static/images/paper/fig-r2s2r.webp?v=20261124" alt="Real to sim to real on the rig: the twin built from the robot (head and wrist cameras, the basket from a phone video), the loop in which the champion runs frozen on the robot and the robot's feedback adjusts the twin, and the dev layouts completed after each round" width="1959" height="615" loading="lazy"></a>
+      <figcaption><b>Real to sim to real on the rig.</b> (a) The twin is built from the robot: the robot's head and right wrist cameras beside the twin's at the same joints, and the basket from the user's phone video to the twin's model. (b) Agents learn in the twin, Stage 1 once and Stage 2 round after round; the champion runs frozen on the robot (cube to basket: the twin's render and the robot's film at the same point of the task), and what the robot shows and the user's instructions adjust the twin before the next round. (c) Dev layouts completed (of 32) after Stage 1 and after each round of Stage 2; ×: the twin was adjusted before that round. The y axis is broken below 20.</figcaption>
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Learning on the rig</h3>
@@ -497,7 +497,7 @@
         <div class="dumb-row" style="--a:3;--b:14"><div class="dumb-name"><b>Write “Dex”</b><small>take the brush and write “Dex” on the cloth · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="3 / 32" data-l="Write “Dex” · Stage 1"></span><span class="pt s2" tabindex="0" data-v="14 / 32" data-l="Write “Dex” · Stage 2"></span></div><div class="dumb-v">3 → <b>14</b></div></div>
         <div class="dumb-group">Piano</div>
         <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Ode to Joy</b><small>the right hand, eight phrases · 5 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Ode to Joy · Stage 1"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Piano, Ode to Joy · Stage 2"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
-        <div class="dumb-row" style="--a:29;--b:31"><div class="dumb-name"><b>Twinkle, Twinkle</b><small>two hands, tune and bass, six phrases · 5 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Twinkle, Twinkle · Stage 1"></span><span class="pt s2" tabindex="0" data-v="31 / 32" data-l="Piano, Twinkle, Twinkle · Stage 2"></span></div><div class="dumb-v">29 → <b>31</b></div></div>
+        <div class="dumb-row" style="--a:29;--b:31"><div class="dumb-name"><b>Twinkle, Twinkle</b><small>two hands, tune and bass, six phrases · 4 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Twinkle, Twinkle · Stage 1"></span><span class="pt s2" tabindex="0" data-v="31 / 32" data-l="Piano, Twinkle, Twinkle · Stage 2"></span></div><div class="dumb-v">29 → <b>31</b></div></div>
         <div class="dumb-row" style="--a:23;--b:29"><div class="dumb-name"><b>Little Jumping Frog</b><small>two hands, tune and bass, eight phrases · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="23 / 32" data-l="Piano, Little Jumping Frog · Stage 1"></span><span class="pt s2" tabindex="0" data-v="29 / 32" data-l="Piano, Little Jumping Frog · Stage 2"></span></div><div class="dumb-v">23 → <b>29</b></div></div>
         <div class="dumb-axis" aria-hidden="true"><span class="axis-pad"></span><div class="axis-ticks"><span style="left:0%">0</span><span style="left:25%">8</span><span style="left:50%">16</span><span style="left:75%">24</span><span style="left:100%">32</span></div><span class="axis-unit">of 32</span></div>
       </div>
@@ -512,7 +512,7 @@
             <tr><td>Write “Dex”</td><td>take the brush and write “Dex” on the cloth</td><td class="num">1500</td><td class="num">3</td><td class="num">14</td><td class="num">1</td></tr>
             <tr class="grp"><td colspan="6">Piano</td></tr>
             <tr><td>Ode to Joy</td><td>the right hand, eight phrases</td><td class="num">4500</td><td class="num">29</td><td class="num">32</td><td class="num">5</td></tr>
-            <tr><td>Twinkle, Twinkle</td><td>two hands, tune and bass, six phrases</td><td class="num">4500</td><td class="num">29</td><td class="num">31</td><td class="num">5</td></tr>
+            <tr><td>Twinkle, Twinkle</td><td>two hands, tune and bass, six phrases</td><td class="num">4500</td><td class="num">29</td><td class="num">31</td><td class="num">4</td></tr>
             <tr><td>Little Jumping Frog</td><td>two hands, tune and bass, eight phrases</td><td class="num">6000</td><td class="num">23</td><td class="num">29</td><td class="num">1</td></tr>
             <tr><td><b>Total</b></td><td></td><td></td><td class="num"><b>119 / 192</b></td><td class="num"><b>168 / 192</b></td><td></td></tr>
             <tr class="grp"><td colspan="6">Piano, same-family skill (30 min to 1 h of iteration)</td></tr>
@@ -580,8 +580,8 @@
       <div class="nbox rv"><b>43.6% → 61.7%</b><span>dev layouts completed, against formal success 44.6% → 60.6%: the gate predicts the benchmark</span></div>
     </div>
     <figure class="fig rv">
-      <a class="zoom" href="static/images/paper/fig-stage2.webp"><img src="static/images/paper/fig-stage2.webp" alt="Why practising works: how Stage 1 programs failed, held-out completions batch by batch, and task 12 link by link" width="1959" height="645" loading="lazy"></a>
-      <figcaption><b>Why practising works.</b> (a) How the 341 failed dev runs of the Stage 1 champions ended, on the 22 tasks Stage 1 completed at least once (704 runs); the 128 runs of the 4 tasks it never completed are not included. (b) Held-out completions (of 32), batch by batch through Stage 2; batch 0 is the Stage 1 champion. (c) Task 12: held-out layouts that reached each stage.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-stage2.webp?v=20261124"><img src="static/images/paper/fig-stage2.webp?v=20261124" alt="Why practising works: how Stage 1 programs failed, held-out completions batch by batch, and task 12 link by link" width="1959" height="645" loading="lazy"></a>
+      <figcaption><b>Why practising works.</b> (a) How the 341 failed dev runs of the Stage 1 champions ended, on the 22 tasks Stage 1 completed at least once (704 runs); the 128 runs of the 4 tasks it never completed are not included. Dark bars: the two main ways. (b) Held-out completions (of 32), batch by batch through Stage 2: batch 0 is the Stage 1 champion (light dot, dotted line at its level), small dots are Stage 2 batches, and the large dot is the batch that became the champion. (c) Task 12: held-out layouts that reached each stage, Stage 1 and Stage 2 champion.</figcaption>
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-bolt"/></svg>Frozen programs against the same model online</h3>
@@ -668,8 +668,8 @@
     </div>
 
     <figure class="fig rv" style="margin-top:22px">
-      <a class="zoom" href="static/images/paper/fig-dexjoco.webp"><img src="static/images/paper/fig-dexjoco.webp" alt="DexJoCo results: per-task success rate of the Stage 1 and Stage 2 programs under rand-obj and rand-full, and rand-full success rate against the execution budget" width="1959" height="726" loading="lazy"></a>
-      <figcaption><b>DexJoCo results.</b> (a), (b) Per-task success rate of the Stage 1 and Stage 2 programs, with the best trained policy (grey tick). (c) rand-full success rate against the execution budget.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-dexjoco.webp?v=20261124"><img src="static/images/paper/fig-dexjoco.webp?v=20261124" alt="DexJoCo results: per-task success rate of the Stage 1 and Stage 2 programs, two bars per task, under rand-obj and rand-full, and rand-full success rate against the execution budget" width="1959" height="726" loading="lazy"></a>
+      <figcaption><b>DexJoCo results.</b> (a) rand-obj and (b) rand-full success rate per task: the Stage 1 program (light bar) above the Stage 2 program (dark bar), with the averages in the panel titles, and the best trained policy on the task (grey tick). Triangles: Stage 2 above it, on all ten tasks it ran on; “not run”: Stage 2 did not run on the photograph task. (c) rand-full success rate against the execution budget; the frozen programs spend no tokens at test time, the dotted line marks where the online agent matches them, and the diamond is the best trained policy, π<sub>0.5</sub>.</figcaption>
     </figure>
 
     <div class="card twin-card rv">
