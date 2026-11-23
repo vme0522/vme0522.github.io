@@ -97,7 +97,7 @@
       </video>
     </div>
     <div class="org"><img src="static/images/pku-emblem.svg" alt="Peking University emblem" width="36" height="36"><span>Peking University · DAGroup</span></div>
-    <h1 class="title"><span class="wm-py">PyRUA</span><span class="wm-dex">-<img class="wm-hand" src="static/images/dex-handwritten.svg?v=2" alt="Dex" width="1916" height="813"></span></h1>
+    <h1 class="title"><span class="wm-py">PyRUA</span><span class="wm-dex">-<img class="wm-hand" src="static/images/dex-handwritten.svg?v=3" alt="Dex" width="1885" height="813"></span></h1>
     <p class="sub1">Learning Programmatic Policies</p>
     <p class="sub2">for Dexterous Bimanual Manipulation with Coding Agents</p>
     <p class="authors">
@@ -169,7 +169,7 @@
       <div class="badge"><svg class="ic"><use href="#i-bolt"/></svg></div>
       <div class="stat-v">2.3<small>×</small></div>
       <div class="stat-k">the success rate of the same model acting online</div>
-      <div class="stat-t">61.5% vs 26.2% at the benchmark's step budget, with no tokens at test time</div>
+      <div class="stat-t">at the benchmark's step budget, with no tokens at test time</div>
     </div>
     <div class="stat">
       <div class="badge"><svg class="ic"><use href="#i-cube"/></svg></div>
@@ -190,7 +190,7 @@
     <div class="abs-grid">
       <div class="card abstract rv">
         <h3><svg class="ic"><use href="#i-paper"/></svg>Abstract</h3>
-        <p>Dexterous bimanual manipulation is usually learned from demonstrations, which are expensive to collect for multi-fingered hands and do not carry over from one hand to another. We show that coding agents can instead learn a <em>programmatic policy</em> for each task from their own trials in simulation: a program that runs frozen, with no demonstrations, no trained weights and no language-model calls at test time. <b>PyRUA-Dex</b> learns such a policy in two stages. In the <em>explore</em> stage, eight GPT-6 Astra agents work the task in parallel on fresh layouts, with rewinds and the simulator's stage feedback, and a distilling agent turns their frozen replays into a task library and a champion program. In the <em>practise</em> stage, one agent takes over the champion and treats the task as a chain of links: it runs single links over tens of layouts, lets failed stage functions try again, and keeps a new champion only if it is no worse on 32 development layouts. On Bench2Dex (26 bimanual tasks, 12 arm–hand embodiments, 5,200 evaluation episodes), the explored champions score 59.1 and the practised champions 72.9 (success rate 44.6% → 60.6%), a new state of the art on the benchmark, ahead of the best trained policy (70.5). At the benchmark's step budget the programmatic policies succeed 2.3 times as often as a GPT-6 Astra agent that controls the robot online, which needs ten times the budget and 34M tokens per episode to match them. On DexJoCo (11 tasks for Franka arms with Allegro hands), they succeed in 88.5% of the episodes under object randomization and 81.0% under full randomization of cameras, lighting and textures, against 54.1% and 40.3% for the best of the benchmark's trained policies and 78.2% for the online GPT-6 Astra agent. On a bimanual Franka FR3 rig with two 22-DoF Sharpa hands, the same procedure, run in a calibrated MuJoCo twin with objects reconstructed from a phone video, yields a frozen program that runs on the real robot.</p>
+        <p>Dexterous bimanual manipulation is usually learned from demonstrations, which are costly to collect for multi-fingered hands and do not transfer between hands. We show that coding agents can instead learn a <em>programmatic policy</em> for each task from their own trials in simulation: a program that runs frozen at test time, without demonstrations, trained weights or language-model calls. <b>PyRUA-Dex</b> learns it in two stages. In the <em>explore</em> stage, eight GPT-6 Astra agents search in parallel for a way through the task, with rewinds and stage feedback, and a distilling agent turns what scored into a task library and a champion. In the <em>practise</em> stage, one agent makes that way hold by strengthening its weakest link over many layouts, keeping a new champion only if it does no worse on unseen development layouts. On Bench2Dex (26 bimanual tasks on 12 arm–hand embodiments), practising lifts the score from 59.1 to 72.9, a new state of the art, and the frozen programs succeed 2.3 times as often as the same model acting online at the same step budget. On DexJoCo, they succeed in 88.5% of episodes under object randomization and 81.0% under full randomization, above the benchmark's trained policies and the online agent. On a real bimanual rig with two 22-DoF hands, the same procedure learns in a calibrated twin refined by the robot's feedback, its frozen programs run on the robot, and with a skill shared within a task family, a new task typically takes under an hour.</p>
       </div>
       <div class="glance">
         <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-ban"/></svg></div><div><b>No demonstrations</b><span>Agents learn from their own trials in simulation, with rewinds and the simulator's stage count.</span></div></div>
@@ -328,7 +328,7 @@
     <div class="sec-head rv">
       <span class="eyebrow"><svg class="ic"><use href="#i-hand"/></svg>Real robot</span>
       <h2>From the twin to the real robot</h2>
-      <p class="lead">All learning happens in a simulated twin of our rig. Stage 1 runs as on Bench2Dex; Stage 2 runs round after round, and what the robot shows adjusts the twin for the next round. What reaches the robot is the frozen champion, with no language-model call.</p>
+      <p class="lead">All learning happens in a simulated twin of our rig. Stage 1 runs as on Bench2Dex; Stage 2 runs round after round, and what the robot shows adjusts the twin for the next round. What reaches the robot is the frozen program, with no language-model call.</p>
     </div>
     <div class="rig rv">
       <span><svg class="ic"><use href="#i-robot"/></svg>2 × Franka FR3 arms</span>
@@ -389,7 +389,7 @@
           </div>
         </section>
         <section class="th-fam" id="th-fam-piano" role="tabpanel" aria-labelledby="th-tab-piano" data-n="5" hidden>
-          <p class="th-desc"><svg class="ic"><use href="#i-piano"/></svg>Both hands play a piece from its score. Each film opens with the sound check, sped up.</p>
+          <p class="th-desc"><svg class="ic"><use href="#i-piano"/></svg>Both hands play a piece from its score. One skill shared by the piano family arranges a score for the two hands and plays it; with it a new piece typically takes under an hour of iteration. Each film opens with the sound check, sped up.</p>
           <div class="th-track">
             <figure class="th-slide" data-i="0">
               <div class="th-media">
@@ -466,8 +466,8 @@
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Real to sim to real</h3>
     <figure class="fig rv">
-      <a class="zoom" href="static/images/paper/fig-r2s2r.webp?v=20261122b"><img src="static/images/paper/fig-r2s2r.webp?v=20261122b" alt="Real to sim to real on the rig: the twin built from a phone video and the rig's calibration, learning in the twin with Stage 1 once and Stage 2 round after round, the frozen champion on the robot, four adjustments the robot's feedback made to the twin, and the dev layouts completed after each round for stacking three cubes and three piano pieces" width="1959" height="816" loading="lazy"></a>
-      <figcaption><b>Real to sim to real on the rig.</b> A phone video and the rig's calibration give the twin; Stage 1 runs once and Stage 2 round after round, and the robot's feedback adjusts the twin between rounds (bottom: four such adjustments and the dev layouts completed after each round).</figcaption>
+      <a class="zoom" href="static/images/paper/fig-r2s2r.webp?v=20261123"><img src="static/images/paper/fig-r2s2r.webp?v=20261123" alt="Real to sim to real on the rig: four real objects beside their twin models, four tasks in the twin's own renders with Stage 1 once and Stage 2 round after round, the same four tasks on the robot, four adjustments the robot's feedback made to the twin, and the dev layouts completed after each round for stacking three cubes and three piano pieces" width="1959" height="852" loading="lazy"></a>
+      <figcaption><b>Real to sim to real on the rig.</b> Objects modelled from a phone video or photographs and the rig's calibration give the twin; Stage 1 runs once and Stage 2 round after round, and the robot's feedback adjusts the twin between rounds (bottom: four such adjustments and the dev layouts completed after each round).</figcaption>
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Learning on the rig</h3>
@@ -475,17 +475,19 @@
     <div class="card twin-card rv">
       <div class="twin-top">
         <div class="legend"><span class="key"><i></i>Stage 1 champion</span><span class="key"><i class="s2"></i>Stage 2 champion, last round</span></div>
-        <div class="twin-total">All 5 tasks: <b>116 → 155</b> of 160 dev layouts (72% → 97%)</div>
+        <div class="twin-total">All 6 tasks: <b>119 → 168</b> of 192 dev layouts (62% → 88%)</div>
       </div>
       <div class="dumb">
         <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Cube to basket</b><small>each hand puts its cube in the basket · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Cube to basket · Stage 1"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Cube to basket · Stage 2"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
         <div class="dumb-row" style="--a:6;--b:30"><div class="dumb-name"><b>Stack cubes</b><small>a tower of three cubes · 4 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="6 / 32" data-l="Stack cubes · Stage 1"></span><span class="pt s2" tabindex="0" data-v="30 / 32" data-l="Stack cubes · Stage 2"></span></div><div class="dumb-v">6 → <b>30</b></div></div>
+        <div class="dumb-row" style="--a:3;--b:14"><div class="dumb-name"><b>Write “Dex”</b><small>take the brush and write “Dex” on the cloth · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="3 / 32" data-l="Write “Dex” · Stage 1"></span><span class="pt s2" tabindex="0" data-v="14 / 32" data-l="Write “Dex” · Stage 2"></span></div><div class="dumb-v">3 → <b>14</b></div></div>
         <div class="dumb-group">Piano</div>
         <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Ode to Joy</b><small>the right hand, eight phrases · 5 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Ode to Joy · Stage 1"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Piano, Ode to Joy · Stage 2"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
-        <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Twinkle, Twinkle</b><small>two hands, tune and bass, six phrases · 4 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Twinkle, Twinkle · Stage 1"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Piano, Twinkle, Twinkle · Stage 2"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
+        <div class="dumb-row" style="--a:29;--b:31"><div class="dumb-name"><b>Twinkle, Twinkle</b><small>two hands, tune and bass, six phrases · 5 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Twinkle, Twinkle · Stage 1"></span><span class="pt s2" tabindex="0" data-v="31 / 32" data-l="Piano, Twinkle, Twinkle · Stage 2"></span></div><div class="dumb-v">29 → <b>31</b></div></div>
         <div class="dumb-row" style="--a:23;--b:29"><div class="dumb-name"><b>Little Jumping Frog</b><small>two hands, tune and bass, eight phrases · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="23 / 32" data-l="Piano, Little Jumping Frog · Stage 1"></span><span class="pt s2" tabindex="0" data-v="29 / 32" data-l="Piano, Little Jumping Frog · Stage 2"></span></div><div class="dumb-v">23 → <b>29</b></div></div>
         <div class="dumb-axis" aria-hidden="true"><span class="axis-pad"></span><div class="axis-ticks"><span style="left:0%">0</span><span style="left:25%">8</span><span style="left:50%">16</span><span style="left:75%">24</span><span style="left:100%">32</span></div><span class="axis-unit">of 32</span></div>
       </div>
+      <div class="skill-note"><span class="pill"><svg class="ic"><use href="#i-piano"/></svg>Piano · same-family skill</span><span>A new piece typically takes 30 minutes to an hour of iteration: Jasmine, Night Cruise, Secret Base, Little Jumping Frog (whole), Canon.</span></div>
       <details class="table-toggle">
         <summary>Show as a table</summary>
         <table class="twin-table">
@@ -493,11 +495,14 @@
           <tbody>
             <tr><td>Cube to basket</td><td>each hand puts its cube in the basket</td><td class="num">1200</td><td class="num">29</td><td class="num">32</td><td class="num">1</td></tr>
             <tr><td>Stack cubes</td><td>a tower of three cubes</td><td class="num">1000</td><td class="num">6</td><td class="num">30</td><td class="num">4</td></tr>
+            <tr><td>Write “Dex”</td><td>take the brush and write “Dex” on the cloth</td><td class="num">1500</td><td class="num">3</td><td class="num">14</td><td class="num">1</td></tr>
             <tr class="grp"><td colspan="6">Piano</td></tr>
             <tr><td>Ode to Joy</td><td>the right hand, eight phrases</td><td class="num">4500</td><td class="num">29</td><td class="num">32</td><td class="num">5</td></tr>
-            <tr><td>Twinkle, Twinkle</td><td>two hands, tune and bass, six phrases</td><td class="num">4500</td><td class="num">29</td><td class="num">32</td><td class="num">4</td></tr>
+            <tr><td>Twinkle, Twinkle</td><td>two hands, tune and bass, six phrases</td><td class="num">4500</td><td class="num">29</td><td class="num">31</td><td class="num">5</td></tr>
             <tr><td>Little Jumping Frog</td><td>two hands, tune and bass, eight phrases</td><td class="num">6000</td><td class="num">23</td><td class="num">29</td><td class="num">1</td></tr>
-            <tr><td><b>Total</b></td><td></td><td></td><td class="num"><b>116 / 160</b></td><td class="num"><b>155 / 160</b></td><td></td></tr>
+            <tr><td><b>Total</b></td><td></td><td></td><td class="num"><b>119 / 192</b></td><td class="num"><b>168 / 192</b></td><td></td></tr>
+            <tr class="grp"><td colspan="6">Piano, same-family skill (30 min to 1 h of iteration)</td></tr>
+            <tr><td colspan="6">Jasmine, Night Cruise, Secret Base, Little Jumping Frog (whole), Canon</td></tr>
           </tbody>
         </table>
       </details>
