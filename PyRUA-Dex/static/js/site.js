@@ -7,18 +7,23 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var hasIO = "IntersectionObserver" in window;
 
-  /* hero background film: on by default (a visitor's choice is remembered); off, the hero is the light page as before */
+  /* hero background film: it and its sound are on by default (a visitor's choices are remembered); switched off, the
+     hero is the light page as before. The sound goes on while the visitor reads further down the page; any other film
+     played with sound pauses it, and it picks up where it was once those films are paused or over. */
   var heroVid = document.getElementById("hero-piano");
   var heroSw = document.querySelector("[data-hero-video]");
   var heroSnd = document.querySelector("[data-hero-sound]");
   var hero = heroVid && heroVid.closest(".hero");
   if (heroVid && heroSw && hero) {
-    // the film and its sound are both on by default; a visitor's choices are remembered
-    var heroOn = !reduce, heroSeen = true, wantSound = true, waiting = false;
+    var heroOn = !reduce, wantSound = true, waiting = false, others = [];
     try {
       var saved = localStorage.getItem("pyruaHeroVideo"); if (saved) heroOn = saved === "on";
       var savedSound = localStorage.getItem("pyruaHeroSound"); if (savedSound) wantSound = savedSound === "on";
     } catch (e) {}
+    var othersPlaying = function () {          // other films playing with sound
+      others = others.filter(function (v) { return !v.paused && !v.ended && !v.muted; });
+      return others.length > 0;
+    };
     var heroSound = function () {
       if (!heroSnd) return;
       heroSnd.hidden = !heroOn;
@@ -32,7 +37,7 @@
       if (e && e.target && e.target.closest && e.target.closest(".hero-ctl")) return;
       if (!heroOn || !wantSound) { unmuteStop(); return; }
       heroVid.muted = false;
-      if (!heroSeen) { unmuteStop(); return; }      // it plays with sound when the hero is back in view
+      if (othersPlaying()) { unmuteStop(); return; }   // it comes back with sound when the other films stop
       var p = heroVid.play();
       if (p && p.then) {
         p.then(unmuteStop, function () {
@@ -52,7 +57,7 @@
       EV.forEach(function (t) { document.addEventListener(t, unmuteGo, true); });
     };
     var heroPlay = function () {
-      if (!heroOn || !heroSeen) return;
+      if (!heroOn || othersPlaying()) return;
       var p = heroVid.play();
       if (p && p.catch) p.catch(function () {
         if (heroVid.muted) return;
@@ -83,16 +88,28 @@
       heroSound();
     });
     heroVid.addEventListener("volumechange", heroSound);
-    document.addEventListener("play", function (e) {   // another film with sound mutes the background
+    // another film with sound pauses the background; when none plays any more, the background picks up again
+    var yieldTo = function (v) {
+      if (others.indexOf(v) < 0) others.push(v);
+      if (!heroVid.paused) heroVid.pause();
+    };
+    var resumeLater = function () { setTimeout(heroPlay, 120); };
+    document.addEventListener("play", function (e) {
       var v = e.target;
-      if (v !== heroVid && v.tagName === "VIDEO" && !v.muted) heroVid.muted = true;
+      if (v !== heroVid && v.tagName === "VIDEO" && !v.muted) yieldTo(v);
     }, true);
-    if (hasIO) {
-      new IntersectionObserver(function (es) {
-        heroSeen = es[0].isIntersecting;
-        if (heroSeen) heroPlay(); else heroVid.pause();
-      }, { threshold: 0.05 }).observe(hero.querySelector(".hero-opening"));
-    }
+    ["pause", "ended"].forEach(function (t) {
+      document.addEventListener(t, function (e) {
+        var v = e.target;
+        if (v !== heroVid && v.tagName === "VIDEO" && others.indexOf(v) >= 0) resumeLater();
+      }, true);
+    });
+    document.addEventListener("volumechange", function (e) {
+      var v = e.target;
+      if (v === heroVid || v.tagName !== "VIDEO") return;
+      if (!v.muted && !v.paused) yieldTo(v);
+      else if (others.indexOf(v) >= 0) resumeLater();
+    }, true);
     heroApply();
   }
 
