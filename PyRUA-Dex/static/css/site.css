@@ -48,6 +48,8 @@ code { font-family: var(--mono); font-size: .9em; color: var(--red-dk); backgrou
 .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 800; font-size: 18px; letter-spacing: -.01em; white-space: nowrap; }
 .brand:hover { text-decoration: none; }
 .brand img { width: 30px; height: 30px; }
+/* the wordmark's "Dex" in the title's handwriting, on the same cap height, x-height and baseline */
+.brand .wm-hand { display: inline-block; width: auto; height: .813em; vertical-align: -.046em; }
 .wm-py { color: var(--red); }
 .wm-dex { color: var(--ink); }
 .nav { display: flex; gap: 2px; margin: 0 auto; overflow-x: auto; scrollbar-width: none; min-width: 0; }
