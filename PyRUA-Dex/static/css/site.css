@@ -142,6 +142,17 @@ code { font-family: var(--mono); font-size: .9em; color: var(--red-dk); backgrou
 .clip-tag { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 12px 9px; text-align: left; color: rgba(255, 255, 255, .9);
   font-size: 12.5px; line-height: 1.3; background: linear-gradient(rgba(25, 6, 6, 0), rgba(25, 6, 6, .74)); }
 .clip-tag b { display: block; color: #fff; font-size: 13.5px; font-weight: 650; }
+/* the clip wall in groups: the real robot first and largest, then the two benchmarks in smaller tiles */
+.clips-h { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 24px 2px 10px; font-size: 13px; color: var(--sub); }
+.clips-h:first-child { margin-top: 0; }
+.clips-h b { color: var(--ink); font-size: 15px; font-weight: 750; }
+.clips-h .ic { color: var(--red); font-size: 18px; }
+.clips-h .speed { margin: 0; }
+.clips.clips-real { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.clips.clips-sim { grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.clips-sim .clip { border-radius: 10px; }
+.clips-sim .clip-tag { padding: 16px 8px 6px; font-size: 10.5px; }
+.clips-sim .clip-tag b { font-size: 11.5px; }
 .cap { margin: 12px 0 0; font-size: 14px; color: var(--sub); text-align: center; }
 .speed { display: inline-block; margin-right: 6px; padding: 1px 7px; border-radius: 6px; background: var(--red-100); color: var(--red); font-weight: 750; font-size: 12.5px; }
 
@@ -450,6 +461,7 @@ tr.ours.s1 .score .fill { background: var(--rose); }
 @media (max-width: 1060px) {
   .stats, .num-grid { grid-template-columns: repeat(2, 1fr); }
   .clips { grid-template-columns: repeat(3, 1fr); }
+  .clips.clips-sim { grid-template-columns: repeat(4, 1fr); }
   .abs-grid, .chain-grid, .prog-grid, .real-grid, .online-grid { grid-template-columns: 1fr; }
   .cb-grid { grid-template-columns: repeat(2, 1fr); }
   .cb-wide { flex-direction: column; align-items: flex-start; }
@@ -463,6 +475,8 @@ tr.ours.s1 .score .fill { background: var(--rose); }
   .bar .btn-sm span { display: none; }
   .sec { padding: 64px 0; }
   .clips { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .clips.clips-real { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .clips.clips-sim { grid-template-columns: repeat(2, 1fr); }
   .stats, .num-grid, .stages, .cb-grid, .slot-grid, .ins-grid { grid-template-columns: 1fr; }
   .abstract p { text-align: left; }
   .dumb-row { grid-template-columns: 1fr 64px; grid-template-areas: "name name" "track val"; gap: 4px 12px; }
