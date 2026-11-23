@@ -115,6 +115,11 @@ code { font-family: var(--mono); font-size: .9em; color: var(--red-dk); backgrou
 .title .wm-hand { display: inline-block; width: auto; height: .813em; vertical-align: -.046em; }
 .sub1 { margin: 16px 0 0; font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(27px, 3.4vw, 42px); line-height: 1.15; color: var(--red); }
 .sub2 { margin: 8px auto 0; max-width: 840px; font-size: clamp(18px, 2.1vw, 25px); font-weight: 650; line-height: 1.35; color: var(--ink); text-wrap: balance; }
+/* the state of the art, said in the title block */
+.hero-sota { display: inline-flex; align-items: center; gap: 10px; margin: 16px auto 0; font-size: clamp(15px, 1.55vw, 19px);
+  line-height: 1.35; color: var(--ink); text-wrap: balance; }
+.hero-sota b { color: var(--red); font-weight: 800; }
+.hero-sota .ic { flex: none; color: var(--gold); font-size: 1.15em; }
 .authors { max-width: 940px; margin: 24px auto 0; font-size: 17px; font-weight: 650; line-height: 1.7; color: var(--ink); text-wrap: balance; }
 .authors span { white-space: nowrap; }
 .authors sup, .affil sup { margin-left: 1px; font-size: .62em; font-weight: 650; color: var(--red); }
@@ -150,7 +155,7 @@ code { font-family: var(--mono); font-size: .9em; color: var(--red-dk); backgrou
 .stat.hot { border-color: transparent; background: linear-gradient(155deg, #A80F0F 0%, #8A0000 55%, #6E0000 100%); }
 .stat.hot .badge { background: rgba(255, 255, 255, .16); color: #fff; }
 .stat.hot .stat-v, .stat.hot .stat-k { color: #fff; }
-.stat.hot .stat-t { color: rgba(255, 255, 255, .84); }
+.stat.hot .stat-t, .stat.hot .stat-v small { color: rgba(255, 255, 255, .84); }
 .sota { position: absolute; top: 16px; right: 16px; display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 999px;
   background: var(--gold-l); color: #5E3F00; font-size: 11px; font-weight: 800; letter-spacing: .1em; }
 .sota .ic { font-size: 13px; }
