@@ -82,6 +82,8 @@ code { font-family: var(--mono); font-size: .9em; color: var(--red-dk); backgrou
   background: rgba(255, 255, 255, .85); color: var(--red); font-weight: 650; font-size: 14px; letter-spacing: .02em; }
 .org img { width: 36px; height: 36px; }
 .title { margin: 22px 0 0; font-weight: 800; font-size: clamp(56px, 8.6vw, 108px); line-height: 1; letter-spacing: -.035em; color: var(--ink); }
+/* the robot's own brush writing of "Dex" (SOURCES.md); the e sits on the text's baseline */
+.title .wm-hand { display: inline-block; width: auto; height: .949em; margin-left: .02em; vertical-align: -.08em; }
 .sub1 { margin: 16px 0 0; font-family: var(--serif); font-style: italic; font-weight: 500; font-size: clamp(27px, 3.4vw, 42px); line-height: 1.15; color: var(--red); }
 .sub2 { margin: 8px auto 0; max-width: 840px; font-size: clamp(18px, 2.1vw, 25px); font-weight: 650; line-height: 1.35; color: var(--ink); text-wrap: balance; }
 .authors { max-width: 940px; margin: 24px auto 0; font-size: 17px; font-weight: 650; line-height: 1.7; color: var(--ink); text-wrap: balance; }
