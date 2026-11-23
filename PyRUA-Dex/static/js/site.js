@@ -13,25 +13,61 @@
   var heroSnd = document.querySelector("[data-hero-sound]");
   var hero = heroVid && heroVid.closest(".hero");
   if (heroVid && heroSw && hero) {
-    var heroOn = !reduce, heroSeen = true;
-    try { var saved = localStorage.getItem("pyruaHeroVideo"); if (saved) heroOn = saved === "on"; } catch (e) {}
-    var heroPlay = function () {
-      if (!heroOn || !heroSeen) return;
-      var p = heroVid.play();
-      if (p && p.catch) p.catch(function () {});
-    };
+    // the film and its sound are both on by default; a visitor's choices are remembered
+    var heroOn = !reduce, heroSeen = true, wantSound = true, waiting = false;
+    try {
+      var saved = localStorage.getItem("pyruaHeroVideo"); if (saved) heroOn = saved === "on";
+      var savedSound = localStorage.getItem("pyruaHeroSound"); if (savedSound) wantSound = savedSound === "on";
+    } catch (e) {}
     var heroSound = function () {
       if (!heroSnd) return;
       heroSnd.hidden = !heroOn;
       heroSnd.setAttribute("aria-pressed", heroVid.muted ? "false" : "true");
       heroSnd.textContent = heroVid.muted ? "Sound off" : "Sound on";
     };
+    // Browsers refuse to start a film with sound before the visitor has touched the page: it then plays muted and
+    // its sound comes on at the first click, tap or key (the hero's own buttons excepted).
+    var EV = ["pointerdown", "pointerup", "keydown", "touchend"];
+    var unmuteGo = function (e) {
+      if (e && e.target && e.target.closest && e.target.closest(".hero-ctl")) return;
+      if (!heroOn || !wantSound) { unmuteStop(); return; }
+      heroVid.muted = false;
+      if (!heroSeen) { unmuteStop(); return; }      // it plays with sound when the hero is back in view
+      var p = heroVid.play();
+      if (p && p.then) {
+        p.then(unmuteStop, function () {
+          heroVid.muted = true;
+          var q = heroVid.play();
+          if (q && q.catch) q.catch(function () {});
+        });
+      } else unmuteStop();
+    };
+    var unmuteStop = function () {
+      waiting = false;
+      EV.forEach(function (t) { document.removeEventListener(t, unmuteGo, true); });
+    };
+    var unmuteSoon = function () {
+      if (waiting) return;
+      waiting = true;
+      EV.forEach(function (t) { document.addEventListener(t, unmuteGo, true); });
+    };
+    var heroPlay = function () {
+      if (!heroOn || !heroSeen) return;
+      var p = heroVid.play();
+      if (p && p.catch) p.catch(function () {
+        if (heroVid.muted) return;
+        heroVid.muted = true;                          // sound refused: muted for now
+        var q = heroVid.play();
+        if (q && q.catch) q.catch(function () {});
+        unmuteSoon();
+      });
+    };
     var heroApply = function () {
       hero.classList.toggle("vid-on", heroOn);
       hero.classList.toggle("vid-off", !heroOn);
       heroSw.setAttribute("aria-pressed", heroOn ? "true" : "false");
       heroSw.setAttribute("aria-label", heroOn ? "Turn the background video off" : "Turn the background video on");
-      if (heroOn) heroPlay(); else { heroVid.pause(); heroVid.muted = true; }
+      if (heroOn) { heroVid.muted = !wantSound; heroPlay(); } else { heroVid.pause(); heroVid.muted = true; }
       heroSound();
     };
     heroSw.addEventListener("click", function () {
@@ -40,8 +76,10 @@
       heroApply();
     });
     if (heroSnd) heroSnd.addEventListener("click", function () {
-      heroVid.muted = !heroVid.muted;
-      if (!heroVid.muted) heroPlay();
+      wantSound = heroVid.muted;                       // muted now: the visitor wants the sound
+      try { localStorage.setItem("pyruaHeroSound", wantSound ? "on" : "off"); } catch (e) {}
+      heroVid.muted = !wantSound;
+      if (wantSound) heroPlay();
       heroSound();
     });
     heroVid.addEventListener("volumechange", heroSound);
