@@ -171,7 +171,7 @@
     </div>
     <div class="stat">
       <div class="badge"><svg class="ic"><use href="#i-bolt"/></svg></div>
-      <div class="stat-v">2.3<small>×</small></div>
+      <div class="stat-v">2.4<small>×</small></div>
       <div class="stat-k">the success rate of the same model acting online</div>
       <div class="stat-t">at the benchmark's step budget, with no tokens at test time</div>
     </div>
@@ -194,7 +194,7 @@
     <div class="abs-grid">
       <div class="card abstract rv">
         <h3><svg class="ic"><use href="#i-paper"/></svg>Abstract</h3>
-        <p>Dexterous bimanual manipulation is usually learned from demonstrations, which are costly to collect for multi-fingered hands and do not transfer between hands. We show that coding agents can instead learn a <em>programmatic policy</em> for each task from their own trials in simulation: a program that runs frozen at test time, without demonstrations, trained weights or language-model calls. <b>PyRUA-Dex</b> learns it in two stages. In the <em>explore</em> stage, eight GPT-6 Astra agents search in parallel for a way through the task, with rewinds and stage feedback, and a distilling agent turns what scored into a task library and a champion. In the <em>practise</em> stage, one agent makes that way hold by strengthening its weakest link over many layouts, keeping a new champion only if it does no worse on unseen development layouts. <b>Without demonstrations, PyRUA-Dex sets a new SOTA on Bench2Dex.</b> On Bench2Dex (26 bimanual tasks on 12 arm–hand embodiments), practising lifts the score from 59.1 to <b>72.9</b>, ahead of every trained policy on the benchmark, and the frozen programs succeed 2.3 times as often as the same model acting online at the same step budget. On DexJoCo, they succeed in <b>88.5%</b> of episodes under object randomization and <b>81.0%</b> under full randomization, against 54.1% and 40.3% for the strongest trained policy, and above the online agent at the benchmark's step budget. On a real bimanual rig with two 22-DoF hands, the same procedure learns in a calibrated twin refined by the robot's feedback, its frozen programs run on the robot, and with a skill shared within a task family, a new task typically takes under an hour.</p>
+        <p>Dexterous bimanual manipulation is usually learned from demonstrations, which are costly to collect for multi-fingered hands and do not transfer between hands. We show that coding agents can instead learn a <em>programmatic policy</em> for each task from their own trials in simulation: a program that runs frozen at test time, without demonstrations, trained weights or language-model calls. <b>PyRUA-Dex</b> learns it in two stages. In the <em>explore</em> stage, eight GPT-6 Astra agents search in parallel for a way through the task, with rewinds and stage feedback, and a distilling agent turns what scored into a task library and a champion. In the <em>practise</em> stage, one agent makes that way hold by strengthening its weakest link over many layouts, keeping a new champion only if it does no worse on unseen development layouts. <b>Without demonstrations, PyRUA-Dex sets a new SOTA on Bench2Dex.</b> On Bench2Dex (26 bimanual tasks on 12 arm–hand embodiments), practising lifts the score from 59.1 to <b>72.9</b>, ahead of every trained policy on the benchmark, and the frozen programs succeed 2.4 times as often as the same model acting online at the same step budget. On DexJoCo, they succeed in <b>88.5%</b> of episodes under object randomization and <b>81.0%</b> under full randomization, against 54.1% and 40.3% for the strongest trained policy, and above the online agent at the benchmark's step budget. On a real bimanual rig with two 22-DoF hands, the same procedure learns in a calibrated twin refined by the robot's feedback, its frozen programs run on the robot, and with a skill shared within a task family, a new task typically takes under an hour.</p>
       </div>
       <div class="glance">
         <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-ban"/></svg></div><div><b>No demonstrations</b><span>Agents learn from their own trials in simulation, with rewinds and the simulator's stage count.</span></div></div>
@@ -265,7 +265,7 @@
         <ul class="ticks">
           <li><svg class="ic"><use href="#i-search"/></svg><span><b>Explore</b> searches for some motion that gets each stage counted at all, <i>r<sub>k</sub></i> &gt; 0: grasps, orders and motions, many attempts on few layouts.</span></li>
           <li><svg class="ic"><use href="#i-target"/></svg><span><b>Practise</b> needs link rates measured over many layouts: once every link works, the product governs.</span></li>
-          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Second tries</b> raise a link directly. In 68% of the explored champions' failed dev runs, the program had returned with three tenths or more of the step budget unused.</span></li>
+          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Second tries</b> raise a link directly. In 68% of the explored champions' failed dev runs on the 22 tasks they completed at least once, the program had returned with three tenths or more of the step budget unused.</span></li>
           <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Every measurement</b> is reported link by link, stage functions of different agents fit together, and a single link can be practised alone.</span></li>
         </ul>
       </div>
@@ -541,7 +541,7 @@
     </div>
 
     <figure class="fig rv" style="margin-top:22px">
-      <a class="zoom" href="static/images/paper/fig-results.webp"><img src="static/images/paper/fig-results.webp" alt="Bench2Dex results: scores of all four-channel entries, success rate against stage completion, and success rate against execution budget" width="1959" height="666" loading="lazy"></a>
+      <a class="zoom" href="static/images/paper/fig-results.webp?v=20261123c"><img src="static/images/paper/fig-results.webp?v=20261123c" alt="Bench2Dex results: scores of all four-channel entries, success rate against stage completion, and success rate against execution budget" width="1959" height="666" loading="lazy"></a>
       <figcaption><b>Bench2Dex results.</b> (a) Score of every four-channel entry; the dashed line marks the best trained policy. (b) Success rate against latched stage completion. (c) Full-channel success rate against the execution budget; the frozen programs spend no tokens at test time.</figcaption>
     </figure>
     <figure class="fig rv">
@@ -553,12 +553,12 @@
     <div class="num-grid">
       <div class="nbox rv"><b>+13.8</b><span>score points from practising, 59.1 → 72.9</span></div>
       <div class="nbox rv"><b>20 / 26</b><span>tasks raise their success rate; stage completion 67.0% → 82.3%</span></div>
-      <div class="nbox rv"><b>68%</b><span>of Stage 1's failed dev runs had returned with three tenths of the steps or more unused</span></div>
+      <div class="nbox rv"><b>68%</b><span>of Stage 1's failed dev runs had returned with three tenths of the steps or more unused (341 runs, on the 22 tasks it completed at least once)</span></div>
       <div class="nbox rv"><b>43.6% → 61.7%</b><span>dev layouts completed, against formal success 44.6% → 60.6%: the gate predicts the benchmark</span></div>
     </div>
     <figure class="fig rv">
       <a class="zoom" href="static/images/paper/fig-stage2.webp"><img src="static/images/paper/fig-stage2.webp" alt="Why practising works: how Stage 1 programs failed, held-out completions batch by batch, and task 12 link by link" width="1959" height="645" loading="lazy"></a>
-      <figcaption><b>Why practising works.</b> (a) How the 341 failed dev runs of the Stage 1 champions ended. (b) Held-out completions (of 32), batch by batch through Stage 2; batch 0 is the Stage 1 champion. (c) Task 12: held-out layouts that reached each stage.</figcaption>
+      <figcaption><b>Why practising works.</b> (a) How the 341 failed dev runs of the Stage 1 champions ended, on the 22 tasks Stage 1 completed at least once (704 runs); the 128 runs of the 4 tasks it never completed are not included. (b) Held-out completions (of 32), batch by batch through Stage 2; batch 0 is the Stage 1 champion. (c) Task 12: held-out layouts that reached each stage.</figcaption>
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-bolt"/></svg>Frozen programs against the same model online</h3>
@@ -568,12 +568,13 @@
         <div class="vs">
           <div><div class="vs-v">61.5%</div><div class="vs-k"><b>PyRUA-Dex</b>, frozen programs<br>0 tokens per episode</div></div>
           <div class="vs-x">vs</div>
-          <div><div class="vs-v gray">26.2%</div><div class="vs-k"><b>GPT-6 Astra agent</b>, online<br>11.2M tokens per episode</div></div>
+          <div><div class="vs-v gray">25.6%</div><div class="vs-k"><b>GPT-6 Astra agent</b>, online<br>11.2M tokens per episode</div></div>
         </div>
         <ul class="ticks">
           <li><svg class="ic"><use href="#i-clock"/></svg><span>The online agent reaches 61.5% only at ten times the budget (32.1% at 2×, 50.0% at 5×), with 33.7M tokens per episode.</span></li>
           <li><svg class="ic"><use href="#i-coins"/></svg><span>Developing all 26 tasks took 11.7B tokens in Stage 1 and 6.6B in Stage 2, less than a third of the online agent's 58B tokens for the benchmark's 5,200 episodes at 1×.</span></li>
           <li><svg class="ic"><use href="#i-snow"/></svg><span>Every further episode of a frozen program costs no tokens and runs at the control rate.</span></li>
+          <li><svg class="ic"><use href="#i-paper"/></svg><span>The online agent's numbers are one batch of 78 episodes from its report, run at every budget; its separate leaderboard entry of 260 episodes at 1× has 26.2%.</span></li>
         </ul>
       </div>
       <div class="card rv">
