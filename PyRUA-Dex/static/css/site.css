@@ -321,6 +321,7 @@ tr.ours.s1 .score .fill { background: var(--rose); }
 .key i.s2 { background: var(--red); }
 .twin-total { font-size: 14.5px; color: var(--sub); }
 .twin-total b { color: var(--ink); }
+.skill-note { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 14px; font-size: 13.5px; line-height: 1.5; color: var(--sub); }
 .dumb { position: relative; }
 .dumb-group { padding: 12px 0 2px; font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--red); }
 .twin-table tr.grp td { padding-top: 10px; font-weight: 700; color: var(--red); }
