@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://vme0522.github.io/PyRUA-Dex/static/images/og-teaser.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg?v=3">
-  <link rel="stylesheet" href="static/css/site.css?v=20261123g">
+  <link rel="stylesheet" href="static/css/site.css?v=20261123h">
 </head>
 <body>
 
@@ -138,7 +138,17 @@
   <p class="tldr">Coding agents <b>explore</b> a task in simulation, <b>practise</b> it link by link, and hand over a frozen programmatic policy that runs with no language model at test time.</p>
 
   <figure class="teaser">
-    <div class="clips">
+    <div class="clips-h"><svg class="ic"><use href="#i-hand"/></svg><b>Real robot</b><span>two FR3 arms, two Sharpa Wave hands · third-person cameras</span></div>
+    <div class="clips clips-real">
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/real/clips/piano-close.jpg" aria-label="Real robot playing Little Jumping Frog on the piano, close-up, real time"><source src="static/videos/real/clips/piano-close.mp4" type="video/mp4"></video><div class="clip-tag"><b>Piano: Little Jumping Frog</b>close-up · 1×</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/real/clips/cube-basket.jpg" aria-label="Real robot putting both cubes in the basket, front camera, six times speed"><source src="static/videos/real/clips/cube-basket.mp4" type="video/mp4"></video><div class="clip-tag"><b>Cube to basket</b>front camera · 6×</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/real/clips/write-dex.jpg" aria-label="Real robot writing Dex with a brush, front camera, sixteen times speed"><source src="static/videos/real/clips/write-dex.mp4" type="video/mp4"></video><div class="clip-tag"><b>Writing “Dex” with a brush</b>front camera · 16×</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/real/clips/piano-wide.jpg" aria-label="Real robot playing Night Cruise on the piano, wide shot, real time"><source src="static/videos/real/clips/piano-wide.mp4" type="video/mp4"></video><div class="clip-tag"><b>Piano: Night Cruise</b>both arms · 1×</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/real/clips/stack-cubes.jpg" aria-label="Real robot stacking three small cubes, front camera, ten times speed"><source src="static/videos/real/clips/stack-cubes.mp4" type="video/mp4"></video><div class="clip-tag"><b>Stacking cubes</b>front camera · 10×</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/real/clips/open-box.jpg" aria-label="Real robot opening a hinged box, front camera, five times speed"><source src="static/videos/real/clips/open-box.mp4" type="video/mp4"></video><div class="clip-tag"><b>Opening a box</b>front camera · 5×</div></div>
+    </div>
+    <div class="clips-h"><svg class="ic"><use href="#i-robot"/></svg><b>Bench2Dex</b><span>simulation · one task for each of the 12 arm–hand embodiments · head camera</span><span class="speed">4×</span></div>
+    <div class="clips clips-sim">
       <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_79.jpg" aria-label="Bimanual piano melody, xArm7 with Ability hands"><source src="static/videos/bench2dex/b2d_79.mp4" type="video/mp4"></video><div class="clip-tag"><b>Bimanual piano melody</b>xArm7 + Ability</div></div>
       <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_42.jpg" aria-label="Trash disposal, UR5 with RH56DFX hands"><source src="static/videos/bench2dex/b2d_42.mp4" type="video/mp4"></video><div class="clip-tag"><b>Trash disposal</b>UR5 + RH56DFX</div></div>
       <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_07.jpg" aria-label="Citrus plate loading, UR5 with RH5DG2 hands"><source src="static/videos/bench2dex/b2d_07.mp4" type="video/mp4"></video><div class="clip-tag"><b>Citrus plate loading</b>UR5 + RH5DG2</div></div>
@@ -152,7 +162,16 @@
       <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_64.jpg" aria-label="Sports ball cup sort, Panda with Allegro hands"><source src="static/videos/bench2dex/b2d_64.mp4" type="video/mp4"></video><div class="clip-tag"><b>Sports ball cup sort</b>Panda + Allegro</div></div>
       <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_80.jpg" aria-label="Gaming desk setup, JAKA ZU7 with DexHand021 hands"><source src="static/videos/bench2dex/b2d_80.mp4" type="video/mp4"></video><div class="clip-tag"><b>Gaming desk setup</b>JAKA ZU7 + DexHand021</div></div>
     </div>
-    <figcaption class="cap"><span class="speed">4×</span>Frozen champion programs in formal Bench2Dex episodes, one task for each of the benchmark's 12 arm–hand embodiments (head camera).</figcaption>
+    <div class="clips-h"><svg class="ic"><use href="#i-cube"/></svg><b>DexJoCo</b><span>simulation · full randomization · third-person camera</span><span class="speed">4×</span></div>
+    <div class="clips clips-sim">
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_hanoi.jpg" aria-label="Tower of Hanoi, DexJoCo, bimanual, full randomization"><source src="static/videos/dexjoco/dj_hanoi.mp4" type="video/mp4"></video><div class="clip-tag"><b>Tower of Hanoi</b>bimanual · rand-full 95.3%</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_microwave.jpg" aria-label="Microwave cook, DexJoCo, bimanual, full randomization"><source src="static/videos/dexjoco/dj_microwave.mp4" type="video/mp4"></video><div class="clip-tag"><b>Microwave cook</b>bimanual · rand-full 98.0%</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_ipad.jpg" aria-label="Unlock iPad, DexJoCo, bimanual, full randomization"><source src="static/videos/dexjoco/dj_ipad.mp4" type="video/mp4"></video><div class="clip-tag"><b>Unlock iPad</b>bimanual · rand-full 99.3%</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_mouse.jpg" aria-label="Click mouse, DexJoCo, one arm, full randomization"><source src="static/videos/dexjoco/dj_mouse.mp4" type="video/mp4"></video><div class="clip-tag"><b>Click mouse</b>one arm · rand-full 98.0%</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_hammer.jpg" aria-label="Hammer nail, DexJoCo, one arm, full randomization"><source src="static/videos/dexjoco/dj_hammer.mp4" type="video/mp4"></video><div class="clip-tag"><b>Hammer nail</b>one arm · rand-full 88.0%</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_water.jpg" aria-label="Water plant, DexJoCo, one arm, full randomization"><source src="static/videos/dexjoco/dj_water.mp4" type="video/mp4"></video><div class="clip-tag"><b>Water plant</b>one arm · rand-full 79.3%</div></div>
+    </div>
+    <figcaption class="cap">Frozen programs at work: on our real rig, in formal Bench2Dex episodes and in formal DexJoCo episodes under full randomization.</figcaption>
   </figure>
 
   <div class="stats">
