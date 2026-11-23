@@ -7,6 +7,50 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var hasIO = "IntersectionObserver" in window;
 
+
+  var background = document.getElementById("hero-piano");
+  var backgroundSound = document.querySelector("[data-hero-sound]");
+  if (background && backgroundSound) {
+    function updateBackgroundSound() {
+      backgroundSound.textContent = background.muted ? "Turn sound on" : "Mute sound";
+      backgroundSound.setAttribute("aria-label", background.muted ? "Turn background sound on" : "Mute background sound");
+    }
+
+    function playBackground() {
+      var play = background.play();
+      if (play && play.catch) play.catch(updateBackgroundSound);
+    }
+
+    backgroundSound.addEventListener("click", function () {
+      background.muted = !background.muted;
+      if (!background.muted && background.paused) playBackground();
+      updateBackgroundSound();
+    });
+    background.addEventListener("volumechange", updateBackgroundSound);
+    document.addEventListener("play", function (event) {
+      var video = event.target;
+      if (video !== background && video.tagName === "VIDEO" && !video.muted &&
+          (video.controls || video.closest("[data-theater]"))) {
+        background.muted = true;
+      }
+    }, true);
+    backgroundSound.hidden = false;
+
+    if (!reduce) {
+      if (hasIO) {
+        var heroObserver = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) {
+            heroObserver.disconnect();
+            playBackground();
+          }
+        }, { threshold: 0.1 });
+        heroObserver.observe(background.closest(".hero-opening"));
+      } else {
+        playBackground();
+      }
+    }
+  }
+
   /* clips: load and play only while on screen; with reduced motion, show controls instead of autoplay */
   var vids = Array.prototype.slice.call(document.querySelectorAll("video[data-auto]"));
   if (reduce) {
