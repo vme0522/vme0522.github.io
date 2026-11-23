@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PyRUA-Dex: Explore, Then Practise — Coding Agents Learn Dexterous Bimanual Manipulation Without Demonstrations</title>
+  <meta name="description" content="Coding agents learn dexterous bimanual manipulation from their own trials in simulation and hand over one frozen program per task: no demonstrations, no trained weights, no language model at test time. Bench2Dex score 72.9, the highest on the benchmark; 9 of 11 runs on a real bimanual rig.">
+  <meta name="keywords" content="Dexterous manipulation, Bimanual manipulation, Coding agents, Policies as code, Bench2Dex, Real-to-sim-to-real, Peking University">
+  <meta name="author" content="PKU DAGroup">
+  <meta name="theme-color" content="#9A0000">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PKU DAGroup">
+  <meta property="og:title" content="PyRUA-Dex: Explore, Then Practise">
+  <meta property="og:description" content="Coding agents learn dexterous bimanual manipulation without demonstrations. Bench2Dex score 72.9, the highest on the benchmark; 9 of 11 real-robot runs.">
+  <meta property="og:url" content="https://vme0522.github.io/PyRUA-Dex/">
+  <meta property="og:image" content="https://vme0522.github.io/PyRUA-Dex/static/images/og-teaser.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+  <link rel="stylesheet" href="static/css/site.css?v=20261123">
+</head>
+<body>
+
+<!-- Icon set: line icons drawn for this page (24 x 24, stroke = currentColor); the GitHub mark is GitHub's own. -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></symbol>
+  <symbol id="i-paper" viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></symbol>
+  <symbol id="i-quote" viewBox="0 0 24 24"><path d="M10 7H6v5h4v1c0 2-1.2 3.4-3 4"/><path d="M19 7h-4v5h4v1c0 2-1.2 3.4-3 4"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v6a4 4 0 0 1-8 0z"/><path d="M8 6H5.5a2.5 2.5 0 0 0 2.6 4.5M16 6h2.5a2.5 2.5 0 0 1-2.6 4.5"/><path d="M12 14v3.5M8.5 20.5h7M9.5 17.5h5"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M4 18 3 7.5l5 4 4-6.5 4 6.5 5-4L20 18z"/><path d="M4.5 21h15"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3.5 20.5h17"/><path d="M5 15.5l4.5-4.5 3.5 3.5 6.5-6.5"/><path d="M15 8h4.5v4.5"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 4.5 13.5h6.5l-1 8 8.5-11h-6.5z"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M11 11.5V4a1.5 1.5 0 0 1 3 0v7.5"/><path d="M14 11.5V5.5a1.5 1.5 0 0 1 3 0v7"/><path d="M17 12V9a1.5 1.5 0 0 1 3 0v5a7 7 0 0 1-7 7h-1.2a6.5 6.5 0 0 1-5.2-2.6l-3.2-4.3a1.6 1.6 0 0 1 2.5-2l2.1 2.4"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-file-code" viewBox="0 0 24 24"><path d="M6 3h8l5 5v13H6z"/><path d="M14 3v5h5"/><path d="m10.5 12-2 2 2 2M14 12l2 2-2 2"/></symbol>
+  <symbol id="i-chip-off" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/><path d="m3.5 3.5 17 17"/></symbol>
+  <symbol id="i-robot" viewBox="0 0 24 24"><path d="M4 21h9M8.5 21v-3"/><circle cx="8.5" cy="15.5" r="2.5"/><path d="m10.3 13.7 4.2-5.2"/><circle cx="15.8" cy="7" r="2"/><path d="M17.6 8l2.4 2.2M20 10.2l1-2M20 10.2l.6 2.2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20.5 20.5-4.9-4.9"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".9" fill="currentColor"/></symbol>
+  <symbol id="i-gate" viewBox="0 0 24 24"><path d="M12 2.5 19.5 5.5v6.2c0 4.5-3.1 7.9-7.5 9.8-4.4-1.9-7.5-5.3-7.5-9.8V5.5z"/><path d="m8.8 12.2 2.3 2.3 4.3-4.6"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17.2" cy="9" r="2.6"/><path d="M16 14.1a5 5 0 0 1 5.5 5"/></symbol>
+  <symbol id="i-rewind" viewBox="0 0 24 24"><path d="M11.5 6.5 5 12l6.5 5.5zM19.5 6.5 13 12l6.5 5.5z"/></symbol>
+  <symbol id="i-notes" viewBox="0 0 24 24"><path d="M4 5h16v11h-9l-5 4v-4H4z"/><path d="M8 9h8M8 12.5h5"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2.5v19M3.8 7.3l16.4 9.4M3.8 16.7l16.4-9.4"/><path d="m9.5 4 2.5 2 2.5-2M9.5 20l2.5-2 2.5 2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M9 7h6"/></symbol>
+  <symbol id="i-chain" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1.2 1.2"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1.2-1.2"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2.5 3 3-3 3"/><path d="M4 11.5v-1a5 5 0 0 1 5-5h11"/><path d="m7 21.5-3-3 3-3"/><path d="M20 12.5v1a5 5 0 0 1-5 5H4"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 12.5 9 5 9-5"/><path d="m3 16.5 9 5 9-5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8.2 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.8"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h3.5l2.5-6 4.5 12 2.5-6H21"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 2.8 20 7.3v9.4L12 21.2 4 16.7V7.3z"/><path d="M4 7.3l8 4.5 8-4.5M12 11.8v9.4"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3.5 8h3.2l1.8-2.7h7l1.8 2.7h3.2v11h-17z"/><circle cx="12" cy="13.3" r="3.6"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7.5 4v16M16.5 4v16M3 9h4.5M3 15h4.5M16.5 9H21M16.5 15H21"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5.5 15H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v.5"/></symbol>
+  <symbol id="i-sim" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5S9.4 5.9 12 3.5z"/></symbol>
+  <symbol id="i-podium" viewBox="0 0 24 24"><path d="M3 20.5h18M5 20.5v-6h4v6M10 20.5v-11h4v11M15 20.5v-8h4v8"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3c.6 4.1 2.9 6.4 7 7-4.1.6-6.4 2.9-7 7-.6-4.1-2.9-6.4-7-7 4.1-.6 6.4-2.9 7-7z"/><path d="M19 15.5c.2 1.5 1 2.3 2.5 2.5-1.5.2-2.3 1-2.5 2.5-.2-1.5-1-2.3-2.5-2.5 1.5-.2 2.3-1 2.5-2.5z"/></symbol>
+  <symbol id="i-flow" viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="6" rx="1.5"/><rect x="14" y="14" width="7" height="6" rx="1.5"/><path d="M6.5 10v4a3 3 0 0 0 3 3H14"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6.5" rx="7" ry="3"/><path d="M5 6.5v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5M5 11.5v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/></symbol>
+  <symbol id="i-piano" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M8.5 19v-5M15.5 19v-5"/><path d="M7 5v9h3V5M14 5v9h3V5"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1.5"/><rect x="7.5" y="6" width="9" height="8" rx="1"/><path d="M7.5 17.5h2.5M14 17.5h2.5"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.35-5.65"/><path d="M20.5 4v4.5H16"/></symbol>
+  <symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18a9 9 0 0 1-18 0z"/><path d="M8.5 20.5h7"/></symbol>
+  <symbol id="i-stack" viewBox="0 0 24 24"><rect x="8" y="3" width="8" height="5.5" rx="1"/><rect x="8" y="9.25" width="8" height="5.5" rx="1"/><rect x="8" y="15.5" width="8" height="5.5" rx="1"/></symbol>
+  <symbol id="i-plant" viewBox="0 0 24 24"><path d="M12 21v-8.5"/><path d="M12 12.5c0-4.4 3-7.5 8-7.5 0 4.4-3 7.5-8 7.5z"/><path d="M12 15c0-3.3-2.4-5.8-6.5-5.8 0 3.3 2.4 5.8 6.5 5.8z"/><path d="M8 21h8"/></symbol>
+  <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m14.5 9.5-9.8 9.8a1.6 1.6 0 0 0 2.3 2.2l9.7-9.7"/><path d="m11.5 6 3-3.2 6.7 6.7-3.2 3z"/></symbol>
+  <symbol id="i-mouse" viewBox="0 0 24 24"><rect x="6.5" y="3" width="11" height="18" rx="5.5"/><path d="M12 3v6.5M6.5 9.5h11"/></symbol>
+  <symbol id="i-glasses" viewBox="0 0 24 24"><circle cx="6.5" cy="14.5" r="3.5"/><circle cx="17.5" cy="14.5" r="3.5"/><path d="M10 14.5c1.3-1 2.7-1 4 0M3 14.5 4.8 7.5M21 14.5l-1.8-7"/></symbol>
+  <symbol id="i-bucket" viewBox="0 0 24 24"><path d="M5 9h14l-1.7 11.1a1 1 0 0 1-1 .9H7.7a1 1 0 0 1-1-.9z"/><path d="M5 9a7 7 0 0 1 14 0"/></symbol>
+  <symbol id="i-tongs" viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="1.8"/><path d="M11 6.2 7 20.5M13 6.2l4 14.3M6 20.5h2.2M15.8 20.5H18"/></symbol>
+  <symbol id="i-cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></symbol>
+  <symbol id="i-hanoi" viewBox="0 0 24 24"><path d="M3 20.5h18M6 20.5V9M12 20.5V9M18 20.5V9"/><path d="M3.5 17.5h5M4.5 14.5h3M14.5 17.5h7"/></symbol>
+  <symbol id="i-microwave" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2"/><rect x="5" y="7.5" width="10" height="9" rx="1"/><path d="M18 9h.5M18 12h.5M18 15h.5"/></symbol>
+  <symbol id="i-tablet" viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M10 11V9.5a2 2 0 0 1 4 0V11"/><rect x="9" y="11" width="6" height="4.5" rx="1"/><path d="M11 18.5h2"/></symbol>
+</svg>
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top" aria-label="PyRUA-Dex, back to top"><img src="static/images/pku-emblem.svg" alt="" width="30" height="30"><span class="wm"><span class="wm-py">PyRUA</span><span class="wm-dex">-Dex</span></span></a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#overview">Overview</a>
+      <a href="#method">Method</a>
+      <a href="#results">Bench2Dex</a>
+      <a href="#real">Real robot</a>
+      <a href="#dexjoco">DexJoCo</a>
+      <a href="#bibtex">BibTeX</a>
+    </nav>
+    <a class="btn btn-sm btn-red" href="https://github.com/DAGroup-PKU/PyRUA-Lean/tree/dex" target="_blank" rel="noopener" title="Code repository"><svg class="ic"><use href="#i-github"/></svg><span>Code</span></a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= hero ======================= -->
+<section class="hero">
+  <div class="wrap">
+    <div class="org"><img src="static/images/pku-emblem.svg" alt="Peking University emblem" width="36" height="36"><span>Peking University · DAGroup</span></div>
+    <h1 class="title"><span class="wm-py">PyRUA</span><span class="wm-dex">-Dex</span></h1>
+    <p class="sub1">Explore, Then Practise</p>
+    <p class="sub2">Coding Agents Learn Dexterous Bimanual Manipulation Without Demonstrations</p>
+    <p class="authors">PyRUA-Dex Team</p>
+    <p class="affil">PKU DAGroup, Peking University</p>
+    <div class="links">
+      <span class="btn btn-soon" aria-disabled="true" title="Coming soon"><svg class="ic"><use href="#i-paper"/></svg><span>arXiv</span><span class="soon">Coming soon</span></span>
+      <a class="btn btn-red" href="https://github.com/DAGroup-PKU/PyRUA-Lean/tree/dex" target="_blank" rel="noopener"><svg class="ic"><use href="#i-github"/></svg><span>Code</span></a>
+      <a class="btn" href="#results"><svg class="ic"><use href="#i-podium"/></svg><span>Results</span></a>
+      <a class="btn" href="#bibtex"><svg class="ic"><use href="#i-quote"/></svg><span>BibTeX</span></a>
+    </div>
+  </div>
+  <p class="tldr">Coding agents <b>explore</b> a task in simulation, <b>practise</b> it link by link, and hand over one frozen program per task: no demonstrations, no trained weights, no language model at test time.</p>
+
+  <figure class="teaser">
+    <div class="clips">
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_79.jpg" aria-label="Bimanual piano melody, xArm7 with Ability hands"><source src="static/videos/bench2dex/b2d_79.mp4" type="video/mp4"></video><div class="clip-tag"><b>Bimanual piano melody</b>xArm7 + Ability</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_42.jpg" aria-label="Trash disposal, UR5 with RH56DFX hands"><source src="static/videos/bench2dex/b2d_42.mp4" type="video/mp4"></video><div class="clip-tag"><b>Trash disposal</b>UR5 + RH56DFX</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_07.jpg" aria-label="Citrus plate loading, UR5 with RH5DG2 hands"><source src="static/videos/bench2dex/b2d_07.mp4" type="video/mp4"></video><div class="clip-tag"><b>Citrus plate loading</b>UR5 + RH5DG2</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_44.jpg" aria-label="Microwave bowl loading, UR5 with Schunk hands"><source src="static/videos/bench2dex/b2d_44.mp4" type="video/mp4"></video><div class="clip-tag"><b>Microwave bowl loading</b>UR5 + Schunk</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_51.jpg" aria-label="Toilet lid cleaner pour, xArm7 with LEAP hands"><source src="static/videos/bench2dex/b2d_51.mp4" type="video/mp4"></video><div class="clip-tag"><b>Toilet lid cleaner pour</b>xArm7 + LEAP</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_21.jpg" aria-label="Condiment box loading, UR5 with Wuji hands"><source src="static/videos/bench2dex/b2d_21.mp4" type="video/mp4"></video><div class="clip-tag"><b>Condiment box loading</b>UR5 + Wuji</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_22.jpg" aria-label="Tool box loading, Panda with Orca hands"><source src="static/videos/bench2dex/b2d_22.mp4" type="video/mp4"></video><div class="clip-tag"><b>Tool box loading</b>Panda + Orca</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_67.jpg" aria-label="Faucet cup water fill, RM65 with Revo2 hands"><source src="static/videos/bench2dex/b2d_67.mp4" type="video/mp4"></video><div class="clip-tag"><b>Faucet cup water fill</b>RM65 + Revo2</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_26.jpg" aria-label="Canned food tray, IIWA7 with Sharpa hands"><source src="static/videos/bench2dex/b2d_26.mp4" type="video/mp4"></video><div class="clip-tag"><b>Canned food tray</b>IIWA7 + Sharpa</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_76.jpg" aria-label="Soup serving, UR5 with Shadow hands"><source src="static/videos/bench2dex/b2d_76.mp4" type="video/mp4"></video><div class="clip-tag"><b>Soup serving</b>UR5 + Shadow</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_64.jpg" aria-label="Sports ball cup sort, Panda with Allegro hands"><source src="static/videos/bench2dex/b2d_64.mp4" type="video/mp4"></video><div class="clip-tag"><b>Sports ball cup sort</b>Panda + Allegro</div></div>
+      <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_80.jpg" aria-label="Gaming desk setup, JAKA ZU7 with DexHand021 hands"><source src="static/videos/bench2dex/b2d_80.mp4" type="video/mp4"></video><div class="clip-tag"><b>Gaming desk setup</b>JAKA ZU7 + DexHand021</div></div>
+    </div>
+    <figcaption class="cap"><span class="speed">4×</span>Frozen champion programs in formal Bench2Dex episodes, one task for each of the benchmark's 12 arm–hand embodiments (head camera).</figcaption>
+  </figure>
+
+  <div class="stats">
+    <div class="stat hot">
+      <span class="sota"><svg class="ic"><use href="#i-crown"/></svg>SOTA</span>
+      <div class="badge"><svg class="ic"><use href="#i-trophy"/></svg></div>
+      <div class="stat-v">72.9</div>
+      <div class="stat-k">Bench2Dex score, the highest on the benchmark</div>
+      <div class="stat-t">26 tasks × 4 channels × 50 episodes; best trained policy 70.5</div>
+    </div>
+    <div class="stat">
+      <div class="badge"><svg class="ic"><use href="#i-trend"/></svg></div>
+      <div class="stat-v sm">44.6<small>%</small> <span class="arrow">→</span> 60.6<small>%</small></div>
+      <div class="stat-k">Success rate, explore → practise</div>
+      <div class="stat-t">latched stage completion 67.0% → 82.3%</div>
+    </div>
+    <div class="stat">
+      <div class="badge"><svg class="ic"><use href="#i-bolt"/></svg></div>
+      <div class="stat-v">2.3<small>×</small></div>
+      <div class="stat-k">the success rate of the same model acting online</div>
+      <div class="stat-t">61.5% vs 26.2% at the benchmark's step budget, with no tokens at test time</div>
+    </div>
+    <div class="stat">
+      <div class="badge"><svg class="ic"><use href="#i-hand"/></svg></div>
+      <div class="stat-v">9<small> / 11</small></div>
+      <div class="stat-k">runs completed on the real robot</div>
+      <div class="stat-t">cube-to-basket on two FR3 arms with two 22-DoF Sharpa hands, learned in the rig's twin</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= overview ======================= -->
+<section class="sec" id="overview">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow"><svg class="ic"><use href="#i-spark"/></svg>Overview</span>
+      <h2>A frozen program for every task, learned from the agents' own trials</h2>
+    </div>
+    <div class="abs-grid">
+      <div class="card abstract rv">
+        <h3><svg class="ic"><use href="#i-paper"/></svg>Abstract</h3>
+        <p>Dexterous bimanual manipulation is usually learned from demonstrations, which are expensive to collect for multi-fingered hands and do not carry over from one hand to another. We show that coding agents can learn it from their own trials in simulation and hand over a program that runs frozen, with no demonstrations, no trained weights and no language-model calls at test time. <b>PyRUA-Dex</b> learns a task in two stages. In the <em>explore</em> stage, eight GPT-6 Astra agents work the task in parallel on fresh layouts, with rewinds and the simulator's stage feedback, and a distilling agent turns their frozen replays into a task library and a champion program. In the <em>practise</em> stage, one agent takes over the champion and treats the task as a chain of links: it runs single links over tens of layouts, lets failed stage functions try again, and keeps a new champion only if it is no worse on 32 development layouts. On Bench2Dex (26 bimanual tasks, 12 arm–hand embodiments, 5,200 evaluation episodes), the explored champions score 59.1 and the practised champions 72.9 (success rate 44.6% → 60.6%), the highest score on the benchmark, ahead of the best trained policy (70.5). At the benchmark's step budget the frozen programs succeed 2.3 times as often as a GPT-6 Astra agent that controls the robot online, which needs ten times the budget and 34M tokens per episode to match them. On a bimanual Franka FR3 rig with two 22-DoF Sharpa hands, the same procedure, run in a calibrated MuJoCo twin with objects reconstructed from a phone video, raises the development completions of 14 tasks from 31% to 57%, and its cube-to-basket champion completed 9 of 11 runs on the real robot.</p>
+      </div>
+      <div class="glance">
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-ban"/></svg></div><div><b>No demonstrations</b><span>Agents learn from their own trials in simulation, with rewinds and the simulator's stage count.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-file-code"/></svg></div><div><b>A program, not weights</b><span>Each task's policy is Python on a shared codebox; the task-12 champion is 2,241 lines in 22 files.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-chip-off"/></svg></div><div><b>No language model at test time</b><span>The champion runs frozen at the control rate, under the benchmark's own protocol and inputs.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-robot"/></svg></div><div><b>One method, 13 embodiments</b><span>Bench2Dex's 12 arm–hand pairs, from 6 to 22 hand joints, and our FR3 rig with two Sharpa hands.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= method ======================= -->
+<section class="sec alt" id="method">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow"><svg class="ic"><use href="#i-flow"/></svg>Method</span>
+      <h2>Explore, then practise</h2>
+      <p class="lead">Both stages are run by general coding agents, Codex CLI sessions of GPT-6 Astra, each with a shell, a simulator of its own and the codebox. Stage 1 finds a way through the task; Stage 2 makes the way hold on layouts it has never seen.</p>
+    </div>
+
+    <figure class="fig rv">
+      <a class="zoom" href="static/images/paper/fig-method.webp"><img src="static/images/paper/fig-method.webp" alt="Overview of PyRUA-Dex: inputs, Stage 1 explore with eight parallel agents, Stage 2 practise on the weakest link, and the dev gate" width="1959" height="690" loading="lazy"></a>
+      <figcaption><b>PyRUA-Dex.</b> Every agent receives the same inputs and nothing learned elsewhere. <b>Stage 1</b>: eight agents explore one task in parallel with rewinds and the simulator's stage count, the round's notes tell all of them at once what every episode reached, and a distilling agent turns their frozen replays into the task library and the champion. <b>Stage 2</b>: one agent works on the champion's weakest link with practice runs over tens of fresh layouts, second tries, and batches of 32 fresh and 32 held-out layouts. <b>Dev gate</b>: after each stage, a new champion replaces the old one only if it is no worse on the task's 32 development layouts.</figcaption>
+    </figure>
+
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-layers"/></svg>Two stages, one gate</h3>
+    <div class="stages">
+      <div class="card stage rv">
+        <div class="stage-top"><div class="stage-num">1</div><div><h3>Explore</h3><p class="stage-goal">find a way through the task</p></div></div>
+        <ul class="steps">
+          <li><svg class="ic"><use href="#i-users"/></svg><span><b>Eight seeds in parallel.</b> Each agent gets the task library, a fresh layout and a stage not yet solved.</span></li>
+          <li><svg class="ic"><use href="#i-rewind"/></svg><span><b>Rewinds.</b> Eight per layout: the agent tries one stage many times and asks for the stage count after every attempt.</span></li>
+          <li><svg class="ic"><use href="#i-notes"/></svg><span><b>Round notes.</b> A stage reached by one seed is told to all of them at once, and a librarian agent keeps the notes and the code they point to.</span></li>
+          <li><svg class="ic"><use href="#i-snow"/></svg><span><b>Frozen replay.</b> Each seed writes the program that redoes what scored; it runs alone on eight fresh layouts.</span></li>
+          <li><svg class="ic"><use href="#i-book"/></svg><span><b>Distil.</b> A distilling agent writes the task library from frozen rates only, and names the champion.</span></li>
+        </ul>
+      </div>
+      <div class="card stage s2 rv">
+        <div class="stage-top"><div class="stage-num">2</div><div><h3>Practise</h3><p class="stage-goal">make the way hold</p></div></div>
+        <ul class="steps">
+          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Link report.</b> The champion on 32 fresh layouts, stage by stage, so the weakest link shows before any work begins.</span></li>
+          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Practice runs.</b> The program up to one stage over tens of fresh layouts, with twice the benchmark's steps.</span></li>
+          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Second tries.</b> With <code>AGAIN = True</code>, a stage function that did not end ok is called again while steps remain.</span></li>
+          <li><svg class="ic"><use href="#i-layers"/></svg><span><b>Batches.</b> Each version on 32 fresh and 32 held-out layouts, at the benchmark's steps; one is due every 160 practice layouts.</span></li>
+          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Choose.</b> Within a round of 1,500 layouts, the version with the best held-out record goes to the gate.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="gate rv">
+      <div class="badge"><svg class="ic"><use href="#i-gate"/></svg></div>
+      <div><b>The dev gate</b><span>After each stage, a candidate replaces the champion only if it completes no fewer of the task's 32 development layouts, and then reaches stages no less often. Development layouts are never explored, summarized or shown to an agent; the champion that stands is evaluated frozen under the benchmark's protocol.</span></div>
+    </div>
+
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-chain"/></svg>A task is a chain of links</h3>
+    <div class="chain-grid">
+      <div class="card rv">
+        <span class="k-label">Success factorizes along the chain</span>
+        <div class="formula">SR(<i>π</i>) = <i>s</i>(<i>π</i>) <span class="big">∏</span><span class="lim"><i>K</i><span><i>k</i>=1</span></span><i>r</i><sub><i>k</i></sub>(<i>π</i>)</div>
+        <p class="formula-note"><i>r<sub>k</sub></i>: layouts that reach stage <i>k</i> among those that entered it</p>
+        <div class="chainviz" role="img" aria-label="Five links of 0.6 each give a success rate of 0.08">
+          <span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk-eq">= 0.08</span>
+        </div>
+        <p class="chain-text">Five links that each hold on six layouts of ten complete one layout in thirteen, so a program that worked once fails on most layouts.</p>
+        <p class="chain-text">The gain from a link grows as the link weakens, ∂ log SR / ∂<i>r<sub>k</sub></i> = 1 / <i>r<sub>k</sub></i>: Stage 2 finds the weakest link and raises it.</p>
+      </div>
+      <div class="card rv">
+        <span class="k-label">Why two stages</span>
+        <ul class="ticks">
+          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Explore</b> searches for some motion that gets each stage counted at all, <i>r<sub>k</sub></i> &gt; 0: grasps, orders and motions, many attempts on few layouts.</span></li>
+          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Practise</b> needs link rates measured over many layouts: once every link works, the product governs.</span></li>
+          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Second tries</b> raise a link directly. In 68% of the explored champions' failed dev runs, the program had returned with three tenths or more of the step budget unused.</span></li>
+          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Every measurement</b> is reported link by link, stage functions of different agents fit together, and a single link can be practised alone.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-file-code"/></svg>What a program looks like</h3>
+    <div class="prog-grid">
+      <div class="card code-card rv">
+        <div class="code-head"><span class="dots"><i></i><i></i><i></i></span>champion / task_12.py</div>
+<pre class="code"><code><span class="b">AGAIN</span> = <span class="k">True</span>    <span class="c"># failed stage functions are called again while steps remain</span>
+<span class="b">STAGES</span> = [<span class="s">'place_flat_right'</span>, <span class="s">'place_phillips_left'</span>,
+          <span class="s">'hammer_strike_wood'</span>, <span class="s">'place_hammer'</span>]
+
+<span class="k">def</span> <span class="f">setup</span>(cb, ctx):              <span class="c"># measure the table, find what the stages need</span>
+    cb.table()
+    ctx[<span class="s">'box'</span>] = cb.locate([<span class="s">'wooden box'</span>, <span class="s">'box'</span>], min_score=<span class="n">.6</span>, name=<span class="s">'box'</span>)
+    ctx[<span class="s">'hammer'</span>] = cb.locate([<span class="s">'hammer'</span>], min_score=<span class="n">.5</span>, name=<span class="s">'initial_hammer'</span>)
+    ...
+
+<span class="k">def</span> <span class="f">place_flat_right</span>(cb, ctx):   <span class="c"># starts where setup left robot and scene</span>
+    tool = cb.locate([<span class="s">'screwdriver'</span>], min_score=<span class="n">.6</span>, name=<span class="s">'flat'</span>)
+    o = cb.move_to(<span class="s">'right'</span>, grasp_point(tool), approach=[<span class="n">0</span>, <span class="n">0</span>, <span class="n">-1</span>],
+                   reconfigure=<span class="k">True</span>)
+    cb.close(<span class="s">'right'</span>, squeeze=<span class="n">.005</span>)
+    <span class="k">if not</span> cb.holding(<span class="s">'right'</span>):
+        <span class="k">return</span> result(<span class="k">False</span>, <span class="s">'flat_not_held'</span>)    <span class="c"># the runner tries again later</span>
+    ...
+    seen = cb.relocate(<span class="s">'right'</span>, [<span class="s">'screwdriver'</span>], near=ctx[<span class="s">'box'</span>].xy,
+                       min_score=<span class="n">.55</span>)
+    <span class="k">return</span> result(inside(seen, ctx[<span class="s">'box'</span>]), <span class="s">'flat_in_box'</span>)
+
+<span class="k">def</span> <span class="f">hammer_strike_wood</span>(cb, ctx): ...
+<span class="k">def</span> <span class="f">place_hammer</span>(cb, ctx): ...</code></pre>
+        <div class="code-cap">Condensed from the Stage 2 champion of task 12 (2,241 lines in 22 files). <code>cb</code> is the codebox: hand and arm motions on the robot's hand model, sensing from the calibrated cameras, touch from joint lag and the tactile maps.</div>
+      </div>
+      <div class="card task-card rv">
+        <video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_12.jpg" aria-label="Task 12, screwdriver box and hammer, formal episode of the Stage 2 champion"><source src="static/videos/bench2dex/b2d_12.mp4" type="video/mp4"></video>
+        <div class="task-body">
+          <h4>Task 12 · Screwdriver box and hammer</h4>
+          <p>UR5 + RH56DFX · formal episode of this program · <span class="speed">4×</span></p>
+          <div class="mini">
+            <div><b>0% → 37.0%</b><span>success rate, Stage 1 → Stage 2</span></div>
+            <div><b>0 → 12 / 32</b><span>dev layouts completed</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-code"/></svg>The codebox: one set of calls for every robot</h3>
+    <p class="h3-lead rv">Agents and programs drive the robot through the codebox, a layer of primitives that carries no knowledge of any object or task.</p>
+    <div class="cb-grid">
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-hand"/></svg></div><h4>Hands as grasps</h4><p>A hand model built from the robot's public description, without reading any link or joint name: fingers and thumb, bend, curl and spread groups, and the widths each finger set holds. The same calls drive all 12 Bench2Dex hands, from 6 to 22 joints, and our Sharpa hands.</p><div class="chips"><span class="chip">shape</span><span class="chip">close</span><span class="chip">grasp</span><span class="chip">release</span><span class="chip">holding</span></div></div>
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-route"/></svg></div><h4>Plan whole, then move</h4><p>Arm calls solve every pose before anything moves, and say why a motion cannot run: unreachable, below the measured table, or in need of an arm reconfiguration. All motions run at the joints' speed limits.</p><div class="chips"><span class="chip">move_to</span><span class="chip">feel</span><span class="chip">arc</span><span class="chip">together</span></div></div>
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-eye"/></svg></div><h4>See through the calibration</h4><p>SAM 3 masks for a ladder of prompts, combined across the calibrated fixed cameras into position, footprint, height and yaw; wrist cameras measure again from close by.</p><div class="chips"><span class="chip">segment</span><span class="chip">locate</span><span class="chip">relocate</span><span class="chip">look</span><span class="chip">probe</span></div></div>
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-pulse"/></svg></div><h4>Feel and report</h4><p>Touch from the fingertip maps and from joint lag, read against each robot's measured drive response. Every call returns an outcome with its reason, data and steps, so a program checks each step and retries, adjusts or moves on.</p><div class="chips"><span class="chip">Outcome(ok, reason, data, steps)</span></div></div>
+      <div class="cb cb-wide rv"><div class="badge"><svg class="ic"><use href="#i-film"/></svg></div><div><h4>From an episode to a program</h4><p>When an exploring layout reaches a stage, the harness compiles the path the agent kept into a recipe, the palm's waypoints relative to the located objects split at every grasp and release, and a draft program in the staged form. The agent turns the draft into a program by closing the loop: measuring again before contact, checking that a hand holds, and stating how each stage function fails.</p></div><div class="chips"><span class="chip">play</span><span class="chip">take</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= results ======================= -->
+<section class="sec" id="results">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow"><svg class="ic"><use href="#i-podium"/></svg>Results · Bench2Dex</span>
+      <h2>The highest score on Bench2Dex</h2>
+      <p class="lead">26 bimanual tasks, 12 arm–hand embodiments and 4 perturbation channels, 5,200 formal episodes under the benchmark's own protocol. Score = 0.45 SR + 0.45 LSCR + 10 Eff.</p>
+    </div>
+
+    <div class="card lb-card rv">
+      <div class="lb-scroll">
+        <table class="lb">
+          <thead><tr><th>Method</th><th>Type</th><th>Demos</th><th class="num">SR (%)</th><th class="num">LSCR (%)</th><th class="num">Eff</th><th>Score</th></tr></thead>
+          <tbody>
+            <tr class="ours top"><td class="m">PyRUA-Dex, Stage 2<svg class="ic crown" aria-label="state of the art"><use href="#i-crown"/></svg></td><td><span class="type"><svg class="ic"><use href="#i-code"/></svg>Agent</span></td><td class="no-demo">none</td><td class="num"><b>60.6</b></td><td class="num"><b>82.3</b></td><td class="num">0.859</td><td><div class="score"><span class="track"><span class="fill" style="--v:72.9"></span></span><b>72.9</b></div></td></tr>
+            <tr><td class="m">ME-Dex 1.5</td><td><span class="type"><svg class="ic"><use href="#i-pulse"/></svg>VTA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">58.6</td><td class="num">76.3</td><td class="num">0.979</td><td><div class="score"><span class="track"><span class="fill" style="--v:70.5"></span></span><b>70.5</b></div></td></tr>
+            <tr><td class="m">GigaWorld-Policy-0.6</td><td><span class="type"><svg class="ic"><use href="#i-globe"/></svg>WAM</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">51.4</td><td class="num">70.9</td><td class="num">0.962</td><td><div class="score"><span class="track"><span class="fill" style="--v:64.6"></span></span><b>64.6</b></div></td></tr>
+            <tr class="ours s1"><td class="m">PyRUA-Dex, Stage 1</td><td><span class="type"><svg class="ic"><use href="#i-code"/></svg>Agent</span></td><td class="no-demo">none</td><td class="num">44.6</td><td class="num">67.0</td><td class="num">0.889</td><td><div class="score"><span class="track"><span class="fill" style="--v:59.13"></span></span><b>59.1</b></div></td></tr>
+            <tr><td class="m">Phoenix-MWA</td><td><span class="type"><svg class="ic"><use href="#i-globe"/></svg>WAM</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">45.6</td><td class="num">65.6</td><td class="num">0.903</td><td><div class="score"><span class="track"><span class="fill" style="--v:59.07"></span></span><b>59.1</b></div></td></tr>
+            <tr><td class="m">MXI</td><td><span class="type"><svg class="ic"><use href="#i-eye"/></svg>VLA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">36.9</td><td class="num">54.8</td><td class="num">0.970</td><td><div class="score"><span class="track"><span class="fill" style="--v:50.9"></span></span><b>50.9</b></div></td></tr>
+            <tr><td class="m">Mora V0</td><td><span class="type"><svg class="ic"><use href="#i-eye"/></svg>VLA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">33.2</td><td class="num">52.3</td><td class="num">0.974</td><td><div class="score"><span class="track"><span class="fill" style="--v:48.2"></span></span><b>48.2</b></div></td></tr>
+            <tr><td class="m">GR00T N1.7 + tactile</td><td><span class="type"><svg class="ic"><use href="#i-eye"/></svg>VLA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">29.7</td><td class="num">48.4</td><td class="num">0.950</td><td><div class="score"><span class="track"><span class="fill" style="--v:44.6"></span></span><b>44.6</b></div></td></tr>
+            <tr><td class="m">GR00T N1.7</td><td><span class="type"><svg class="ic"><use href="#i-eye"/></svg>VLA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">27.2</td><td class="num">45.5</td><td class="num">0.940</td><td><div class="score"><span class="track"><span class="fill" style="--v:42.1"></span></span><b>42.1</b></div></td></tr>
+            <tr><td class="m">π<sub>0.5</sub></td><td><span class="type"><svg class="ic"><use href="#i-eye"/></svg>VLA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">27.4</td><td class="num">44.7</td><td class="num">0.960</td><td><div class="score"><span class="track"><span class="fill" style="--v:42.0"></span></span><b>42.0</b></div></td></tr>
+            <tr><td class="m">GR00T N1.5 + tactile</td><td><span class="type"><svg class="ic"><use href="#i-eye"/></svg>VLA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">25.5</td><td class="num">46.5</td><td class="num">0.946</td><td><div class="score"><span class="track"><span class="fill" style="--v:41.9"></span></span><b>41.9</b></div></td></tr>
+            <tr><td class="m">GR00T N1.5</td><td><span class="type"><svg class="ic"><use href="#i-eye"/></svg>VLA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">24.9</td><td class="num">45.2</td><td class="num">0.930</td><td><div class="score"><span class="track"><span class="fill" style="--v:40.8"></span></span><b>40.8</b></div></td></tr>
+            <tr><td class="m">ACT</td><td><span class="type"><svg class="ic"><use href="#i-film"/></svg>IL</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">18.1</td><td class="num">34.9</td><td class="num">0.967</td><td><div class="score"><span class="track"><span class="fill" style="--v:33.5"></span></span><b>33.5</b></div></td></tr>
+            <tr><td class="m">Diffusion Policy</td><td><span class="type"><svg class="ic"><use href="#i-film"/></svg>IL</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">4.6</td><td class="num">18.3</td><td class="num">0.865</td><td><div class="score"><span class="track"><span class="fill" style="--v:19.0"></span></span><b>19.0</b></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="lb-note">Four-channel means (None, Equi., Inv., Full) of every <a href="https://bench2dex.github.io/Bench2Dex-Leaderboard/" target="_blank" rel="noopener">Bench2Dex leaderboard</a> entry that reports all four channels; ME-Dex 1.5 from its leaderboard submission. Demos: trained on the benchmark's teleoperated demonstrations. IL: imitation learning; VLA: vision-language-action model; WAM: world-action model; VTA: visuo-tactile action model. Stage 1 59.13, Phoenix-MWA 59.07.</div>
+    </div>
+
+    <div class="ins-grid">
+      <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-trophy"/></svg></div><div><b>Ahead of every trained policy</b><span>60.6% success and 82.3% stage completion, against 58.6% and 76.3% for ME-Dex 1.5, which fine-tunes a checkpoint per task.</span></div></div>
+      <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-gate"/></svg></div><div><b>Steady under perturbation</b><span>Success varies by 4.1 points across the four channels, and equivariance is the programs' best: a program measures the scene in every episode.</span></div></div>
+      <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-podium"/></svg></div><div><b>Above the best trained policy on 15 of 26 tasks</b><span>Widest where the difficulty is precision and order: piano melody 99.5% vs 32.0%, ball sorting 81.5% vs 37.5%.</span></div></div>
+    </div>
+
+    <figure class="fig rv" style="margin-top:22px">
+      <a class="zoom" href="static/images/paper/fig-results.webp"><img src="static/images/paper/fig-results.webp" alt="Bench2Dex results: scores of all four-channel entries, success rate against stage completion, and success rate against execution budget" width="1959" height="684" loading="lazy"></a>
+      <figcaption><b>Bench2Dex results.</b> (a) Score of every four-channel entry; the dashed line marks the best trained policy and the arrow the gain of the practise stage. (b) Success rate against latched stage completion. (c) Full-channel success rate against the execution budget: the online GPT-6 Astra agent, trained policies at the benchmark's budget, and the frozen PyRUA-Dex programs, which spend no tokens at test time.</figcaption>
+    </figure>
+    <figure class="fig rv">
+      <a class="zoom" href="static/images/paper/fig-pertask.webp"><img src="static/images/paper/fig-pertask.webp" alt="Per-task success rate and stage completion of the Stage 1 and Stage 2 champions with the best trained policy on each task" width="1959" height="1185" loading="lazy"></a>
+      <figcaption><b>Per-task results.</b> (a) Success rate and (b) latched stage completion of the Stage 1 and Stage 2 champions (four-channel means, 200 formal episodes per task), with the best trained policy on each task (grey tick). A trophy marks a task on which Stage 2 is above the best trained policy.</figcaption>
+    </figure>
+
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-target"/></svg>What practising adds</h3>
+    <div class="num-grid">
+      <div class="nbox rv"><b>+13.8</b><span>score points from practising, 59.1 → 72.9</span></div>
+      <div class="nbox rv"><b>20 / 26</b><span>tasks raise their success rate; stage completion 67.0% → 82.3%</span></div>
+      <div class="nbox rv"><b>68%</b><span>of Stage 1's failed dev runs had returned with three tenths of the steps or more unused</span></div>
+      <div class="nbox rv"><b>43.6% → 61.7%</b><span>dev layouts completed, against formal success 44.6% → 60.6%: the gate predicts the benchmark</span></div>
+    </div>
+    <figure class="fig rv">
+      <a class="zoom" href="static/images/paper/fig-stage2.webp"><img src="static/images/paper/fig-stage2.webp" alt="Why practising works: how Stage 1 programs failed, held-out completions batch by batch, and task 12 link by link" width="1959" height="645" loading="lazy"></a>
+      <figcaption><b>Why practising works.</b> (a) How the 341 failed dev runs of the Stage 1 champions ended. (b) Completions on each task's 32 held-out layouts, batch by batch through Stage 2; batch 0 is the Stage 1 champion on the same list. (c) Task 12: held-out layouts that reached each stage, Stage 1 against Stage 2 champion; the strike link rises from 4 to 17 layouts and putting the hammer back from 0 to 15.</figcaption>
+    </figure>
+
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-bolt"/></svg>Frozen programs against the same model online</h3>
+    <div class="online-grid">
+      <div class="card rv">
+        <span class="k-label">Full channel, at the benchmark's step budget</span>
+        <div class="vs">
+          <div><div class="vs-v">61.5%</div><div class="vs-k"><b>PyRUA-Dex</b>, frozen programs<br>0 tokens per episode</div></div>
+          <div class="vs-x">vs</div>
+          <div><div class="vs-v gray">26.2%</div><div class="vs-k"><b>GPT-6 Astra agent</b>, online<br>11.2M tokens per episode</div></div>
+        </div>
+        <ul class="ticks">
+          <li><svg class="ic"><use href="#i-clock"/></svg><span>The online agent reaches 61.5% only at ten times the budget (32.1% at 2×, 50.0% at 5×), with 33.7M tokens per episode.</span></li>
+          <li><svg class="ic"><use href="#i-coins"/></svg><span>Developing all 26 tasks took 11.7B tokens in Stage 1 and 6.6B in Stage 2, less than a third of the online agent's 58B tokens for the benchmark's 5,200 episodes at 1×.</span></li>
+          <li><svg class="ic"><use href="#i-snow"/></svg><span>Every further episode of a frozen program costs no tokens and runs at the control rate.</span></li>
+        </ul>
+      </div>
+      <div class="card rv">
+        <span class="k-label">What learning a task costs</span>
+        <table class="cost">
+          <thead><tr><th></th><th>Stage 1 · explore</th><th>Stage 2 · practise</th></tr></thead>
+          <tbody>
+            <tr><td>Tasks with recorded counts</td><td>26</td><td>23</td></tr>
+            <tr><td>Agents</td><td>208 sessions</td><td>one per task</td></tr>
+            <tr><td>Tokens</td><td>11.7B</td><td>6.6B</td></tr>
+            <tr><td>Agent hours</td><td>615</td><td>362</td></tr>
+            <tr><td>Median per task</td><td>427M · 21.6 h</td><td>214M · 14.8 h</td></tr>
+          </tbody>
+        </table>
+        <p class="cost-note">Tasks that were nearly solved submitted after one batch (about four agent hours); the hardest used all or nearly all 1,500 layouts and 21–38 agent hours. Stage 2 for all 26 tasks ran in about three days of wall-clock time on shared GPU clusters.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= real robot ======================= -->
+<section class="sec alt" id="real">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow"><svg class="ic"><use href="#i-hand"/></svg>Real robot</span>
+      <h2>From the twin to the real robot</h2>
+      <p class="lead">All learning happens in a simulated twin of our rig, with the same two stages as on Bench2Dex. What reaches the robot is the frozen champion, which sees the scene only through the rig's cameras and the hands' sensors and makes no language-model call.</p>
+    </div>
+    <div class="rig rv">
+      <span><svg class="ic"><use href="#i-robot"/></svg>2 × Franka FR3 arms</span>
+      <span><svg class="ic"><use href="#i-hand"/></svg>2 × Sharpa Wave SE hands, 22 joints each</span>
+      <span><svg class="ic"><use href="#i-camera"/></svg>ZED-M stereo camera above the table</span>
+      <span><svg class="ic"><use href="#i-camera"/></svg>RealSense D405 on each wrist</span>
+      <span><svg class="ic"><use href="#i-sim"/></svg>MuJoCo twin from the rig's calibration</span>
+    </div>
+
+    <figure class="fig rv">
+      <a class="zoom" href="static/images/paper/fig-r2s2r.webp"><img src="static/images/paper/fig-r2s2r.webp" alt="Real to sim to real on cube-to-basket: phone video, reconstructed objects, the rig's MuJoCo twin, both stages in the twin, and the frozen champion on the robot" width="1959" height="534" loading="lazy"></a>
+      <figcaption><b>Real to sim to real, on cube-to-basket.</b> (1) A phone video of the objects and two tape-measured sizes are (2) reconstructed into a textured mesh and an MJCF model. (3) The twin carries the rig's camera and hand-eye calibration, the hands' identified drives and limits, and per-layout randomization of what the calibration leaves open. (4) Both stages run in the twin, unchanged from Bench2Dex. (5) The frozen champion runs on the robot behind the rig's guard.</figcaption>
+    </figure>
+
+    <div class="real-grid">
+      <div class="card film rv">
+        <video data-auto muted loop playsinline preload="none" poster="static/videos/real/cubes_to_basket_poster.jpg" aria-label="Real robot, cube-to-basket: the left hand puts the blue cube in the basket, then the right hand the pink one"><source src="static/videos/real/cubes_to_basket_head_4x.mp4" type="video/mp4"></video>
+        <div class="film-meta"><span class="pill"><svg class="ic"><use href="#i-film"/></svg>Head camera · 4×</span><span><b>Cube to basket</b>, the frozen Stage 2 champion, run of Nov 19, 17:22: the left hand puts the blue cube in the basket, then the right hand the pink one.</span></div>
+      </div>
+      <div class="card tally rv">
+        <span class="k-label">Every run on the robot</span>
+        <div class="tally-big"><b>9</b><span>/ 11</span></div>
+        <p class="tally-k">runs with both cubes in the basket</p>
+        <div class="day"><span class="day-l">NOV 18</span><div class="runs">
+          <span class="run ok" tabindex="0" data-v="18:44" data-l="both cubes in · first run on the robot"><svg class="ic"><use href="#i-check"/></svg></span>
+          <span class="run no" tabindex="0" data-v="18:51" data-l="hand watchdog after the first cube"><svg class="ic"><use href="#i-x"/></svg></span>
+        </div></div>
+        <div class="day"><span class="day-l">NOV 19</span><div class="runs">
+          <span class="run ok" tabindex="0" data-v="13:07" data-l="both cubes in"><svg class="ic"><use href="#i-check"/></svg></span>
+          <span class="run ok shown" tabindex="0" data-v="17:22" data-l="both cubes in · the film"><svg class="ic"><use href="#i-check"/></svg></span>
+          <span class="run ok" tabindex="0" data-v="18:25" data-l="both cubes in"><svg class="ic"><use href="#i-check"/></svg></span>
+          <span class="run ok" tabindex="0" data-v="18:29" data-l="both cubes in"><svg class="ic"><use href="#i-check"/></svg></span>
+          <span class="run ok" tabindex="0" data-v="18:34" data-l="both cubes in"><svg class="ic"><use href="#i-check"/></svg></span>
+          <span class="run ok" tabindex="0" data-v="18:38" data-l="both cubes in"><svg class="ic"><use href="#i-check"/></svg></span>
+          <span class="run no" tabindex="0" data-v="18:44" data-l="blue cube not grasped"><svg class="ic"><use href="#i-x"/></svg></span>
+          <span class="run ok" tabindex="0" data-v="18:48" data-l="both cubes in"><svg class="ic"><use href="#i-check"/></svg></span>
+          <span class="run ok" tabindex="0" data-v="18:51" data-l="both cubes in"><svg class="ic"><use href="#i-check"/></svg></span>
+        </div></div>
+        <ul class="tally-notes">
+          <li><svg class="ic"><use href="#i-x"/></svg><span>Nov 18, 18:51, played at 0.6 of the arms' speed limits (all others at 0.3): the right hand's controller stopped on its oscillation watchdog after the first cube.</span></li>
+          <li><svg class="ic"><use href="#i-x"/></svg><span>Nov 19, 18:44: the blue cube was not grasped.</span></li>
+          <li><svg class="ic gold"><use href="#i-film"/></svg><span>Gold ring: the run in the film. Judged from the last frame of each run's film.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Both stages in the twin</h3>
+    <p class="h3-lead rv">Dev layouts completed (of 32) by the frozen champion after each stage, for the 14 rig tasks on which both stages ran. Tasks that exploration nearly solved gain a few layouts; tasks whose explored champions rarely completed gain most.</p>
+    <div class="card twin-card rv">
+      <div class="twin-top">
+        <div class="legend"><span class="key"><i></i>Stage 1 champion</span><span class="key"><i class="s2"></i>Stage 2 champion</span></div>
+        <div class="twin-total">All 14 tasks: <b>137 → 257</b> of 448 dev layouts (31% → 57%)</div>
+      </div>
+      <div class="dumb">
+        <div class="dumb-row" style="--a:28;--b:31"><div class="dumb-name"><b>Huarongdao</b><small>slide Cao Cao to the exit (six moves)</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="28 / 32" data-l="Huarongdao · Stage 1"></span><span class="pt s2" tabindex="0" data-v="31 / 32" data-l="Huarongdao · Stage 2"></span></div><div class="dumb-v">28 → <b>31</b></div></div>
+        <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Cubes to basket</b><small>each hand puts its cube in the basket</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Cubes to basket · Stage 1"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Cubes to basket · Stage 2"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
+        <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Play piano</b><small>Ode to Joy, eight phrases</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Play piano · Stage 1"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Play piano · Stage 2"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
+        <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Piano, two hands</b><small>Twinkle Twinkle, tune and bass</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, two hands · Stage 1"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Piano, two hands · Stage 2"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
+        <div class="dumb-row" style="--a:6;--b:20"><div class="dumb-name"><b>Stack cubes</b><small>a tower of three cubes</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="6 / 32" data-l="Stack cubes · Stage 1"></span><span class="pt s2" tabindex="0" data-v="20 / 32" data-l="Stack cubes · Stage 2"></span></div><div class="dumb-v">6 → <b>20</b></div></div>
+        <div class="dumb-row" style="--a:11;--b:17"><div class="dumb-name"><b>Open box</b><small>open a hinged lid past 100°</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="11 / 32" data-l="Open box · Stage 1"></span><span class="pt s2" tabindex="0" data-v="17 / 32" data-l="Open box · Stage 2"></span></div><div class="dumb-v">11 → <b>17</b></div></div>
+        <div class="dumb-row" style="--a:1;--b:21"><div class="dumb-name"><b>Stack bowls</b><small>nest three bowls</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="1 / 32" data-l="Stack bowls · Stage 1"></span><span class="pt s2" tabindex="0" data-v="21 / 32" data-l="Stack bowls · Stage 2"></span></div><div class="dumb-v">1 → <b>21</b></div></div>
+        <div class="dumb-row" style="--a:2;--b:20"><div class="dumb-name"><b>In-hand rotation</b><small>turn two lettered cubes to the camera</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="2 / 32" data-l="In-hand rotation · Stage 1"></span><span class="pt s2" tabindex="0" data-v="20 / 32" data-l="In-hand rotation · Stage 2"></span></div><div class="dumb-v">2 → <b>20</b></div></div>
+        <div class="dumb-row" style="--a:1;--b:16"><div class="dumb-name"><b>Upright Dex</b><small>write “Dex” with an upright brush</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="1 / 32" data-l="Upright Dex · Stage 1"></span><span class="pt s2" tabindex="0" data-v="16 / 32" data-l="Upright Dex · Stage 2"></span></div><div class="dumb-v">1 → <b>16</b></div></div>
+        <div class="dumb-row" style="--a:0;--b:16"><div class="dumb-name"><b>Write Dex</b><small>write “Dex” with a brush</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="0 / 32" data-l="Write Dex · Stage 1"></span><span class="pt s2" tabindex="0" data-v="16 / 32" data-l="Write Dex · Stage 2"></span></div><div class="dumb-v">0 → <b>16</b></div></div>
+        <div class="dumb-row" style="--a:1;--b:11"><div class="dumb-name"><b>DAGroup across</b><small>write “DAGroup” for a reader opposite</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="1 / 32" data-l="DAGroup across · Stage 1"></span><span class="pt s2" tabindex="0" data-v="11 / 32" data-l="DAGroup across · Stage 2"></span></div><div class="dumb-v">1 → <b>11</b></div></div>
+        <div class="dumb-row" style="--a:0;--b:9"><div class="dumb-name"><b>Brush Dex</b><small>write “Dex”, light brushwork</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="0 / 32" data-l="Brush Dex · Stage 1"></span><span class="pt s2" tabindex="0" data-v="9 / 32" data-l="Brush Dex · Stage 2"></span></div><div class="dumb-v">0 → <b>9</b></div></div>
+        <div class="dumb-row" style="--a:0;--b:0"><div class="dumb-name"><b>Open lock</b><small>open a padlock with its key</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="0 / 32" data-l="Open lock · Stage 1"></span><span class="pt s2" tabindex="0" data-v="0 / 32" data-l="Open lock · Stage 2"></span></div><div class="dumb-v">0 → <b>0</b></div></div>
+        <div class="dumb-row" style="--a:0;--b:0"><div class="dumb-name"><b>Shuffle chips</b><small>riffle two chip stacks into one</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="0 / 32" data-l="Shuffle chips · Stage 1"></span><span class="pt s2" tabindex="0" data-v="0 / 32" data-l="Shuffle chips · Stage 2"></span></div><div class="dumb-v">0 → <b>0</b></div></div>
+        <div class="dumb-axis" aria-hidden="true"><span class="axis-pad"></span><div class="axis-ticks"><span style="left:0%">0</span><span style="left:25%">8</span><span style="left:50%">16</span><span style="left:75%">24</span><span style="left:100%">32</span></div><span class="axis-unit">of 32</span></div>
+      </div>
+      <details class="table-toggle">
+        <summary>Show as a table</summary>
+        <table class="twin-table">
+          <thead><tr><th>Task</th><th>Goal</th><th class="num">Steps (30 Hz)</th><th class="num">Stage 1</th><th class="num">Stage 2</th></tr></thead>
+          <tbody>
+            <tr><td>Huarongdao</td><td>slide Cao Cao to the exit (six moves)</td><td class="num">9000</td><td class="num">28</td><td class="num">31</td></tr>
+            <tr><td>Cubes to basket</td><td>each hand puts its cube in the basket</td><td class="num">1200</td><td class="num">29</td><td class="num">32</td></tr>
+            <tr><td>Play piano</td><td>Ode to Joy, eight phrases</td><td class="num">4500</td><td class="num">29</td><td class="num">32</td></tr>
+            <tr><td>Piano, two hands</td><td>Twinkle Twinkle, tune and bass</td><td class="num">4500</td><td class="num">29</td><td class="num">32</td></tr>
+            <tr><td>Stack cubes</td><td>a tower of three cubes</td><td class="num">1000</td><td class="num">6</td><td class="num">20</td></tr>
+            <tr><td>Open box</td><td>open a hinged lid past 100°</td><td class="num">1000</td><td class="num">11</td><td class="num">17</td></tr>
+            <tr><td>Stack bowls</td><td>nest three bowls</td><td class="num">1200</td><td class="num">1</td><td class="num">21</td></tr>
+            <tr><td>In-hand rotation</td><td>turn two lettered cubes to the camera</td><td class="num">1200</td><td class="num">2</td><td class="num">20</td></tr>
+            <tr><td>Upright Dex</td><td>write “Dex” with an upright brush</td><td class="num">1000</td><td class="num">1</td><td class="num">16</td></tr>
+            <tr><td>Write Dex</td><td>write “Dex” with a brush</td><td class="num">1000</td><td class="num">0</td><td class="num">16</td></tr>
+            <tr><td>DAGroup across</td><td>write “DAGroup” for a reader opposite</td><td class="num">3000</td><td class="num">1</td><td class="num">11</td></tr>
+            <tr><td>Brush Dex</td><td>write “Dex”, light brushwork</td><td class="num">1000</td><td class="num">0</td><td class="num">9</td></tr>
+            <tr><td>Open lock</td><td>open a padlock with its key</td><td class="num">2400</td><td class="num">0</td><td class="num">0</td></tr>
+            <tr><td>Shuffle chips</td><td>riffle two chip stacks into one</td><td class="num">1500</td><td class="num">0</td><td class="num">0</td></tr>
+            <tr><td><b>Total</b></td><td></td><td></td><td class="num"><b>137 / 448</b></td><td class="num"><b>257 / 448</b></td></tr>
+          </tbody>
+        </table>
+      </details>
+    </div>
+
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-film"/></svg>More tasks on the rig</h3>
+    <p class="h3-lead rv">Champions learned in the twin run on the robot through the same path as cube-to-basket.</p>
+    <section class="demo-group rv" aria-labelledby="demo-manipulation">
+      <h4 class="demo-group-title" id="demo-manipulation">Object manipulation</h4>
+      <div class="slot-grid">
+        <div class="slot">
+          <div class="slot-media">
+            <video controls playsinline preload="none" poster="static/images/real/demos/open-box.jpg" aria-label="Open a box">
+              <source src="static/videos/real/demos/open-box.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="slot-body">
+            <div class="demo-card-title">
+              <b>Open a box</b>
+              <span class="demo-duration">1:45</span>
+            </div>
+            <p lang="zh-CN">开盒子</p>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="slot-media">
+            <video controls playsinline preload="none" poster="static/images/real/demos/clear-cubes.jpg" aria-label="Clear the cubes">
+              <source src="static/videos/real/demos/clear-cubes.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="slot-body">
+            <div class="demo-card-title">
+              <b>Clear the cubes</b>
+              <span class="demo-duration">1:42</span>
+            </div>
+            <p lang="zh-CN">收拾方块</p>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="slot-media">
+            <video controls playsinline preload="none" poster="static/images/real/demos/stack-cubes.jpg" aria-label="Stack small cubes">
+              <source src="static/videos/real/demos/stack-cubes.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="slot-body">
+            <div class="demo-card-title">
+              <b>Stack small cubes</b>
+              <span class="demo-duration">3:04</span>
+            </div>
+            <p lang="zh-CN">叠小方块</p>
+            <p>a tower of three cubes; the first program run on the robot built it on its first attempt</p>
+            <span class="twin-chip">Twin: 6 → 20 / 32</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-group rv" aria-labelledby="demo-writing">
+      <h4 class="demo-group-title" id="demo-writing">Brush writing</h4>
+      <div class="slot-grid">
+        <div class="slot">
+          <div class="slot-media">
+            <video controls playsinline preload="none" poster="static/images/real/demos/write-dex.jpg" aria-label="Write “Dex”">
+              <source src="static/videos/real/demos/write-dex.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="slot-body">
+            <div class="demo-card-title">
+              <b>Write “Dex”</b>
+              <span class="demo-duration">5:07</span>
+            </div>
+            <p lang="zh-CN">写dex</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demo-group rv" aria-labelledby="demo-piano">
+      <h4 class="demo-group-title" id="demo-piano">Piano performances</h4>
+      <div class="slot-grid">
+        <div class="slot">
+          <div class="slot-media">
+            <video controls playsinline preload="none" poster="static/images/real/demos/little-jumping-frog.jpg" aria-label="Little Jumping Frog">
+              <source src="static/videos/real/demos/little-jumping-frog.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="slot-body">
+            <div class="demo-card-title">
+              <b>Little Jumping Frog</b>
+              <span class="demo-duration">4:19</span>
+            </div>
+            <p lang="zh-CN">小跳蛙</p>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="slot-media">
+            <video controls playsinline preload="none" poster="static/images/real/demos/night-cruise.jpg" aria-label="Night Cruise">
+              <source src="static/videos/real/demos/night-cruise.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="slot-body">
+            <div class="demo-card-title">
+              <b>Night Cruise</b>
+              <span class="demo-duration">4:50</span>
+            </div>
+            <p lang="zh-CN">夜间巡航</p>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="slot-media">
+            <video controls playsinline preload="none" poster="static/images/real/demos/jasmine-flower.jpg" aria-label="Jasmine Flower">
+              <source src="static/videos/real/demos/jasmine-flower.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="slot-body">
+            <div class="demo-card-title">
+              <b>Jasmine Flower</b>
+              <span class="demo-duration">5:46</span>
+            </div>
+            <p lang="zh-CN">茉莉花</p>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="slot-media">
+            <video controls playsinline preload="none" poster="static/images/real/demos/canon.jpg" aria-label="Canon">
+              <source src="static/videos/real/demos/canon.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="slot-body">
+            <div class="demo-card-title">
+              <b>Canon</b>
+              <span class="demo-duration">8:36</span>
+            </div>
+            <p lang="zh-CN">卡农</p>
+          </div>
+        </div>
+        <div class="slot">
+          <div class="slot-media">
+            <video controls playsinline preload="none" poster="static/images/real/demos/anohana.jpg" aria-label="Anohana">
+              <source src="static/videos/real/demos/anohana.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="slot-body">
+            <div class="demo-card-title">
+              <b>Anohana</b>
+              <span class="demo-duration">12:18</span>
+            </div>
+            <p lang="zh-CN">未闻花名</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <details class="table-toggle demo-upcoming rv">
+      <summary>Upcoming demonstrations</summary>
+      <div class="slot-grid">
+        <div class="slot rv"><div class="slot-media"><span class="flag"><svg class="ic"><use href="#i-clock"/></svg>Video soon</span><svg class="ic"><use href="#i-piano"/></svg></div><div class="slot-body"><b>Play piano</b><p>Ode to Joy, eight phrases</p><span class="twin-chip">Twin: 29 → 32 / 32</span></div></div>
+        <div class="slot rv"><div class="slot-media"><span class="flag"><svg class="ic"><use href="#i-clock"/></svg>Video soon</span><svg class="ic"><use href="#i-piano"/></svg></div><div class="slot-body"><b>Piano, two hands</b><p>Twinkle Twinkle, tune and bass</p><span class="twin-chip">Twin: 29 → 32 / 32</span></div></div>
+        <div class="slot rv"><div class="slot-media"><span class="flag"><svg class="ic"><use href="#i-clock"/></svg>Video soon</span><svg class="ic"><use href="#i-puzzle"/></svg></div><div class="slot-body"><b>Huarongdao</b><p>slide Cao Cao to the exit in six moves</p><span class="twin-chip">Twin: 28 → 31 / 32</span></div></div>
+        <div class="slot rv"><div class="slot-media"><span class="flag"><svg class="ic"><use href="#i-clock"/></svg>Video soon</span><svg class="ic"><use href="#i-bowl"/></svg></div><div class="slot-body"><b>Stack bowls</b><p>nest three bowls</p><span class="twin-chip">Twin: 1 → 21 / 32</span></div></div>
+        <div class="slot rv"><div class="slot-media"><span class="flag"><svg class="ic"><use href="#i-clock"/></svg>Video soon</span><svg class="ic"><use href="#i-rotate"/></svg></div><div class="slot-body"><b>In-hand rotation</b><p>turn two lettered cubes to the camera</p><span class="twin-chip">Twin: 2 → 20 / 32</span></div></div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ======================= DexJoCo (reserved) ======================= -->
+<section class="sec" id="dexjoco">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow"><svg class="ic"><use href="#i-cube"/></svg>Next benchmark</span>
+      <h2>DexJoCo</h2>
+      <p class="lead">PyRUA-Dex on DexJoCo's 11 dexterous manipulation tasks in MuJoCo, from watering a plant to unlocking an iPad with two hands. Results will appear here.</p>
+    </div>
+    <div class="dj-grid">
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-plant"/></svg></div><div><b>Water plant</b><br><code>water_plant</code></div><div class="dj-tags"><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-hammer"/></svg></div><div><b>Hammer nail</b><br><code>hammer_nail</code></div><div class="dj-tags"><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-mouse"/></svg></div><div><b>Click mouse</b><br><code>click_mouse</code></div><div class="dj-tags"><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-glasses"/></svg></div><div><b>Fold glasses</b><br><code>fold_glasses</code></div><div class="dj-tags"><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-bucket"/></svg></div><div><b>Pick bucket</b><br><code>pick_bucket</code></div><div class="dj-tags"><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-tongs"/></svg></div><div><b>Pinch tongs</b><br><code>pinch_tongs</code></div><div class="dj-tags"><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-cog"/></svg></div><div><b>Assembly</b><br><code>bimanual_assembly</code></div><div class="dj-tags"><span class="tag bi">bimanual</span><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-hanoi"/></svg></div><div><b>Tower of Hanoi</b><br><code>bimanual_hanoi</code></div><div class="dj-tags"><span class="tag bi">bimanual</span><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-microwave"/></svg></div><div><b>Microwave cook</b><br><code>bimanual_microwave_cook</code></div><div class="dj-tags"><span class="tag bi">bimanual</span><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-camera"/></svg></div><div><b>Photograph</b><br><code>bimanual_photograph</code></div><div class="dj-tags"><span class="tag bi">bimanual</span><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card rv"><div class="badge"><svg class="ic"><use href="#i-tablet"/></svg></div><div><b>Unlock iPad</b><br><code>bimanual_unlock_ipad</code></div><div class="dj-tags"><span class="tag bi">bimanual</span><span class="tag"><svg class="ic"><use href="#i-clock"/></svg>coming soon</span></div></div>
+      <div class="dj-card dj-sum rv"><div class="badge"><svg class="ic"><use href="#i-clock"/></svg></div><b>11 tasks · MuJoCo</b><span>Frozen champions, films and scores coming soon</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= BibTeX ======================= -->
+<section class="sec alt" id="bibtex">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow"><svg class="ic"><use href="#i-quote"/></svg>Citation</span>
+      <h2>BibTeX</h2>
+    </div>
+    <div class="bib rv">
+      <button class="btn btn-sm copy" id="bib-copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copy</span></button>
+<pre id="bib-text">@article{pyruadex2026,
+  title   = {{PyRUA-Dex}: Explore, Then Practise --- Coding Agents Learn
+             Dexterous Bimanual Manipulation Without Demonstrations},
+  author  = {{PyRUA-Dex Team}},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</pre>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand"><img src="static/images/pku-emblem.svg" alt="" width="34" height="34"><div>PKU DAGroup<small>Peking University</small></div></div>
+    <p>&copy; 2026 PKU DAGroup · part of the PyRUA family with <a href="https://qistee.github.io/PyRUA-REAL/">PyRUA-REAL</a> and <a href="https://xiwen1.github.io/PyRUA-DataFarm/">PyRUA-DataFarm</a></p>
+  </div>
+</footer>
+
+<script src="static/js/site.js?v=20261120"></script>
+</body>
+</html>
