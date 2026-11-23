@@ -7,48 +7,55 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var hasIO = "IntersectionObserver" in window;
 
-
-  var background = document.getElementById("hero-piano");
-  var backgroundSound = document.querySelector("[data-hero-sound]");
-  if (background && backgroundSound) {
-    function updateBackgroundSound() {
-      backgroundSound.textContent = background.muted ? "Turn sound on" : "Mute sound";
-      backgroundSound.setAttribute("aria-label", background.muted ? "Turn background sound on" : "Mute background sound");
-    }
-
-    function playBackground() {
-      var play = background.play();
-      if (play && play.catch) play.catch(updateBackgroundSound);
-    }
-
-    backgroundSound.addEventListener("click", function () {
-      background.muted = !background.muted;
-      if (!background.muted && background.paused) playBackground();
-      updateBackgroundSound();
+  /* hero background film: on by default (a visitor's choice is remembered); off, the hero is the light page as before */
+  var heroVid = document.getElementById("hero-piano");
+  var heroSw = document.querySelector("[data-hero-video]");
+  var heroSnd = document.querySelector("[data-hero-sound]");
+  var hero = heroVid && heroVid.closest(".hero");
+  if (heroVid && heroSw && hero) {
+    var heroOn = !reduce, heroSeen = true;
+    try { var saved = localStorage.getItem("pyruaHeroVideo"); if (saved) heroOn = saved === "on"; } catch (e) {}
+    var heroPlay = function () {
+      if (!heroOn || !heroSeen) return;
+      var p = heroVid.play();
+      if (p && p.catch) p.catch(function () {});
+    };
+    var heroSound = function () {
+      if (!heroSnd) return;
+      heroSnd.hidden = !heroOn;
+      heroSnd.setAttribute("aria-pressed", heroVid.muted ? "false" : "true");
+      heroSnd.textContent = heroVid.muted ? "Sound off" : "Sound on";
+    };
+    var heroApply = function () {
+      hero.classList.toggle("vid-on", heroOn);
+      hero.classList.toggle("vid-off", !heroOn);
+      heroSw.setAttribute("aria-pressed", heroOn ? "true" : "false");
+      heroSw.setAttribute("aria-label", heroOn ? "Turn the background video off" : "Turn the background video on");
+      if (heroOn) heroPlay(); else { heroVid.pause(); heroVid.muted = true; }
+      heroSound();
+    };
+    heroSw.addEventListener("click", function () {
+      heroOn = !heroOn;
+      try { localStorage.setItem("pyruaHeroVideo", heroOn ? "on" : "off"); } catch (e) {}
+      heroApply();
     });
-    background.addEventListener("volumechange", updateBackgroundSound);
-    document.addEventListener("play", function (event) {
-      var video = event.target;
-      if (video !== background && video.tagName === "VIDEO" && !video.muted &&
-          (video.controls || video.closest("[data-theater]"))) {
-        background.muted = true;
-      }
+    if (heroSnd) heroSnd.addEventListener("click", function () {
+      heroVid.muted = !heroVid.muted;
+      if (!heroVid.muted) heroPlay();
+      heroSound();
+    });
+    heroVid.addEventListener("volumechange", heroSound);
+    document.addEventListener("play", function (e) {   // another film with sound mutes the background
+      var v = e.target;
+      if (v !== heroVid && v.tagName === "VIDEO" && !v.muted) heroVid.muted = true;
     }, true);
-    backgroundSound.hidden = false;
-
-    if (!reduce) {
-      if (hasIO) {
-        var heroObserver = new IntersectionObserver(function (entries) {
-          if (entries[0].isIntersecting) {
-            heroObserver.disconnect();
-            playBackground();
-          }
-        }, { threshold: 0.1 });
-        heroObserver.observe(background.closest(".hero-opening"));
-      } else {
-        playBackground();
-      }
+    if (hasIO) {
+      new IntersectionObserver(function (es) {
+        heroSeen = es[0].isIntersecting;
+        if (heroSeen) heroPlay(); else heroVid.pause();
+      }, { threshold: 0.05 }).observe(hero.querySelector(".hero-opening"));
     }
+    heroApply();
   }
 
   /* clips: load and play only while on screen; with reduced motion, show controls instead of autoplay */
