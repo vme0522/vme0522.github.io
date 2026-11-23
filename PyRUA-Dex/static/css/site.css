@@ -84,8 +84,8 @@ code { font-family: var(--mono); font-size: .9em; color: var(--red-dk); backgrou
 .hero-backdrop { position: absolute; inset: 0 auto 0 50%; width: 100vw; transform: translateX(-50%); z-index: -1;
   overflow: hidden; pointer-events: none; background: #f4f2f2; transition: opacity .6s ease, visibility .6s; }
 .hero-backdrop video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 58%; }
-.hero-card { max-width: 1080px; margin: 0 auto; padding: 26px 30px 28px; border: 1px solid rgba(255, 255, 255, .78);
-  border-radius: 24px; background: rgba(255, 255, 255, .80); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+.hero-card { max-width: 1080px; margin: 0 auto; padding: 26px 30px 28px; border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 24px; background: rgba(255, 255, 255, .55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   box-shadow: 0 18px 50px rgba(40, 12, 16, .16); transition: background .6s ease, box-shadow .6s ease, border-color .6s ease; }
 .hero.vid-on::before { opacity: 0; }
 .hero.vid-off .hero-backdrop { opacity: 0; visibility: hidden; }
