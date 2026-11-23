@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PyRUA-Dex: Learning Programmatic Policies for Dexterous Bimanual Manipulation with Coding Agents</title>
-  <meta name="description" content="Coding agents learn programmatic policies for dexterous bimanual manipulation from their own trials in simulation: one frozen program per task, with no demonstrations, no trained weights and no language model at test time. SOTA on Bench2Dex (score 72.9); DexJoCo 88.5% and 81.0% under object and full randomization; on a real bimanual rig, frozen programs put cubes in a basket, stack cubes, play the piano, write calligraphy and open hinged objects.">
+  <meta name="description" content="Coding agents learn programmatic policies for dexterous bimanual manipulation from their own trials in simulation: one frozen program per task, with no language model at test time. SOTA on Bench2Dex (score 72.9); DexJoCo 88.5% and 81.0% under object and full randomization; on a real bimanual rig, frozen programs put cubes in a basket, stack cubes, play the piano, write calligraphy and open hinged objects.">
   <meta name="keywords" content="Dexterous manipulation, Bimanual manipulation, Coding agents, Policies as code, Bench2Dex, DexJoCo, Real-to-sim-to-real, Peking University">
   <meta name="author" content="PKU DAGroup">
   <meta name="theme-color" content="#9A0000">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="PKU DAGroup">
   <meta property="og:title" content="PyRUA-Dex: Learning Programmatic Policies for Dexterous Bimanual Manipulation with Coding Agents">
-  <meta property="og:description" content="Coding agents learn programmatic policies for dexterous bimanual manipulation, without demonstrations. SOTA on Bench2Dex (score 72.9); DexJoCo 81.0% under full randomization; on a real bimanual rig, frozen programs put cubes in a basket, stack cubes, play the piano, write calligraphy and open hinged objects.">
+  <meta property="og:description" content="Coding agents learn programmatic policies for dexterous bimanual manipulation. SOTA on Bench2Dex (score 72.9); DexJoCo 81.0% under full randomization; on a real bimanual rig, frozen programs put cubes in a basket, stack cubes, play the piano, write calligraphy and open hinged objects.">
   <meta property="og:url" content="https://vme0522.github.io/PyRUA-Dex/">
   <meta property="og:image" content="https://vme0522.github.io/PyRUA-Dex/static/images/og-teaser.jpg">
   <meta name="twitter:card" content="summary_large_image">
@@ -99,7 +99,7 @@
     <h1 class="title"><span class="wm-py">PyRUA</span><span class="wm-dex">-<img class="wm-hand" src="static/images/dex-handwritten.svg?v=3" alt="Dex" width="1885" height="813"></span></h1>
     <p class="sub1">Learning Programmatic Policies</p>
     <p class="sub2">for Dexterous Bimanual Manipulation with Coding Agents</p>
-    <p class="hero-sota"><svg class="ic"><use href="#i-crown"/></svg><span><b>SOTA on Bench2Dex</b>, without demonstrations</span></p>
+    <p class="hero-sota"><svg class="ic"><use href="#i-crown"/></svg><span><b>SOTA on Bench2Dex</b></span></p>
     <p class="authors">
       <span>Feixiang Ruan<sup>1,3*</sup></span>,
       <span>Kewei Zhang<sup>1*</sup></span>,
@@ -135,7 +135,7 @@
       <button class="hero-snd" type="button" data-hero-sound aria-pressed="false" aria-controls="hero-piano">Sound off</button>
     </div>
   </div>
-  <p class="tldr">Coding agents <b>explore</b> a task in simulation, <b>practise</b> it link by link, and hand over a frozen programmatic policy: no demonstrations, no trained weights, no language model at test time.</p>
+  <p class="tldr">Coding agents <b>explore</b> a task in simulation, <b>practise</b> it link by link, and hand over a frozen programmatic policy that runs with no language model at test time.</p>
 
   <figure class="teaser">
     <div class="clips">
@@ -194,10 +194,10 @@
     <div class="abs-grid">
       <div class="card abstract rv">
         <h3><svg class="ic"><use href="#i-paper"/></svg>Abstract</h3>
-        <p>Dexterous bimanual manipulation is usually learned from demonstrations, which are costly to collect for multi-fingered hands and do not transfer between hands. We show that coding agents can instead learn a <em>programmatic policy</em> for each task from their own trials in simulation: a program that runs frozen at test time, without demonstrations, trained weights or language-model calls. <b>PyRUA-Dex</b> learns it in two stages. In the <em>explore</em> stage, eight GPT-6 Astra agents search in parallel for a way through the task, with rewinds and stage feedback, and a distilling agent turns what scored into a task library and a champion. In the <em>practise</em> stage, one agent makes that way hold by strengthening its weakest link over many layouts, keeping a new champion only if it does no worse on unseen development layouts. <b>Without demonstrations, PyRUA-Dex sets a new SOTA on Bench2Dex.</b> On Bench2Dex (26 bimanual tasks on 12 arm–hand embodiments), practising lifts the score from 59.1 to <b>72.9</b>, ahead of every trained policy on the benchmark, and the frozen programs succeed 2.4 times as often as the same model acting online at the same step budget. On DexJoCo, they succeed in <b>88.5%</b> of episodes under object randomization and <b>81.0%</b> under full randomization, against 54.1% and 40.3% for the strongest trained policy, and above the online agent at the benchmark's step budget. On a real bimanual rig with two 22-DoF hands, the same procedure learns in a calibrated twin refined by the robot's feedback, its frozen programs run on the robot, and with a skill shared within a task family, a new task typically takes under an hour.</p>
+        <p>Dexterous bimanual manipulation is usually learned from demonstrations, which are costly to collect for multi-fingered hands and do not transfer between hands. We show that coding agents can instead learn a <em>programmatic policy</em> for each task from their own trials in simulation: a program that runs frozen at test time, without demonstrations, trained weights or language-model calls. <b>PyRUA-Dex</b> learns it in two stages. In the <em>explore</em> stage, eight GPT-6 Astra agents search in parallel for a way through the task, with rewinds and stage feedback, and a distilling agent turns what scored into a task library and a champion. In the <em>practise</em> stage, one agent makes that way hold by strengthening its weakest link over many layouts, keeping a new champion only if it does no worse on unseen development layouts. <b>PyRUA-Dex sets a new SOTA on Bench2Dex.</b> On Bench2Dex (26 bimanual tasks on 12 arm–hand embodiments), practising lifts the score from 59.1 to <b>72.9</b>, ahead of every trained policy on the benchmark, and the frozen programs succeed 2.4 times as often as the same model acting online at the same step budget. On DexJoCo, they succeed in <b>88.5%</b> of episodes under object randomization and <b>81.0%</b> under full randomization, against 54.1% and 40.3% for the strongest trained policy, and above the online agent at the benchmark's step budget. On a real bimanual rig with two 22-DoF hands, the same procedure learns in a calibrated twin refined by the robot's feedback, its frozen programs run on the robot, and with a skill shared within a task family, a new task typically takes under an hour.</p>
       </div>
       <div class="glance">
-        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-ban"/></svg></div><div><b>No demonstrations</b><span>Agents learn from their own trials in simulation, with rewinds and the simulator's stage count.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-repeat"/></svg></div><div><b>Learned from the agents' own trials</b><span>Agents learn from their own trials in simulation, with rewinds and the simulator's stage count.</span></div></div>
         <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-file-code"/></svg></div><div><b>A programmatic policy, not weights</b><span>Each task's policy is a Python program on a shared codebox; the task-12 champion is 2,241 lines in 22 files.</span></div></div>
         <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-chip-off"/></svg></div><div><b>No language model at test time</b><span>The champion runs frozen at the control rate, under the benchmark's own protocol and inputs.</span></div></div>
         <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-robot"/></svg></div><div><b>Two benchmarks and a real rig</b><span>Bench2Dex's 12 arm–hand pairs, from 6 to 22 hand joints; DexJoCo's Franka arms with Allegro hands; our FR3 rig with two Sharpa hands.</span></div></div>
