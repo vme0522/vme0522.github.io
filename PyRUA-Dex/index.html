@@ -142,7 +142,7 @@
       <button class="hero-snd" type="button" data-hero-sound aria-pressed="false" aria-controls="hero-piano">Sound off</button>
     </div>
   </div>
-  <p class="tldr">Coding agents <b>explore</b> a task in simulation, <b>refine</b> the resulting program link by link, and hand over a frozen programmatic policy that runs with no language model at test time.</p>
+  <p class="tldr">Coding agents <b>explore</b> a task in simulation, <b>refine</b> the resulting program stage by stage, and hand over a frozen programmatic policy that runs with no language model at test time.</p>
 
   <figure class="teaser">
     <div class="clips-h"><svg class="ic"><use href="#i-hand"/></svg><b>Real robot</b><span>two FR3 arms, two Sharpa Wave hands · third-person cameras</span></div>
@@ -223,8 +223,8 @@
         <p>Learning for dexterous manipulation is limited by the scarcity of high-quality demonstrations: retargeting from human video is imprecise, teleoperation gives no force feedback to the operator, and exoskeleton-based collection is hard to scale. We present <b>PyRUA-Dex</b>, a framework that enables coding agents to develop dexterous manipulation through <em>programmatic policy</em>, without the need of demonstrations. The programmatic policy is developed in two stages: during <em>exploration</em>, multiple agents explore in parallel for task skills and ways to compose them, and a distilling agent condenses the successful attempts into a task library and a reward program. During <em>refinement</em>, the skills and the reward program are jointly improved through randomized layouts for enhanced robustness and execution efficiency. In simulated environments, PyRUA-Dex achieves SOTA on Bench2Dex with a score of 72.9 and reaches 81.0% success on DexJoCo under full randomization, ahead of every trained policy on both benchmarks. In real world experiments on a bimanual platform with two 22-DoF hands, PyRUA-Dex learns to play piano, write calligraphy, and other tasks efficiently: learning a new piece from sheet music takes as little as 30 minutes. These results suggest that PyRUA-Dex is an effective framework for developing dexterous manipulation policies with coding agents in the absence of high quality dexterous manipulation demonstrations.</p>
       </div>
       <div class="glance">
-        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-repeat"/></svg></div><div><b>Learned from the agents' own trials</b><span>Agents learn from their own trials in simulation, with checkpoints and the simulator's stage count.</span></div></div>
-        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-file-code"/></svg></div><div><b>A programmatic policy, not weights</b><span>Each task's policy is a Python program on a shared codebox; the final program of task 12 is 2,241 lines in 22 files.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-repeat"/></svg></div><div><b>Learned from the agents' own trials</b><span>Agents learn from their own trials in simulation, with state resets and the simulator's stage count.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-file-code"/></svg></div><div><b>A programmatic policy, not weights</b><span>Each task's policy is a Python program over a shared library of perception and control primitives; the final program of task 12 is 2,241 lines in 22 files.</span></div></div>
         <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-chip-off"/></svg></div><div><b>No language model at test time</b><span>The program runs frozen at the control rate, under the benchmark's own protocol and inputs.</span></div></div>
         <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-robot"/></svg></div><div><b>Two benchmarks and a real robot</b><span>Bench2Dex's 12 arm–hand pairs, with 6 to 22 driven joints per hand; DexJoCo's Franka arms with Allegro hands; our FR3 platform with two Sharpa hands.</span></div></div>
       </div>
@@ -238,12 +238,12 @@
     <div class="sec-head rv">
       <span class="eyebrow"><svg class="ic"><use href="#i-flow"/></svg>Method</span>
       <h2>Exploration, then refinement</h2>
-      <p class="lead">PyRUA-Dex learns one programmatic policy per task in simulation and deploys it as a frozen program. Both stages are carried out by general coding agents, Codex CLI sessions of GPT-6 Astra, each with a shell, its own simulator instance and the codebox. Exploration (Stage 1) searches for a program that completes the task at all; refinement (Stage 2) improves how reliably that program completes the task on unseen layouts.</p>
+      <p class="lead">PyRUA-Dex learns one programmatic policy per task in simulation and deploys it as a frozen program. Both stages are carried out by general coding agents, Codex CLI sessions of GPT-6 Astra, each with a shell, its own simulator instance and a library of perception and control primitives shared by all robots (the codebox). Exploration (Stage 1) searches for a program that completes the task at all; refinement (Stage 2) improves how reliably that program completes the task on unseen layouts.</p>
     </div>
 
     <figure class="fig rv">
-      <a class="zoom" href="static/images/paper/fig-method.svg?v=20261124g"><img src="static/images/paper/fig-method.svg?v=20261124g" alt="Overview of PyRUA-Dex: the inputs, with object poses and simulator state marked as not given; learning in simulation, with Stage 1, exploration (one agent's loop of exploring with checkpoints drawn once and marked times eight, shared notes, agent-free replay and distillation into one program) and Stage 2, refinement (per-link report, refining the weakest link, version selection); the frozen program, tested on Bench2Dex and DexJoCo, shown in simulation and, by sim-to-real transfer, in the real world, whose feedback updates the simulation (real-to-sim)" width="2400" height="897" loading="lazy"></a>
-      <figcaption><b>Overview of PyRUA-Dex.</b> All learning takes place in simulation. <b>Stage 1</b> (exploration): eight agents (one is drawn) explore the task, each on a training layout of its own with checkpoints, and share notes; their programs are replayed without the agents and distilled into a task library and one program. <b>Stage 2</b> (refinement): one agent finds the program's weakest link in a per-link report, refines it on randomized layouts and keeps the version with the best held-out record. The resulting program runs frozen, without a language model. For the real world, the simulation is built from the real scene (real-to-sim), the frozen program is transferred (sim-to-real), and real-world feedback updates the simulation for the next round of refinement.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-method.svg?v=20261124h"><img src="static/images/paper/fig-method.svg?v=20261124h" alt="Overview of PyRUA-Dex: the inputs, with object poses and simulator state marked as not given; learning in simulation, with Stage 1, exploration (one agent's loop of exploration with state resets drawn once and marked times eight, shared memory, program evaluation and distillation into one program) and Stage 2, refinement (stage-wise failure analysis, bottleneck refinement, program selection); the frozen program, tested on Bench2Dex and DexJoCo, shown in simulation and, by sim-to-real transfer, in the real world, whose feedback updates the simulation (real-to-sim)" width="2400" height="897" loading="lazy"></a>
+      <figcaption><b>Overview of PyRUA-Dex.</b> All learning takes place in simulation. <b>Stage 1</b> (exploration): eight agents (one is drawn) explore the task, each on a training layout of its own with state resets, and share a memory; their programs are evaluated without the agents and distilled into a task library and one program. <b>Stage 2</b> (refinement): one agent finds the program's bottleneck stage by a stage-wise failure analysis, refines it on randomized layouts and selects the version with the best held-out record. The resulting program runs frozen, without a language model. For the real world, the simulation is built from the real scene (real-to-sim), the frozen program is transferred (sim-to-real), and real-world feedback updates the simulation for the next round of refinement.</figcaption>
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-layers"/></svg>Two stages, both in simulation</h3>
@@ -252,19 +252,19 @@
         <div class="stage-top"><div class="stage-num">1</div><div><h3>Exploration</h3><p class="stage-goal">find a program that completes the task at all</p></div></div>
         <ul class="steps">
           <li><svg class="ic"><use href="#i-users"/></svg><span><b>Eight agents in parallel.</b> Each receives the task library, a training layout of its own and one of the stages not yet solved.</span></li>
-          <li><svg class="ic"><use href="#i-restore"/></svg><span><b>Exploring with checkpoints.</b> An agent saves checkpoints of an episode and restores them, eight times per layout: it retries one stage many times without repeating the stages before it, and queries the stage count after each attempt.</span></li>
-          <li><svg class="ic"><use href="#i-notes"/></svg><span><b>Shared notes.</b> Every attempt an agent finishes is added to notes shared by all agents of the task, with the stages it reached and the code that reached them; a note-keeping agent curates the notes.</span></li>
-          <li><svg class="ic"><use href="#i-snow"/></svg><span><b>Agent-free replay.</b> Each agent writes a program that reproduces what it achieved; it is replayed without the agent on eight fresh training layouts.</span></li>
+          <li><svg class="ic"><use href="#i-restore"/></svg><span><b>Exploration with state resets.</b> An agent checkpoints the simulator's state during an episode and resets to a checkpoint, eight times per layout: it retries one stage many times without repeating the stages before it, and queries the stage count after each attempt.</span></li>
+          <li><svg class="ic"><use href="#i-notes"/></svg><span><b>Shared memory.</b> Every attempt an agent finishes is written to a memory shared by all agents of the task, with the stages it reached and the code that reached them; a dedicated agent curates the memory.</span></li>
+          <li><svg class="ic"><use href="#i-snow"/></svg><span><b>Program evaluation.</b> Each agent writes a program that reproduces what it achieved; it is evaluated without the agent on eight fresh training layouts.</span></li>
           <li><svg class="ic"><use href="#i-book"/></svg><span><b>Distillation.</b> A distilling agent writes the task library from the replay records and selects the task's program.</span></li>
         </ul>
       </div>
       <div class="card stage s2 rv">
         <div class="stage-top"><div class="stage-num">2</div><div><h3>Refinement</h3><p class="stage-goal">make the program reliable on unseen layouts</p></div></div>
         <ul class="steps">
-          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Per-link report.</b> The program on 32 fresh training layouts, reported per link, so the weakest link is visible before any change is made.</span></li>
-          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Refining the weakest link.</b> The agent repairs the stage function with the help of checkpoints, then measures it with partial rollouts: the program runs only up to that stage on tens of fresh layouts, with twice the benchmark's step budget.</span></li>
+          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Stage-wise failure analysis.</b> The program runs on 32 fresh training layouts and the result is broken down by stage, which shows the bottleneck before any change is made.</span></li>
+          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Bottleneck refinement.</b> The agent repairs the stage function with the help of state resets, then measures it with partial rollouts: the program runs only up to that stage on tens of fresh layouts, with twice the benchmark's step budget.</span></li>
           <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Retries.</b> With <code>AGAIN = True</code>, a stage function that did not end ok is called again while steps remain.</span></li>
-          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Version selection.</b> After every 160 training layouts the current version is evaluated without the agent on 32 fresh and 32 held-out layouts, at the benchmark's step budget; of at most 1,500 layouts, the version with the best held-out record is selected.</span></li>
+          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Program selection.</b> After every 160 training layouts the current version is evaluated without the agent on 32 fresh and 32 held-out layouts, at the benchmark's step budget; of at most 1,500 layouts, the version with the best held-out record is selected.</span></li>
         </ul>
       </div>
     </div>
@@ -273,25 +273,25 @@
       <div><b>Kept only if no worse on validation layouts</b><span>After each stage, the selected program replaces the current one only if it completes no fewer of the task's 32 validation layouts, and then reaches stages no less often. Validation layouts are never shown to an agent; the final program is evaluated frozen under the benchmark's protocol. Training, validation and test layouts are disjoint: agents work only on training layouts, and the benchmark's test layouts are run once, after the program is fixed, so no test result feeds back into development.</span></div>
     </div>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-chain"/></svg>A task is a chain of links</h3>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-chain"/></svg>A task is a chain of stages</h3>
     <div class="chain-grid">
       <div class="card rv">
         <span class="k-label">Success factorizes along the chain</span>
         <div class="formula">SR(<i>π</i>) = <i>s</i>(<i>π</i>) <span class="big">∏</span><span class="lim"><i>K</i><span><i>k</i>=1</span></span><i>r</i><sub><i>k</i></sub>(<i>π</i>)</div>
         <p class="formula-note"><i>r<sub>k</sub></i>, the link rate: the fraction of layouts that reach stage <i>k</i> among those that reached the stage before</p>
-        <div class="chainviz" role="img" aria-label="Five links of 0.6 each give a success rate of 0.08">
+        <div class="chainviz" role="img" aria-label="Five stages with a link rate of 0.6 each give a success rate of 0.08">
           <span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk-eq">= 0.08</span>
         </div>
-        <p class="chain-text">Five links that each hold on 60% of the layouts complete fewer than 8% of them, so a program that worked once fails on most layouts.</p>
-        <p class="chain-text">Because ∂ log SR / ∂<i>r<sub>k</sub></i> = 1 / <i>r<sub>k</sub></i>, the largest gain comes from the weakest link: refinement finds it and raises it.</p>
+        <p class="chain-text">Five stages that each hold on 60% of the layouts complete fewer than 8% of them, so a program that worked once fails on most layouts.</p>
+        <p class="chain-text">Because ∂ log SR / ∂<i>r<sub>k</sub></i> = 1 / <i>r<sub>k</sub></i>, the largest gain comes from the stage with the lowest link rate, the bottleneck: refinement finds it and raises it.</p>
       </div>
       <div class="card rv">
         <span class="k-label">Why two stages</span>
         <ul class="ticks">
           <li><svg class="ic"><use href="#i-search"/></svg><span><b>Exploration</b> makes every link rate positive, <i>r<sub>k</sub></i> &gt; 0: a search over grasps, hand orders and motions on a few layouts.</span></li>
           <li><svg class="ic"><use href="#i-target"/></svg><span><b>Refinement</b> needs link rates estimated over many layouts: once every link rate is positive, the product dominates.</span></li>
-          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Retries</b> raise a link directly. In 68% of the failed validation runs of the programs after exploration, on the 22 tasks they completed at least once, the program had returned with at least 30% of the step budget unused.</span></li>
-          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>The staged form</b> lets every measurement be reported per link, lets functions written by different agents be combined, and lets a single link be executed in isolation.</span></li>
+          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Retries</b> raise a link rate directly. In 68% of the failed validation runs of the programs after exploration, on the 22 tasks they completed at least once, the program had returned with at least 30% of the step budget unused.</span></li>
+          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>The staged form</b> lets every measurement be reported per stage, lets functions written by different agents be combined, and lets a single stage be executed in isolation.</span></li>
         </ul>
       </div>
     </div>
@@ -369,8 +369,8 @@
       </div>
     </div>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-code"/></svg>Driving dexterous hands: the codebox</h3>
-    <p class="h3-lead rv">Hands are what makes these tasks hard to program: the twelve hands of Bench2Dex have 6 to 22 driven joints, named and arranged differently on each robot, and whether a grasp holds is revealed only by touch. Agents and programs therefore control every robot through the codebox, which is built automatically from the robot's description file. It models each hand as fingers and a thumb whose joints are grouped by function, derives which object widths each set of fingers can hold, and exposes hand primitives at that level: shape the hand, grasp an object of a measured size, close until it is held, check that it is still held. Every primitive returns an outcome with its reason, so a program can check each step and retry.</p>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-code"/></svg>Driving dexterous hands: perception and control primitives</h3>
+    <p class="h3-lead rv">Hands are what makes these tasks hard to program: the twelve hands of Bench2Dex have 6 to 22 driven joints, named and arranged differently on each robot, and whether a grasp holds is revealed only by touch. Agents and programs therefore control every robot through one library of primitives, the codebox, which is generated from the robot's description file. It models each hand as fingers and a thumb whose joints are grouped by function, derives which object widths each set of fingers can hold, and exposes hand primitives at that level: shape the hand, grasp an object of a measured size, close until it is held, check that it is still held. Every primitive returns an outcome with its reason, so a program can check each step and retry.</p>
     <div class="cb-grid">
       <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-hand"/></svg></div><h4>Grasps instead of joint angles</h4><p>A model of each hand, built once from the robot's public description without reading any link or joint name: fingers and thumb, and joints grouped by what they do (bend, curl, spread). From it the codebox knows which widths each set of fingers holds; a program asks to grasp an object it has measured, and the codebox picks the fingers and how far to open them. The same calls drive the hands of all 12 Bench2Dex robots, with 6 to 22 driven joints, and the Sharpa hands of our real platform.</p><div class="chips"><span class="chip">shape</span><span class="chip">close</span><span class="chip">grasp</span><span class="chip">release</span></div></div>
       <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-route"/></svg></div><h4>Arms: plan whole, then move</h4><p>Arm calls put a frame of the hand at a point, with an approach direction and via points, and solve every pose before anything moves; a call says why a motion cannot run: unreachable, below the measured table, or in need of an arm reconfiguration. All motions run at the joints' speed limits.</p><div class="chips"><span class="chip">move_to</span><span class="chip">arc</span><span class="chip">together</span></div></div>
@@ -628,7 +628,7 @@
       <div class="nbox rv"><b>43.6% → 61.7%</b><span>validation layouts completed, against test success 44.6% → 60.6%: validation layouts predict test performance</span></div>
     </div>
     <figure class="fig rv">
-      <a class="zoom" href="static/images/paper/fig-stage2.webp?v=20261124g"><img src="static/images/paper/fig-stage2.webp?v=20261124g" alt="Why refinement works: how the programs after exploration failed, held-out completions of the versions evaluated during refinement, and task 12 link by link" width="1959" height="645" loading="lazy"></a>
+      <a class="zoom" href="static/images/paper/fig-stage2.webp?v=20261124h"><img src="static/images/paper/fig-stage2.webp?v=20261124h" alt="Why refinement works: how the programs after exploration failed, held-out completions of the versions evaluated during refinement, and task 12 stage by stage" width="1959" height="645" loading="lazy"></a>
       <figcaption><b>Why refinement works.</b> (a) How the 341 failed validation runs of the programs after exploration ended, on the 22 tasks that exploration completed at least once (a run can count in two classes). (b) Held-out completions (of 32) of the versions evaluated during refinement; version 0 is the program after exploration, and the large dot is the version that was selected. (c) Task 12: held-out layouts that reached each stage, after exploration and after refinement.</figcaption>
     </figure>
 
@@ -671,7 +671,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow"><svg class="ic"><use href="#i-cube"/></svg>Results · DexJoCo</span>
-      <h2>The findings transfer to a second benchmark</h2>
+      <h2>The method generalizes to a second benchmark</h2>
       <p class="lead">The same two stages on DexJoCo's 11 tasks for Franka arms with 16-DoF Allegro hands, in MuJoCo, under the official protocol: three seeds of 50 episodes per task and setting. DexJoCo defines no stages, so during development an agent learns only whether an episode succeeded, and its programs see the cameras without calibration; both stages run in rand-full. One frozen program per task serves both settings: rand-obj randomizes object placement and table height, rand-full also camera poses, lighting and tabletop texture. PyRUA-Dex exceeds the best of the benchmark's trained policies on all 11 tasks in both settings, and refinement lifts its success rate from 58.7% to 88.5% under rand-obj and from 64.1% to 81.0% under rand-full.</p>
     </div>
 
