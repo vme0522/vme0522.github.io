@@ -113,6 +113,9 @@
       <span>Weicheng Duan<sup>4</sup></span>,
       <span>Qiang Wang<sup>1</sup></span>,
       <span><a href="https://jxbi1010.github.io/" target="_blank" rel="noopener">Jianxin Bi</a><sup>1,2</sup></span>,
+      <span>Shulong Jiang<sup>1</sup></span>,
+      <span>Yuze Fan<sup>4</sup></span>,
+      <span>Haobo Li<sup>4</sup></span>,
       <span>Zeliang Fu<sup>4</sup></span>,
       <span>Jiankun Zhang<sup>5</sup></span>,
       <span><a href="https://dorniwang.github.io/" target="_blank" rel="noopener">Duomin Wang</a><sup>3</sup></span>,
@@ -398,7 +401,7 @@
     <p class="h3-lead rv">On the real robot, the frozen programs play the piano, put cubes in a basket, stack cubes, write calligraphy with a brush and open hinged objects. They perceive the scene only through the platform's cameras and the hands' sensors.</p>
     <div class="theater rv" data-theater>
       <div class="th-tabs" role="tablist" aria-label="Task families on the real robot">
-        <button class="th-tab on" type="button" role="tab" id="th-tab-piano" aria-controls="th-fam-piano" aria-selected="true"><svg class="ic"><use href="#i-piano"/></svg><span>Piano</span><em>5</em></button>
+        <button class="th-tab on" type="button" role="tab" id="th-tab-piano" aria-controls="th-fam-piano" aria-selected="true"><svg class="ic"><use href="#i-piano"/></svg><span>Piano</span><em>6</em></button>
         <button class="th-tab" type="button" role="tab" id="th-tab-basket" aria-controls="th-fam-basket" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-basket"/></svg><span>Cube to basket</span><em>1</em></button>
         <button class="th-tab" type="button" role="tab" id="th-tab-stack" aria-controls="th-fam-stack" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-stack"/></svg><span>Stack cubes</span><em>1</em></button>
         <button class="th-tab" type="button" role="tab" id="th-tab-brush" aria-controls="th-fam-brush" aria-selected="false" tabindex="-1"><svg class="ic"><use href="#i-brush"/></svg><span>Calligraphy</span><em>1</em></button>
@@ -406,7 +409,7 @@
         <span class="th-ink" aria-hidden="true"></span>
       </div>
       <div class="th-stage">
-        <section class="th-fam on" id="th-fam-piano" role="tabpanel" aria-labelledby="th-tab-piano" data-n="5">
+        <section class="th-fam on" id="th-fam-piano" role="tabpanel" aria-labelledby="th-tab-piano" data-n="6">
           <p class="th-desc"><svg class="ic"><use href="#i-piano"/></svg>Both hands play a piece from its score. One skill shared by the piano family arranges a score for the two hands and plays it; with it a new piece typically takes under an hour of iteration.</p>
           <p class="th-note">Before each piece the robot calibrates on the keyboard, one key at a time; the films start with the piece.</p>
           <div class="th-track">
@@ -433,12 +436,19 @@
             </figure>
             <figure class="th-slide" data-i="3">
               <div class="th-media">
+                <video playsinline preload="none" poster="static/images/real/huang-sha-zi-ma.jpg?v=20261124" aria-label="What&#x27;s the Rush (慌啥子嘛), on the real robot"><source src="static/videos/real/huang-sha-zi-ma.mp4?v=20261124" type="video/mp4"></video>
+                <button class="th-play" type="button" aria-label="Play What&#x27;s the Rush"><svg class="ic"><use href="#i-play"/></svg></button>
+              </div>
+              <figcaption><b>What&#x27;s the Rush</b> <span class="th-zh" lang="zh-CN">慌啥子嘛</span><span class="th-sub">A recent hit song, tune and broken chords with two hands.</span><span class="th-dur"><svg class="ic"><use href="#i-clock"/></svg>3:10</span></figcaption>
+            </figure>
+            <figure class="th-slide" data-i="4">
+              <div class="th-media">
                 <video playsinline preload="none" poster="static/images/real/canon.jpg?v=20261124" aria-label="Canon (卡农), on the real robot"><source src="static/videos/real/canon.mp4?v=20261124" type="video/mp4"></video>
                 <button class="th-play" type="button" aria-label="Play Canon"><svg class="ic"><use href="#i-play"/></svg></button>
               </div>
               <figcaption><b>Canon</b> <span class="th-zh" lang="zh-CN">卡农</span><span class="th-sub">Pachelbel&#x27;s Canon with two hands.</span><span class="th-dur"><svg class="ic"><use href="#i-clock"/></svg>3:13</span></figcaption>
             </figure>
-            <figure class="th-slide" data-i="4">
+            <figure class="th-slide" data-i="5">
               <div class="th-media">
                 <video playsinline preload="none" poster="static/images/real/anohana.jpg?v=20261124" aria-label="Anohana (未闻花名), on the real robot"><source src="static/videos/real/anohana.mp4?v=20261124" type="video/mp4"></video>
                 <button class="th-play" type="button" aria-label="Play Anohana"><svg class="ic"><use href="#i-play"/></svg></button>
@@ -452,8 +462,9 @@
             <button class="th-thumb" type="button" data-i="0" aria-label="Little Jumping Frog"><img src="static/images/real/little-jumping-frog.jpg?v=20261124" alt="" loading="lazy" width="160" height="90"><span><b>Little Jumping Frog</b><small>1:06</small></span><i class="th-bar"></i></button>
             <button class="th-thumb" type="button" data-i="1" aria-label="Night Cruise"><img src="static/images/real/night-cruise.jpg?v=20261124" alt="" loading="lazy" width="160" height="90"><span><b>Night Cruise</b><small>1:52</small></span><i class="th-bar"></i></button>
             <button class="th-thumb" type="button" data-i="2" aria-label="Jasmine Flower"><img src="static/images/real/jasmine-flower.jpg?v=20261124" alt="" loading="lazy" width="160" height="90"><span><b>Jasmine Flower</b><small>2:53</small></span><i class="th-bar"></i></button>
-            <button class="th-thumb" type="button" data-i="3" aria-label="Canon"><img src="static/images/real/canon.jpg?v=20261124" alt="" loading="lazy" width="160" height="90"><span><b>Canon</b><small>3:13</small></span><i class="th-bar"></i></button>
-            <button class="th-thumb" type="button" data-i="4" aria-label="Anohana"><img src="static/images/real/anohana.jpg?v=20261124" alt="" loading="lazy" width="160" height="90"><span><b>Anohana</b><small>8:13</small></span><i class="th-bar"></i></button>
+            <button class="th-thumb" type="button" data-i="3" aria-label="What&#x27;s the Rush"><img src="static/images/real/huang-sha-zi-ma.jpg?v=20261124" alt="" loading="lazy" width="160" height="90"><span><b>What&#x27;s the Rush</b><small>3:10</small></span><i class="th-bar"></i></button>
+            <button class="th-thumb" type="button" data-i="4" aria-label="Canon"><img src="static/images/real/canon.jpg?v=20261124" alt="" loading="lazy" width="160" height="90"><span><b>Canon</b><small>3:13</small></span><i class="th-bar"></i></button>
+            <button class="th-thumb" type="button" data-i="5" aria-label="Anohana"><img src="static/images/real/anohana.jpg?v=20261124" alt="" loading="lazy" width="160" height="90"><span><b>Anohana</b><small>8:13</small></span><i class="th-bar"></i></button>
           </div>
         </section>
         <section class="th-fam" id="th-fam-basket" role="tabpanel" aria-labelledby="th-tab-basket" data-n="1" hidden>
@@ -751,8 +762,8 @@
   author  = {Ruan, Feixiang and Lv, Guodong and Zhang, Kewei and Huang, Wenbo and
              Zhang, Yintianrun and Si, Ruiyang and Yang, Shunyu and Wang, Lekai and
              Ni, Rui and Duan, Weicheng and Wang, Qiang and Bi, Jianxin and
-             Fu, Zeliang and Zhang, Jiankun and Wang, Duomin and Xie, Enze and
-             Zhou, Daquan},
+             Jiang, Shulong and Fan, Yuze and Li, Haobo and Fu, Zeliang and
+             Zhang, Jiankun and Wang, Duomin and Xie, Enze and Zhou, Daquan},
   journal = {arXiv preprint},
   year    = {2026}
 }</pre>
