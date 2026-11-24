@@ -255,7 +255,7 @@
           <li><svg class="ic"><use href="#i-restore"/></svg><span><b>Exploration with state resets.</b> An agent checkpoints the simulator's state during an episode and resets to a checkpoint, eight times per layout: it retries one stage many times without repeating the stages before it, and queries the stage count after each attempt.</span></li>
           <li><svg class="ic"><use href="#i-notes"/></svg><span><b>Shared memory.</b> Every attempt an agent finishes is written to a memory shared by all agents of the task, with the stages it reached and the code that reached them; a dedicated agent curates the memory.</span></li>
           <li><svg class="ic"><use href="#i-snow"/></svg><span><b>Program evaluation.</b> Each agent writes a program that reproduces what it achieved; it is evaluated without the agent on eight fresh training layouts.</span></li>
-          <li><svg class="ic"><use href="#i-book"/></svg><span><b>Distillation.</b> A distilling agent writes the task library from the replay records and selects the task's program.</span></li>
+          <li><svg class="ic"><use href="#i-book"/></svg><span><b>Distillation.</b> A distilling agent writes the task library from the evaluation records and selects the task's program.</span></li>
         </ul>
       </div>
       <div class="card stage s2 rv">
@@ -284,6 +284,7 @@
         </div>
         <p class="chain-text">Five stages that each hold on 80% of the layouts complete only 33% of them, so a program that worked once fails on most layouts.</p>
         <p class="chain-text">Because ∂ log SR / ∂<i>r<sub>k</sub></i> = 1 / <i>r<sub>k</sub></i>, the largest gain comes from the least reliable stage, the bottleneck: refinement finds it and raises it.</p>
+        <p class="chain-text"><b>Objective.</b> Learning a task is a search over programs <i>π</i>: maximize SR(<i>π</i>) on the benchmark's test layouts, subject to no language-model call at test time and a budget of simulated layouts for development.</p>
       </div>
       <div class="card rv">
         <span class="k-label">Why two stages</span>
@@ -533,7 +534,7 @@
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Sim-to-real: refinement with real-robot feedback</h3>
-    <p class="h3-lead rv">Validation layouts completed in simulation (of 32) by the program after exploration and after the last round of refinement. After each round the program is executed on the robot, where a server rejects any motion that comes within a few millimeters of a joint limit, the table or the other arm, and what the robot reveals is written back into the simulation: the measured table height, the thumb's coupled swing, softer contacts, a wrist camera kept clear of the table, and the instructions the user gives at the robot. When such an update breaks a program, the next round restores it: Ode to Joy 32 → 0 → 31, Twinkle, Twinkle 32 → 0 → 31, Little Jumping Frog 23 → 0 → 29.</p>
+    <p class="h3-lead rv">Validation layouts completed in simulation (of 32) by the program after exploration and after the last round of refinement. After each round the program is executed on the robot, where a safety guard rejects any motion that comes within a few millimeters of a joint limit, the table or the other arm, and what the robot reveals is written back into the simulation: the measured table height, the thumb's coupled swing, softer contacts, a wrist camera kept clear of the table, and the instructions the user gives at the robot. When such an update breaks a program, the next round restores it: Ode to Joy 32 → 0 → 31, Twinkle, Twinkle 32 → 0 → 31, Little Jumping Frog 23 → 0 → 29.</p>
     <div class="card rs-card rv">
       <div class="rs-top">
         <div class="legend"><span class="key"><i></i>after exploration</span><span class="key"><i class="s2"></i>after the last round of refinement</span></div>
@@ -625,7 +626,7 @@
       <div class="nbox rv"><b>+13.8</b><span>score points from refinement, 59.1 → 72.9</span></div>
       <div class="nbox rv"><b>20 / 26</b><span>tasks raise their success rate; stage completion 67.0% → 82.3%</span></div>
       <div class="nbox rv"><b>68%</b><span>of the failed validation runs after exploration had returned with at least 30% of the step budget unused (341 runs, on the 22 tasks exploration completed at least once)</span></div>
-      <div class="nbox rv"><b>43.6% → 61.7%</b><span>validation layouts completed, against test success 44.6% → 60.6%: validation layouts predict test performance</span></div>
+      <div class="nbox rv"><b>43.6% → 61.7%</b><span>validation layouts completed, against test success 44.6% → 60.6%: the gain carries over to layouts no agent has seen</span></div>
     </div>
     <figure class="fig rv">
       <a class="zoom" href="static/images/paper/fig-stage2.webp?v=20261125"><img src="static/images/paper/fig-stage2.webp?v=20261125" alt="Why refinement works: how the programs after exploration failed, held-out completions of the versions evaluated during refinement, and task 12 stage by stage" width="1959" height="645" loading="lazy"></a>
