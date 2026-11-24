@@ -627,3 +627,52 @@ html:not(.js) .th-tab.on { background: var(--red); }
 /* three number boxes in a row (the simulation's system identification); one column on phones */
 .num-grid.three { grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 720px) { .num-grid.three { grid-template-columns: 1fr; } }
+
+/* ---------- layout pass (2026-11-25) ---------- */
+/* Long prose is set justified with automatic hyphenation, as the abstract already was. A section's lead stays centred
+   under its heading: its lines are justified and the last one is centred. Short labels and the narrow cards (under
+   about 40 characters a line, where justified text opens gaps) keep a ragged right edge. Phones keep it everywhere. */
+.nw { white-space: nowrap; }
+.lead, .h3-lead, .fig figcaption, .code-cap, .lb-note, .cost-note, .dj-note, .chain-text, .keep-rule span, .steps li > span,
+.ticks li > span, .cb p, .skill-note > span:not(.pill), .abstract p { text-align: justify; -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 7 3 3; }
+.lead { text-align-last: center; }
+.h3-lead { max-width: none; }                            /* as wide as the blocks under it (it stopped at 900px) */
+/* the four primitive cards in two columns: in four, the longest ran to 18 short lines beside one of 6 */
+.cb-grid { grid-template-columns: repeat(2, 1fr); }
+/* a block after a figure keeps the figures' distance (the per-task table of DexJoCo touched the figure above it) */
+.fig + .card { margin-top: 22px; }
+/* the tasks' column of the real-robot chart: wide enough for its longest line */
+.dumb-row, .dumb-axis { grid-template-columns: minmax(180px, 1.3fr) 2fr 78px; }
+/* a number with an arrow stays on one line in its box */
+.nbox b.sm { font-size: 24px; }
+.nbox span .nw { display: inline; margin: 0; }           /* ".nbox span" sets spans as blocks: not the no-wrap ones inside */
+.mini b { white-space: nowrap; }
+/* the theatre's description: the icon runs with the centred text (it stood alone at the left edge of two lines) */
+.th-desc { display: block; text-wrap: balance; }
+.th-desc .ic { display: inline-block; margin-right: 8px; vertical-align: -3px; }
+/* the theatre's thumbnails in one row (six piano films wrapped to a second row): on wide windows a film strip of equal
+   cells under the film, as wide as the film; on narrower ones the row scrolls sideways, as it does on phones */
+@media (min-width: 1061px) {
+  .th-thumbs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 8px; max-width: var(--w); margin: 16px auto 0; }
+  .th-thumb { flex-direction: column; align-items: stretch; gap: 6px; padding: 6px 6px 9px; text-align: center; }
+  .th-thumb img { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+  .th-thumb b { font-size: 12.5px; letter-spacing: -.01em; }
+  .th-thumb > span { flex: 1; display: flex; flex-direction: column; }      /* a title on two lines: the durations stay level */
+  .th-thumb small { margin-top: auto; padding-top: 2px; }
+}
+@media (min-width: 721px) and (max-width: 1060px) {
+  .th-thumbs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding: 2px 2px 8px; scroll-snap-type: x proximity; scrollbar-width: none; }
+  .th-thumbs::-webkit-scrollbar { display: none; }
+  .th-thumb { flex: none; scroll-snap-align: center; }
+  .th-thumb b { white-space: nowrap; }
+}
+@media (max-width: 720px) {
+  .h3-lead, .fig figcaption, .code-cap, .lb-note, .cost-note, .dj-note, .chain-text, .keep-rule span, .steps li > span,
+  .ticks li > span, .cb p, .skill-note > span:not(.pill), .abstract p { text-align: left; }
+  .lead { text-align: center; text-align-last: auto; }
+  .cb-grid { grid-template-columns: 1fr; }
+  .mini b { font-size: 17.5px; }
+  .dumb-row { grid-template-columns: 1fr 64px; }
+  .dumb-axis { grid-template-columns: 1fr 64px; }
+  .th-desc .ic { display: none; }
+}

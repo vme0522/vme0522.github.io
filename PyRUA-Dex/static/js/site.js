@@ -249,7 +249,9 @@
       var slides = Array.prototype.slice.call(fam.querySelectorAll(".th-slide"));
       var thumbs = Array.prototype.slice.call(fam.querySelectorAll(".th-thumb"));
       var track = fam.querySelector(".th-track");
-      fam._i = 0;
+      /* the film in front at first: data-start on the family (the piano family opens on its third film, so that a
+         film waits on each side), else the first */
+      fam._i = Math.max(0, Math.min(slides.length - 1, parseInt(fam.getAttribute("data-start"), 10) || 0));
       fam._layout = function () {
         slides.forEach(function (s, i) {
           var o = Math.max(-2, Math.min(2, i - fam._i)), on = o === 0, v = s.querySelector("video");
