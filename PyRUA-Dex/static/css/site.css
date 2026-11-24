@@ -518,6 +518,7 @@ html:not(.js) .th-tab.on { background: var(--red); }
 .th-fam[hidden] { display: none; }
 .th-desc { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0 0 18px; color: var(--sub); font-size: 15px; text-align: center; }
 .th-desc .ic { flex: none; font-size: 17px; color: var(--red); }
+.th-note { margin: -10px 0 16px; color: var(--mute); font-size: 13px; text-align: center; }
 
 /* the track spans the whole window; the film in front is centred, its neighbours wait at the sides */
 .th-track { position: relative; width: 100vw; margin-left: calc(50% - 50vw); height: calc(var(--w) * 9 / 16 + 58px); perspective: 1800px; }
