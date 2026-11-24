@@ -220,7 +220,7 @@
     <div class="abs-grid">
       <div class="card abstract rv">
         <h3><svg class="ic"><use href="#i-paper"/></svg>Abstract</h3>
-        <p>Learning for dexterous manipulation is limited by the scarcity of high-quality demonstrations: retargeting from human video is imprecise, teleoperation gives no force feedback to the operator, and exoskeleton-based collection is hard to scale. We present <b>PyRUA-Dex</b>, a framework that enables coding agents to develop dexterous manipulation through <em>programmatic policy</em>, without the need of demonstrations. The programmatic policy is developed in two stages: during <em>exploration</em>, multiple agents explore in parallel for task skills and ways to compose them, and a distilling agent condenses the successful attempts into a task library and a reward program. During <em>refinement</em>, the skills and the reward program are jointly improved through randomized layouts for enhanced robustness and execution efficiency. In simulated environments, PyRUA-Dex achieves SOTA on Bench2Dex with a score of 72.9 and reaches 81.0% success on DexJoCo under full randomization, ahead of every trained policy on both benchmarks. In real world experiments on a bimanual platform with two 22-DoF hands, PyRUA-Dex learns to play piano, write calligraphy, and other tasks efficiently: learning a new piece from sheet music takes as little as 30 minutes. These results suggest that PyRUA-Dex is an effective framework for developing dexterous manipulation policies with coding agents in the absence of high quality dexterous manipulation demonstrations.</p>
+        <p>Learning for dexterous manipulation is limited by the scarcity of high-quality demonstrations: retargeting from human video is imprecise, teleoperation gives no force feedback to the operator, and exoskeleton-based collection is hard to scale up. We present <b>PyRUA-Dex</b>, a framework that enables coding agents to develop dexterous manipulation through <em>programmatic policy</em>, without the need of demonstrations. The programmatic policy is developed in two stages: during <em>exploration</em>, multiple agents explore in parallel for task skills and ways to compose them, and a distilling agent condenses the successful attempts into a task library and a reward program. During <em>refinement</em>, the skills and the reward program are jointly improved through randomized layouts for enhanced robustness and execution efficiency. In simulated environments, PyRUA-Dex achieves SOTA on Bench2Dex with a score of 72.9 and reaches 81.0% success on DexJoCo under full randomization, ahead of every trained policy on both benchmarks. In real world experiments on a bimanual platform with two 22-DoF hands, PyRUA-Dex learns to play piano, write calligraphy, and other tasks efficiently: learning a new piece from sheet music takes as little as 30 minutes. These results suggest that PyRUA-Dex is an effective framework for developing dexterous manipulation policies with coding agents in the absence of high quality dexterous manipulation demonstrations.</p>
       </div>
       <div class="glance">
         <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-repeat"/></svg></div><div><b>Learned from the agents' own trials</b><span>Agents learn from their own trials in simulation, with state resets and the simulator's stage count.</span></div></div>
@@ -278,19 +278,19 @@
       <div class="card rv">
         <span class="k-label">Success factorizes along the chain</span>
         <div class="formula">SR(<i>π</i>) = <i>s</i>(<i>π</i>) <span class="big">∏</span><span class="lim"><i>K</i><span><i>k</i>=1</span></span><i>r</i><sub><i>k</i></sub>(<i>π</i>)</div>
-        <p class="formula-note"><i>r<sub>k</sub></i>, the link rate: the fraction of layouts that reach stage <i>k</i> among those that reached the stage before</p>
-        <div class="chainviz" role="img" aria-label="Five stages with a link rate of 0.6 each give a success rate of 0.08">
-          <span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk-eq">= 0.08</span>
+        <p class="formula-note"><i>r<sub>k</sub></i>, the stage success rate: the fraction of layouts that reach stage <i>k</i> among those that reached the stage before</p>
+        <div class="chainviz" role="img" aria-label="Five stages with a success rate of 0.8 each give an overall success rate of 0.33">
+          <span class="lk">0.8</span><span class="lk">0.8</span><span class="lk">0.8</span><span class="lk">0.8</span><span class="lk">0.8</span><span class="lk-eq">= 0.33</span>
         </div>
-        <p class="chain-text">Five stages that each hold on 60% of the layouts complete fewer than 8% of them, so a program that worked once fails on most layouts.</p>
-        <p class="chain-text">Because ∂ log SR / ∂<i>r<sub>k</sub></i> = 1 / <i>r<sub>k</sub></i>, the largest gain comes from the stage with the lowest link rate, the bottleneck: refinement finds it and raises it.</p>
+        <p class="chain-text">Five stages that each hold on 80% of the layouts complete only 33% of them, so a program that worked once fails on most layouts.</p>
+        <p class="chain-text">Because ∂ log SR / ∂<i>r<sub>k</sub></i> = 1 / <i>r<sub>k</sub></i>, the largest gain comes from the least reliable stage, the bottleneck: refinement finds it and raises it.</p>
       </div>
       <div class="card rv">
         <span class="k-label">Why two stages</span>
         <ul class="ticks">
-          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Exploration</b> makes every link rate positive, <i>r<sub>k</sub></i> &gt; 0: a search over grasps, hand orders and motions on a few layouts.</span></li>
-          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Refinement</b> needs link rates estimated over many layouts: once every link rate is positive, the product dominates.</span></li>
-          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Retries</b> raise a link rate directly. In 68% of the failed validation runs of the programs after exploration, on the 22 tasks they completed at least once, the program had returned with at least 30% of the step budget unused.</span></li>
+          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Exploration</b> makes every stage success rate positive, <i>r<sub>k</sub></i> &gt; 0: a search over grasps, hand orders and motions on a few layouts.</span></li>
+          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Refinement</b> needs stage success rates estimated over many layouts: once every rate is positive, the product dominates.</span></li>
+          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Retries</b> raise a stage's success rate directly. In 68% of the failed validation runs of the programs after exploration, on the 22 tasks they completed at least once, the program had returned with at least 30% of the step budget unused.</span></li>
           <li><svg class="ic"><use href="#i-podium"/></svg><span><b>The staged form</b> lets every measurement be reported per stage, lets functions written by different agents be combined, and lets a single stage be executed in isolation.</span></li>
         </ul>
       </div>
