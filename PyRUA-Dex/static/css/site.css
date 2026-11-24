@@ -124,6 +124,8 @@ code { font-family: var(--mono); font-size: .9em; color: var(--red-dk); backgrou
 .hero-sota .ic { flex: none; color: var(--gold); font-size: 1.15em; }
 .authors { max-width: 940px; margin: 24px auto 0; font-size: 17px; font-weight: 650; line-height: 1.7; color: var(--ink); text-wrap: balance; }
 .authors span { white-space: nowrap; }
+.authors a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(154, 0, 0, .28); }
+.authors a:hover, .authors a:focus-visible { color: var(--red); border-bottom-color: var(--red); }
 .authors sup, .affil sup { margin-left: 1px; font-size: .62em; font-weight: 650; color: var(--red); }
 .affil { margin: 6px 0 0; font-size: 15px; color: var(--sub); }
 .affil span { display: inline-block; margin: 0 9px; white-space: nowrap; }
