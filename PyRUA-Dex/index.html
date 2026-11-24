@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://vme0522.github.io/PyRUA-Dex/static/images/og-teaser.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg?v=3">
-  <link rel="stylesheet" href="static/css/site.css?v=20261124d">
+  <link rel="stylesheet" href="static/css/site.css?v=20261125a">
 </head>
 <body>
 
@@ -192,8 +192,8 @@
     <div class="stat">
       <div class="badge"><svg class="ic"><use href="#i-trend"/></svg></div>
       <div class="stat-v sm">44.6<small>%</small> <span class="arrow">→</span> 60.6<small>%</small></div>
-      <div class="stat-k">Success rate, exploration → refinement</div>
-      <div class="stat-t">latched stage completion 67.0% → 82.3%</div>
+      <div class="stat-k">Success rate, <span class="nw">exploration → refinement</span></div>
+      <div class="stat-t">latched stage completion <span class="nw">67.0% → 82.3%</span></div>
     </div>
     <div class="stat">
       <div class="badge"><svg class="ic"><use href="#i-bolt"/></svg></div>
@@ -274,6 +274,7 @@
     </div>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-chain"/></svg>A task is a chain of stages</h3>
+    <p class="h3-lead rv">Learning a task is a search over programs <i>π</i>: maximize the success rate SR(<i>π</i>) on the benchmark's test layouts, subject to no language-model call at test time and a budget of simulated layouts for development.</p>
     <div class="chain-grid">
       <div class="card rv">
         <span class="k-label">Success factorizes along the chain</span>
@@ -284,7 +285,6 @@
         </div>
         <p class="chain-text">Five stages that each hold on 80% of the layouts complete only 33% of them, so a program that worked once fails on most layouts.</p>
         <p class="chain-text">Because ∂ log SR / ∂<i>r<sub>k</sub></i> = 1 / <i>r<sub>k</sub></i>, the largest gain comes from the least reliable stage, the bottleneck: refinement finds it and raises it.</p>
-        <p class="chain-text"><b>Objective.</b> Learning a task is a search over programs <i>π</i>: maximize SR(<i>π</i>) on the benchmark's test layouts, subject to no language-model call at test time and a budget of simulated layouts for development.</p>
       </div>
       <div class="card rv">
         <span class="k-label">Why two stages</span>
@@ -332,7 +332,7 @@
           <h4>Task 12 · Screwdriver box and hammer</h4>
           <p>UR5 + RH56DFX · test episode of its final program, 2,241 lines in 22 files · <span class="speed">4×</span></p>
           <div class="mini">
-            <div><b>0% → 37.0%</b><span>success rate, exploration → refinement</span></div>
+            <div><b>0% → 37.0%</b><span>success rate, <span class="nw">exploration → refinement</span></span></div>
             <div><b>0 → 12 / 32</b><span>validation layouts completed</span></div>
           </div>
         </div>
@@ -410,7 +410,7 @@
         <span class="th-ink" aria-hidden="true"></span>
       </div>
       <div class="th-stage">
-        <section class="th-fam on" id="th-fam-piano" role="tabpanel" aria-labelledby="th-tab-piano" data-n="6">
+        <section class="th-fam on" id="th-fam-piano" role="tabpanel" aria-labelledby="th-tab-piano" data-n="6" data-start="2">
           <p class="th-desc"><svg class="ic"><use href="#i-piano"/></svg>Both hands play a piece from its score. One skill shared by the piano family arranges a score for the two hands and plays it; with it a new piece typically takes under an hour of iteration.</p>
           <p class="th-note">Before each piece the robot calibrates on the keyboard, one key at a time; the films start with the piece.</p>
           <div class="th-track">
@@ -534,7 +534,7 @@
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Sim-to-real: refinement with real-robot feedback</h3>
-    <p class="h3-lead rv">Validation layouts completed in simulation (of 32) by the program after exploration and after the last round of refinement. After each round the program is executed on the robot, where a safety guard rejects any motion that comes within a few millimeters of a joint limit, the table or the other arm, and what the robot reveals is written back into the simulation: the measured table height, the thumb's coupled swing, softer contacts, a wrist camera kept clear of the table, and the instructions the user gives at the robot. When such an update breaks a program, the next round restores it: Ode to Joy 32 → 0 → 31, Twinkle, Twinkle 32 → 0 → 31, Little Jumping Frog 23 → 0 → 29.</p>
+    <p class="h3-lead rv">Validation layouts completed in simulation (of 32) by the program after exploration and after the last round of refinement. After each round the program is executed on the robot, where a safety guard rejects any motion that comes within a few millimeters of a joint limit, the table or the other arm, and what the robot reveals is written back into the simulation: the measured table height, the thumb's coupled swing, softer contacts, a wrist camera kept clear of the table, and the instructions the user gives at the robot. When such an update breaks a program, the next round restores it: Ode to Joy <span class="nw">32 → 0 → 31</span>, Twinkle, Twinkle <span class="nw">32 → 0 → 31</span>, Little Jumping Frog <span class="nw">23 → 0 → 29</span>.</p>
     <div class="card rs-card rv">
       <div class="rs-top">
         <div class="legend"><span class="key"><i></i>after exploration</span><span class="key"><i class="s2"></i>after the last round of refinement</span></div>
@@ -623,10 +623,10 @@
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-target"/></svg>Refinement makes explored programs reliable</h3>
     <div class="num-grid">
-      <div class="nbox rv"><b>+13.8</b><span>score points from refinement, 59.1 → 72.9</span></div>
-      <div class="nbox rv"><b>20 / 26</b><span>tasks raise their success rate; stage completion 67.0% → 82.3%</span></div>
+      <div class="nbox rv"><b>+13.8</b><span>score points from refinement, <span class="nw">59.1 → 72.9</span></span></div>
+      <div class="nbox rv"><b>20 / 26</b><span>tasks raise their success rate; stage completion <span class="nw">67.0% → 82.3%</span></span></div>
       <div class="nbox rv"><b>68%</b><span>of the failed validation runs after exploration had returned with at least 30% of the step budget unused (341 runs, on the 22 tasks exploration completed at least once)</span></div>
-      <div class="nbox rv"><b>43.6% → 61.7%</b><span>validation layouts completed, against test success 44.6% → 60.6%: the gain carries over to layouts no agent has seen</span></div>
+      <div class="nbox rv"><b class="nw sm">43.6% → 61.7%</b><span>validation layouts completed, against test success <span class="nw">44.6% → 60.6%</span>: the gain carries over to layouts no agent has seen</span></div>
     </div>
     <figure class="fig rv">
       <a class="zoom" href="static/images/paper/fig-stage2.webp?v=20261125"><img src="static/images/paper/fig-stage2.webp?v=20261125" alt="Why refinement works: how the programs after exploration failed, held-out completions of the versions evaluated during refinement, and task 12 stage by stage" width="1959" height="645" loading="lazy"></a>
@@ -781,6 +781,6 @@
   </div>
 </footer>
 
-<script src="static/js/site.js?v=20261123d"></script>
+<script src="static/js/site.js?v=20261125a"></script>
 </body>
 </html>
