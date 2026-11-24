@@ -111,6 +111,7 @@
       <span>Lekai Wang<sup>1</sup></span>,
       <span>Rui Ni<sup>1</sup></span>,
       <span>Weicheng Duan<sup>4</sup></span>,
+      <span>Qiang Wang<sup>1</sup></span>,
       <span><a href="https://jxbi1010.github.io/" target="_blank" rel="noopener">Jianxin Bi</a><sup>1,2</sup></span>,
       <span>Zeliang Fu<sup>4</sup></span>,
       <span>Jiankun Zhang<sup>5</sup></span>,
@@ -216,7 +217,7 @@
     <div class="abs-grid">
       <div class="card abstract rv">
         <h3><svg class="ic"><use href="#i-paper"/></svg>Abstract</h3>
-        <p>Learning for dexterous manipulation is limited by the scarcity of high-quality demonstrations: retargeting from human video is imprecise, teleoperation gives no force feedback to the operator, and exoskeleton-based collection is hard to scale. We present <b>PyRUA-Dex</b>, a framework that enables coding agents to develop dexterous manipulation through <em>programmatic policy</em>, without the need of demonstrations. The programmatic policy is developed in two stages: during <em>exploration</em>, multiple agents explore in parallel for task skills and ways to compose them, and a distilling agent condenses the successful attempts into a task library and a reward program. During <em>refinement</em>, the skills and the reward program are jointly improved through randomized layouts for enhanced robustness and execution efficiency. In simulated environments, PyRUA-Dex achieves SOTA on Bench2Dex with a score of 72.9 and reaches 81.0% success on DexJoCo under full randomization, ahead of every trained policy on both benchmarks. In real world experiments on a bimanual platform with two 22-DoF hands, PyRUA-Dex learns to play piano, write calligraphy, and other tasks efficiently: learning a new piece from sheet music takes only ∼30 minutes. These results suggest that PyRUA-Dex is an effective framework for developing dexterous manipulation policies with coding agents in the absence of high quality dexterous manipulation demonstrations.</p>
+        <p>Learning for dexterous manipulation is limited by the scarcity of high-quality demonstrations: retargeting from human video is imprecise, teleoperation gives no force feedback to the operator, and exoskeleton-based collection is hard to scale. We present <b>PyRUA-Dex</b>, a framework that enables coding agents to develop dexterous manipulation through <em>programmatic policy</em>, without the need of demonstrations. The programmatic policy is developed in two stages: during <em>exploration</em>, multiple agents explore in parallel for task skills and ways to compose them, and a distilling agent condenses the successful attempts into a task library and a reward program. During <em>refinement</em>, the skills and the reward program are jointly improved through randomized layouts for enhanced robustness and execution efficiency. In simulated environments, PyRUA-Dex achieves SOTA on Bench2Dex with a score of 72.9 and reaches 81.0% success on DexJoCo under full randomization, ahead of every trained policy on both benchmarks. In real world experiments on a bimanual platform with two 22-DoF hands, PyRUA-Dex learns to play piano, write calligraphy, and other tasks efficiently: learning a new piece from sheet music takes as little as 30 minutes. These results suggest that PyRUA-Dex is an effective framework for developing dexterous manipulation policies with coding agents in the absence of high quality dexterous manipulation demonstrations.</p>
       </div>
       <div class="glance">
         <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-repeat"/></svg></div><div><b>Learned from the agents' own trials</b><span>Agents learn from their own trials in simulation, with checkpoints and the simulator's stage count.</span></div></div>
@@ -749,8 +750,9 @@
              Manipulation with Coding Agents},
   author  = {Ruan, Feixiang and Lv, Guodong and Zhang, Kewei and Huang, Wenbo and
              Zhang, Yintianrun and Si, Ruiyang and Yang, Shunyu and Wang, Lekai and
-             Ni, Rui and Duan, Weicheng and Bi, Jianxin and Fu, Zeliang and
-             Zhang, Jiankun and Wang, Duomin and Xie, Enze and Zhou, Daquan},
+             Ni, Rui and Duan, Weicheng and Wang, Qiang and Bi, Jianxin and
+             Fu, Zeliang and Zhang, Jiankun and Wang, Duomin and Xie, Enze and
+             Zhou, Daquan},
   journal = {arXiv preprint},
   year    = {2026}
 }</pre>
