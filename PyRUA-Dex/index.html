@@ -16,7 +16,7 @@
   <meta property="og:image" content="https://vme0522.github.io/PyRUA-Dex/static/images/og-teaser.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg?v=3">
-  <link rel="stylesheet" href="static/css/site.css?v=20261124">
+  <link rel="stylesheet" href="static/css/site.css?v=20261124b">
 </head>
 <body>
 
@@ -250,26 +250,26 @@
         <div class="stage-top"><div class="stage-num">1</div><div><h3>Explore</h3><p class="stage-goal">find a way through the task</p></div></div>
         <ul class="steps">
           <li><svg class="ic"><use href="#i-users"/></svg><span><b>Eight seeds in parallel.</b> Each agent gets the task library, a fresh layout and a stage not yet solved.</span></li>
-          <li><svg class="ic"><use href="#i-rewind"/></svg><span><b>Rewinds.</b> Eight per layout: the agent tries one stage many times and asks for the stage count after every attempt.</span></li>
-          <li><svg class="ic"><use href="#i-notes"/></svg><span><b>Round notes.</b> A stage reached by one seed is told to all of them at once, and a librarian agent keeps the notes and the code they point to.</span></li>
+          <li><svg class="ic"><use href="#i-rewind"/></svg><span><b>Exploring with rewinds.</b> Eight rewinds per layout: the agent tries one stage many times and asks for the stage count after every attempt.</span></li>
+          <li><svg class="ic"><use href="#i-notes"/></svg><span><b>Round notes.</b> Every episode a seed closes is told to all of them as it ends, a stage reached for the first time on top; the round's note keeper keeps the notes and the code they point to.</span></li>
           <li><svg class="ic"><use href="#i-snow"/></svg><span><b>Frozen replay.</b> Each seed writes the program that redoes what scored; it runs alone on eight fresh layouts.</span></li>
-          <li><svg class="ic"><use href="#i-book"/></svg><span><b>Distil.</b> A distilling agent writes the task library from frozen rates only, and names the champion.</span></li>
+          <li><svg class="ic"><use href="#i-book"/></svg><span><b>Distillation.</b> A distilling agent writes the task library from frozen rates only, and names the champion.</span></li>
         </ul>
       </div>
       <div class="card stage s2 rv">
         <div class="stage-top"><div class="stage-num">2</div><div><h3>Practice</h3><p class="stage-goal">make the way hold</p></div></div>
         <ul class="steps">
-          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Link report.</b> The champion on 32 fresh layouts, stage by stage, so the weakest link shows before any work begins.</span></li>
+          <li><svg class="ic"><use href="#i-search"/></svg><span><b>The report.</b> The champion on 32 fresh layouts, stage by stage, so the weakest link shows before any work begins.</span></li>
           <li><svg class="ic"><use href="#i-target"/></svg><span><b>Practice runs.</b> The program up to one stage over tens of fresh layouts, with twice the benchmark's steps.</span></li>
           <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Second tries.</b> With <code>AGAIN = True</code>, a stage function that did not end ok is called again while steps remain.</span></li>
           <li><svg class="ic"><use href="#i-layers"/></svg><span><b>Batches.</b> Each version on 32 fresh and 32 held-out layouts, at the benchmark's steps; one is due every 160 practice layouts.</span></li>
-          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Choose.</b> Within a round of 1,500 layouts, the version with the best held-out record goes to the gate.</span></li>
+          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Choosing the version.</b> Within a round of 1,500 layouts, the version with the best held-out record goes to the gate.</span></li>
         </ul>
       </div>
     </div>
     <div class="gate rv">
       <div class="badge"><svg class="ic"><use href="#i-gate"/></svg></div>
-      <div><b>The dev gate</b><span>After each stage, a candidate replaces the champion only if it completes no fewer of the task's 32 development layouts, and then reaches stages no less often. Development layouts are never explored, summarized or shown to an agent; the champion that stands is evaluated frozen under the benchmark's protocol.</span></div>
+      <div><b>The dev gate</b><span>After each stage, a candidate replaces the champion only if it completes no fewer of the task's 32 development layouts, and then reaches stages no less often. Development layouts are never explored, summarized or shown to an agent; the champion that stands is evaluated frozen under the benchmark's protocol. Learn, dev and formal layouts are disjoint: agents work only on learn layouts, and the benchmark's formal seeds are run once, after the program is fixed, so no formal result feeds back into development.</span></div>
     </div>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-chain"/></svg>A task is a chain of links</h3>
@@ -295,41 +295,40 @@
       </div>
     </div>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-file-code"/></svg>What a program looks like</h3>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-file-code"/></svg>The shape of every program</h3>
     <div class="prog-grid">
       <div class="card code-card rv">
-        <div class="code-head"><span class="dots"><i></i><i></i><i></i></span>champion / task_12.py</div>
-<pre class="code"><code><span class="b">AGAIN</span> = <span class="k">True</span>    <span class="c"># failed stage functions are called again while steps remain</span>
-<span class="b">STAGES</span> = [<span class="s">'place_flat_right'</span>, <span class="s">'place_phillips_left'</span>,
-          <span class="s">'hammer_strike_wood'</span>, <span class="s">'place_hammer'</span>]
+        <div class="code-head"><span class="dots"><i></i><i></i><i></i></span>program.py · written by the agents for one task</div>
+<pre class="code"><code><span class="b">STAGES</span> = [<span class="s">"grasp"</span>, <span class="s">"place"</span>]  <span class="c"># the task's stages, in order</span>
+<span class="b">AGAIN</span> = <span class="k">True</span>     <span class="c"># call stages that did not end ok again</span>
 
-<span class="k">def</span> <span class="f">setup</span>(cb, ctx):              <span class="c"># measure the table, find what the stages need</span>
-    cb.table()
-    ctx[<span class="s">'box'</span>] = cb.locate([<span class="s">'wooden box'</span>, <span class="s">'box'</span>], min_score=<span class="n">.6</span>, name=<span class="s">'box'</span>)
-    ctx[<span class="s">'hammer'</span>] = cb.locate([<span class="s">'hammer'</span>], min_score=<span class="n">.5</span>, name=<span class="s">'initial_hammer'</span>)
-    ...
+<span class="k">def</span> <span class="f">setup</span>(codebox, context):
+    <span class="c"># measure once what the stages need</span>
+    context[<span class="s">"table"</span>] = codebox.table()
+    context[<span class="s">"box"</span>] = codebox.locate(<span class="s">"box"</span>)
 
-<span class="k">def</span> <span class="f">place_flat_right</span>(cb, ctx):   <span class="c"># starts where setup left robot and scene</span>
-    tool = cb.locate([<span class="s">'screwdriver'</span>], min_score=<span class="n">.6</span>, name=<span class="s">'flat'</span>)
-    o = cb.move_to(<span class="s">'right'</span>, grasp_point(tool), approach=[<span class="n">0</span>, <span class="n">0</span>, <span class="n">-1</span>],
-                   reconfigure=<span class="k">True</span>)
-    cb.close(<span class="s">'right'</span>, squeeze=<span class="n">.005</span>)
-    <span class="k">if not</span> cb.holding(<span class="s">'right'</span>):
-        <span class="k">return</span> result(<span class="k">False</span>, <span class="s">'flat_not_held'</span>)    <span class="c"># the runner tries again later</span>
-    ...
-    seen = cb.relocate(<span class="s">'right'</span>, [<span class="s">'screwdriver'</span>], near=ctx[<span class="s">'box'</span>].xy,
-                       min_score=<span class="n">.55</span>)
-    <span class="k">return</span> result(inside(seen, ctx[<span class="s">'box'</span>]), <span class="s">'flat_in_box'</span>)
+<span class="k">def</span> <span class="f">grasp</span>(codebox, context):
+    tool = codebox.locate(<span class="s">"screwdriver"</span>)       <span class="c"># measure</span>
+    codebox.move_to(<span class="s">"right"</span>, grasp_point(tool))   <span class="c"># act</span>
+    codebox.close(<span class="s">"right"</span>)
+    <span class="k">if</span> <span class="k">not</span> codebox.holding(<span class="s">"right"</span>):           <span class="c"># check</span>
+        <span class="k">return</span> Outcome(<span class="k">False</span>, <span class="s">"not held"</span>)
+    <span class="k">return</span> Outcome(<span class="k">True</span>, <span class="s">"held"</span>)
 
-<span class="k">def</span> <span class="f">hammer_strike_wood</span>(cb, ctx): ...
-<span class="k">def</span> <span class="f">place_hammer</span>(cb, ctx): ...</code></pre>
-        <div class="code-cap">Condensed from the Stage 2 champion of task 12 (2,241 lines in 22 files). <code>cb</code> is the codebox: hand and arm motions on the robot's hand model, sensing from the calibrated cameras, touch from joint lag and the tactile maps.</div>
+<span class="k">def</span> <span class="f">place</span>(codebox, context):
+    <span class="k">if</span> <span class="k">not</span> codebox.holding(<span class="s">"right"</span>):    <span class="c"># check on entry</span>
+        <span class="k">return</span> Outcome(<span class="k">False</span>, <span class="s">"nothing held"</span>)
+    codebox.move_to(<span class="s">"right"</span>, above(context[<span class="s">"box"</span>]))
+    codebox.release(<span class="s">"right"</span>)
+    seen = codebox.relocate(<span class="s">"screwdriver"</span>)   <span class="c"># measure again</span>
+    <span class="k">return</span> Outcome(inside(seen, context[<span class="s">"box"</span>]), <span class="s">"in box"</span>)</code></pre>
+        <div class="code-cap">The template every program fills in, here with two stages: <code>setup</code> measures once what the stages need, and each stage function measures, acts and checks, and returns an outcome. The agents' programs fill each stage with many more calls. <code>codebox</code>: the hand, arm and sensing calls below; <code>context</code>: what the functions measured.</div>
       </div>
       <div class="card task-card rv">
         <video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_12.jpg" aria-label="Task 12, screwdriver box and hammer, formal episode of the Stage 2 champion"><source src="static/videos/bench2dex/b2d_12.mp4" type="video/mp4"></video>
         <div class="task-body">
           <h4>Task 12 · Screwdriver box and hammer</h4>
-          <p>UR5 + RH56DFX · formal episode of this program · <span class="speed">4×</span></p>
+          <p>UR5 + RH56DFX · formal episode of its Stage 2 champion, 2,241 lines in 22 files · <span class="speed">4×</span></p>
           <div class="mini">
             <div><b>0% → 37.0%</b><span>success rate, Stage 1 → Stage 2</span></div>
             <div><b>0 → 12 / 32</b><span>dev layouts completed</span></div>
@@ -337,14 +336,45 @@
         </div>
       </div>
     </div>
+    <div class="prog-grid">
+      <div class="card code-card rv">
+        <div class="code-head"><span class="dots"><i></i><i></i><i></i></span>runner.py · the same for every task</div>
+<pre class="code"><code><span class="k">def</span> <span class="f">run_episode</span>(program, robot):
+    codebox, context = Codebox(robot), {}
+    program.setup(codebox, context)
+    todo, last = program.STAGES, {}
+    <span class="k">while</span> todo <span class="k">and</span> codebox.steps_left() &gt; <span class="n">0</span>:
+        used = codebox.steps_used
+        <span class="k">for</span> name <span class="k">in</span> todo:                  <span class="c"># in order</span>
+            stage = getattr(program, name)
+            last[name] = stage(codebox, context)
+            <span class="c"># a failed stage does not stop the ones after it</span>
+        <span class="c"># one pass, unless AGAIN and the pass used steps</span>
+        <span class="k">if</span> <span class="k">not</span> program.AGAIN <span class="k">or</span> codebox.steps_used == used:
+            <span class="k">break</span>
+        todo = [n <span class="k">for</span> n <span class="k">in</span> program.STAGES <span class="k">if</span> <span class="k">not</span> last[n].ok]
+        context[<span class="s">"again"</span>] = last    <span class="c"># how each last ended</span></code></pre>
+        <div class="code-cap">Condensed from its code. It calls <code>setup</code>, then the stage functions in order. A failed stage does not stop the ones after it, because each checks on entry what it needs. With <code>AGAIN = True</code>, the stages that did not end ok are called again while steps remain and a pass still uses steps.</div>
+      </div>
+      <div class="card code-card rv">
+        <div class="code-head"><span class="dots"><i></i><i></i><i></i></span>episode.log · an example</div>
+<pre class="code"><code><span class="c">[stage]</span> setup begins at step 0
+<span class="c">[stage]</span> grasp: not held (<span class="k">not ok</span>)
+<span class="c">[stage]</span> place: nothing held (<span class="k">not ok</span>)
+<span class="c">[stage]</span> pass 2: again for grasp, place
+<span class="c">[stage]</span> grasp: held (<span class="s">ok</span>)
+<span class="c">[stage]</span> place: in box (<span class="s">ok</span>)</code></pre>
+        <div class="code-cap">The first try of <code>grasp</code> fails, <code>place</code> returns at once, and the second pass completes both.</div>
+      </div>
+    </div>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-code"/></svg>The codebox: one set of calls for every robot</h3>
-    <p class="h3-lead rv">Agents and programs drive the robot through the codebox, a layer of primitives that carries no knowledge of any object or task.</p>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-code"/></svg>Driving dexterous hands: the codebox</h3>
+    <p class="h3-lead rv">A multi-fingered hand is what makes these tasks hard to program. The hands of the twelve Bench2Dex robots have 6 to 22 joints, named and arranged differently on every robot, and whether a grasp worked shows only in what the fingers feel. Agents and programs therefore drive every robot through the codebox, calls that speak of a hand the way a person would: shape the hand, grasp this object between thumb and index, close until it is held, check that it is still held. The codebox turns each call into joint targets for the hand in use, and it knows nothing of any object or task.</p>
     <div class="cb-grid">
-      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-hand"/></svg></div><h4>Hands as grasps</h4><p>A hand model built from the robot's public description, without reading any link or joint name: fingers and thumb, bend, curl and spread groups, and the widths each finger set holds. The same calls drive all 12 Bench2Dex hands, from 6 to 22 joints, and our Sharpa hands.</p><div class="chips"><span class="chip">shape</span><span class="chip">close</span><span class="chip">grasp</span><span class="chip">release</span><span class="chip">holding</span></div></div>
-      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-route"/></svg></div><h4>Plan whole, then move</h4><p>Arm calls solve every pose before anything moves, and say why a motion cannot run: unreachable, below the measured table, or in need of an arm reconfiguration. All motions run at the joints' speed limits.</p><div class="chips"><span class="chip">move_to</span><span class="chip">feel</span><span class="chip">arc</span><span class="chip">together</span></div></div>
-      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-eye"/></svg></div><h4>See through the calibration</h4><p>SAM 3 masks for a ladder of prompts, combined across the calibrated fixed cameras into position, footprint, height and yaw; wrist cameras measure again from close by.</p><div class="chips"><span class="chip">segment</span><span class="chip">locate</span><span class="chip">relocate</span><span class="chip">look</span><span class="chip">probe</span></div></div>
-      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-pulse"/></svg></div><h4>Feel and report</h4><p>Touch from the fingertip maps and from joint lag, read against each robot's measured drive response. Every call returns an outcome with its reason, data and steps, so a program checks each step and retries, adjusts or moves on.</p><div class="chips"><span class="chip">Outcome(ok, reason, data, steps)</span></div></div>
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-hand"/></svg></div><h4>Grasps instead of joint angles</h4><p>A model of each hand, built once from the robot's public description without reading any link or joint name: fingers and thumb, and joints grouped by what they do (bend, curl, spread). From it the codebox knows which widths each set of fingers holds; a program asks to grasp an object it has measured, and the codebox picks the fingers and how far to open them. The same calls drive all 12 Bench2Dex hands, from 6 to 22 joints, and our Sharpa hands.</p><div class="chips"><span class="chip">shape</span><span class="chip">close</span><span class="chip">grasp</span><span class="chip">release</span></div></div>
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-route"/></svg></div><h4>Arms: plan whole, then move</h4><p>Arm calls put a frame of the hand at a point, with an approach direction and via points, and solve every pose before anything moves; a call says why a motion cannot run: unreachable, below the measured table, or in need of an arm reconfiguration. All motions run at the joints' speed limits.</p><div class="chips"><span class="chip">move_to</span><span class="chip">arc</span><span class="chip">together</span></div></div>
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-eye"/></svg></div><h4>Seeing objects</h4><p>SAM 3 masks for a ladder of prompts, combined across the calibrated fixed cameras into position, footprint, height and yaw; wrist cameras measure again from close by.</p><div class="chips"><span class="chip">segment</span><span class="chip">locate</span><span class="chip">relocate</span><span class="chip">look</span><span class="chip">probe</span></div></div>
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-pulse"/></svg></div><h4>Touch</h4><p>A program does not assume that a grasp held; it checks. Touch comes from the fingertip maps and from joint lag, the gap between a joint's command and its measured position, read against each robot's measured drive response. Every call returns an outcome with its reason, data and steps, so a program checks each step and retries, adjusts or moves on.</p><div class="chips"><span class="chip">holding</span><span class="chip">feel</span><span class="chip">Outcome(ok, reason, data, steps)</span></div></div>
       <div class="cb cb-wide rv"><div class="badge"><svg class="ic"><use href="#i-film"/></svg></div><div><h4>From an episode to a program</h4><p>When an exploring layout reaches a stage, the harness compiles the path the agent kept into a recipe, the palm's waypoints relative to the located objects split at every grasp and release, and a draft program in the staged form. The agent turns the draft into a program by closing the loop: measuring again before contact, checking that a hand holds, and stating how each stage function fails.</p></div><div class="chips"><span class="chip">play</span><span class="chip">take</span></div></div>
     </div>
   </div>
@@ -479,6 +509,14 @@
       </div>
     </div>
 
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-hand"/></svg>The twin and its hands</h3>
+    <p class="h3-lead rv">The twin is a MuJoCo model of the rig built from its calibration: the cameras, the wrist cameras' hand-eye transforms, the table, the transform between the arms and each hand's mount. Its hands start from the manufacturer's model of the Sharpa Wave SE and are identified on the real hands, under the controller the robot runs them with: each joint takes the controller's stiffness and damping, its friction and armature are fitted to single-joint motions at 10, 50 and 150°/s, and its range and limits are the ones the hand reports. The controller's dither is not simulated, and contact stiffness is not identified. Every layout then draws what the calibration leaves open, from the hands' gains and frictions to the camera poses, the lighting, distractors and the objects' masses.</p>
+    <div class="num-grid three">
+      <div class="nbox rv"><b>0.12–0.18°</b><span>the twin's joints against the real ones, on motions the fit never saw (median, both hands)</span></div>
+      <div class="nbox rv"><b>0.80–3.1°</b><span>the manufacturer's model on the same motions</span></div>
+      <div class="nbox rv"><b>0.11–0.22°</b><span>the real hand following its own commands</span></div>
+    </div>
+
     <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Real to sim to real</h3>
     <figure class="fig rv">
       <a class="zoom" href="static/images/paper/fig-r2s2r.webp?v=20261124c"><img src="static/images/paper/fig-r2s2r.webp?v=20261124c" alt="Real to sim to real on the rig: what the twin shares with the robot (head and wrist cameras with the twin's outlines, the identification of the hands' drives, fingertip touch, objects, an instruction of the user), learning in the twin, the frozen programs on the robot, and the dev layouts completed after each round" width="1959" height="898" loading="lazy"></a>
@@ -486,7 +524,7 @@
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Learning on the rig</h3>
-    <p class="h3-lead rv">Dev layouts completed in the twin (of 32) by the champion after Stage 1 and after the last round of Stage 2.</p>
+    <p class="h3-lead rv">Dev layouts completed in the twin (of 32) by the champion after Stage 1 and after the last round of Stage 2. Between rounds, what the robot shows enters the twin: the table's measured height, the thumb's coupled swing, softer contacts, a wrist camera kept clear of the table, and the instructions the user gives at the robot. When such an adjustment breaks a champion, the next round restores it: Ode to Joy 32 → 0 → 31, Twinkle 32 → 0 → 31, Little Jumping Frog 23 → 0 → 29.</p>
     <div class="card twin-card rv">
       <div class="twin-top">
         <div class="legend"><span class="key"><i></i>Stage 1 champion</span><span class="key"><i class="s2"></i>Stage 2 champion, last round</span></div>
@@ -566,11 +604,11 @@
 
     <figure class="fig rv" style="margin-top:22px">
       <a class="zoom" href="static/images/paper/fig-results.webp?v=20261124"><img src="static/images/paper/fig-results.webp?v=20261124" alt="Bench2Dex results: scores of all four-channel entries, success rate against stage completion, and success rate against execution budget" width="1959" height="666" loading="lazy"></a>
-      <figcaption><b>Bench2Dex results.</b> (a) Score of every four-channel entry; the dashed line marks the best trained policy. (b) Success rate against latched stage completion. (c) Full-channel success rate against the execution budget; the frozen programs spend no tokens at test time.</figcaption>
+      <figcaption><b>Bench2Dex results.</b> (a) Score of every four-channel entry; the dashed line marks the best trained policy. (b) Success rate against latched stage completion. (c) Full-channel success rate against the execution budget; the frozen programs spend no tokens at test time, and the dotted line marks where the online agent matches them.</figcaption>
     </figure>
     <figure class="fig rv">
       <a class="zoom" href="static/images/paper/fig-pertask.webp?v=20261124"><img src="static/images/paper/fig-pertask.webp?v=20261124" alt="Per-task success rate and stage completion of PyRUA-Dex with the best trained policy on each task" width="1959" height="1134" loading="lazy"></a>
-      <figcaption><b>Per-task results.</b> (a) Success rate and (b) latched stage completion of PyRUA-Dex on each task, with the best trained policy on the task (grey tick). Triangles: PyRUA-Dex above the best trained policy (15 of 26 tasks in success rate).</figcaption>
+      <figcaption><b>Per-task results.</b> (a) Success rate and (b) latched stage completion of PyRUA-Dex on each task, with the best trained policy on the task (grey tick). Triangles: PyRUA-Dex above the best trained policy (15 of 26 tasks in success rate, 14 in stage completion).</figcaption>
     </figure>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-target"/></svg>What practicing adds</h3>
@@ -596,7 +634,7 @@
         </div>
         <ul class="ticks">
           <li><svg class="ic"><use href="#i-clock"/></svg><span>The online agent reaches 61.5% only at ten times the budget (32.1% at 2×, 50.0% at 5×), with 33.7M tokens per episode.</span></li>
-          <li><svg class="ic"><use href="#i-coins"/></svg><span>Developing all 26 tasks took 11.7B tokens in Stage 1 and 6.6B in Stage 2, less than a third of the online agent's 58B tokens for the benchmark's 5,200 episodes at 1×.</span></li>
+          <li><svg class="ic"><use href="#i-coins"/></svg><span>Developing all 26 tasks took less than a third of the online agent's 58B tokens for the benchmark's 5,200 episodes at 1×: 11.7B in Stage 1, and 6.6B in Stage 2 on the 23 tasks with recorded counts.</span></li>
           <li><svg class="ic"><use href="#i-snow"/></svg><span>Every further episode of a frozen program costs no tokens and runs at the control rate.</span></li>
           <li><svg class="ic"><use href="#i-paper"/></svg><span>The online agent's numbers are one batch of 78 episodes from its report, run at every budget; its separate leaderboard entry of 260 episodes at 1× has 26.2%.</span></li>
         </ul>
@@ -625,7 +663,7 @@
     <div class="sec-head rv">
       <span class="eyebrow"><svg class="ic"><use href="#i-cube"/></svg>Results · DexJoCo</span>
       <h2>Above the benchmark's trained policies on all 11 DexJoCo tasks</h2>
-      <p class="lead">The same two stages on DexJoCo's 11 tasks for Franka arms with 16-DoF Allegro hands, in MuJoCo, under the official protocol: three seeds of 50 episodes per task and setting. One frozen program per task serves both settings: rand-obj randomizes object placement and table height, rand-full also camera poses, lighting and tabletop texture. Practicing lifts the success rate from 58.7% to 88.5% under rand-obj and from 64.1% to 81.0% under rand-full.</p>
+      <p class="lead">The same two stages on DexJoCo's 11 tasks for Franka arms with 16-DoF Allegro hands, in MuJoCo, under the official protocol: three seeds of 50 episodes per task and setting. DexJoCo defines no stages, so during development an agent learns only whether an episode succeeded, and its programs see the cameras without calibration; both stages run in rand-full. One frozen program per task serves both settings: rand-obj randomizes object placement and table height, rand-full also camera poses, lighting and tabletop texture. Practicing lifts the success rate from 58.7% to 88.5% under rand-obj and from 64.1% to 81.0% under rand-full.</p>
     </div>
 
     <figure class="dj-clips rv">
@@ -693,7 +731,7 @@
             <tr><td><b>Average</b></td><td></td><td class="num">58.7</td><td class="num"><b>88.5</b></td><td class="num">54.1 (π<sub>0.5</sub>)</td><td class="num">64.1</td><td class="num"><b>81.0</b></td><td class="num">40.3 (π<sub>0.5</sub>)</td></tr>
           </tbody>
         </table>
-        <p class="dj-note">Mean over three seeds of 50 episodes. Trained: the best of the benchmark's five trained policies on the task. <sup>*</sup>Stage 2 did not run. <sup>†</sup>With a fallback to the fixed camera when the randomized one is absent; without it, 0.0 under rand-obj.</p>
+        <p class="dj-note">Mean over three seeds of 50 episodes. Trained: the best of the benchmark's five trained policies on the task. <sup>*</sup>Stage 2 did not run. <sup>†</sup>With a fallback to the fixed camera when the randomized one is absent; without it, 0.0 under rand-obj, and the rand-obj averages would be 49.8 and 79.5 instead of 58.7 and 88.5.</p>
       </details>
     </div>
   </div>
