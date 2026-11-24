@@ -634,7 +634,7 @@ html:not(.js) .th-tab.on { background: var(--red); }
    about 40 characters a line, where justified text opens gaps) keep a ragged right edge. Phones keep it everywhere. */
 .nw { white-space: nowrap; }
 .lead, .h3-lead, .fig figcaption, .code-cap, .lb-note, .cost-note, .dj-note, .chain-text, .keep-rule span, .steps li > span,
-.ticks li > span, .cb p, .skill-note > span:not(.pill) { text-align: justify; hyphens: auto; hyphenate-limit-chars: 6 3 3; }
+.ticks li > span, .cb p, .skill-note > span:not(.pill), .abstract p { text-align: justify; -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 7 3 3; }
 .lead { text-align-last: center; }
 .h3-lead { max-width: none; }                            /* as wide as the blocks under it (it stopped at 900px) */
 /* the four primitive cards in two columns: in four, the longest ran to 18 short lines beside one of 6 */
@@ -668,7 +668,7 @@ html:not(.js) .th-tab.on { background: var(--red); }
 }
 @media (max-width: 720px) {
   .h3-lead, .fig figcaption, .code-cap, .lb-note, .cost-note, .dj-note, .chain-text, .keep-rule span, .steps li > span,
-  .ticks li > span, .cb p, .skill-note > span:not(.pill) { text-align: left; }
+  .ticks li > span, .cb p, .skill-note > span:not(.pill), .abstract p { text-align: left; }
   .lead { text-align: center; text-align-last: auto; }
   .cb-grid { grid-template-columns: 1fr; }
   .mini b { font-size: 17.5px; }
