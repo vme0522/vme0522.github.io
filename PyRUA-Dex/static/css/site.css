@@ -620,3 +620,7 @@ html:not(.js) .th-tab.on { background: var(--red); }
   .th-fam.leave-r, .th-fam.leave-l, .th-fam.enter-r .th-desc, .th-fam.enter-l .th-desc, .th-fam.enter-r .th-thumbs,
   .th-fam.enter-l .th-thumbs, .th-fam.enter-r .th-slide[data-pos="0"], .th-fam.enter-l .th-slide[data-pos="0"] { animation: none; }
 }
+
+/* three number boxes in a row (the twin's system identification); one column on phones */
+.num-grid.three { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 720px) { .num-grid.three { grid-template-columns: 1fr; } }
