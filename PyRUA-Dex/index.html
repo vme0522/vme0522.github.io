@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PyRUA-Dex: Learning Programmatic Policies for Dexterous Bimanual Manipulation with Coding Agents</title>
-  <meta name="description" content="Coding agents learn programmatic policies for dexterous bimanual manipulation from their own trials in simulation: one frozen program per task, with no language model at test time. SOTA on Bench2Dex (score 72.9); DexJoCo 88.5% and 81.0% under object and full randomization; on a real bimanual rig, frozen programs put cubes in a basket, stack cubes, play the piano, write calligraphy and open hinged objects.">
+  <meta name="description" content="Coding agents learn programmatic policies for dexterous bimanual manipulation from their own trials in simulation: one frozen program per task, with no language model at test time. SOTA on Bench2Dex (score 72.9); DexJoCo 88.5% and 81.0% under object and full randomization; on a real bimanual platform, frozen programs put cubes in a basket, stack cubes, play the piano, write calligraphy and open hinged objects.">
   <meta name="keywords" content="Dexterous manipulation, Bimanual manipulation, Coding agents, Policies as code, Bench2Dex, DexJoCo, Real-to-sim-to-real, Peking University">
   <meta name="author" content="PKU DAGroup">
   <meta name="theme-color" content="#9A0000">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="PKU DAGroup">
   <meta property="og:title" content="PyRUA-Dex: Learning Programmatic Policies for Dexterous Bimanual Manipulation with Coding Agents">
-  <meta property="og:description" content="Coding agents learn programmatic policies for dexterous bimanual manipulation. SOTA on Bench2Dex (score 72.9); DexJoCo 81.0% under full randomization; on a real bimanual rig, frozen programs put cubes in a basket, stack cubes, play the piano, write calligraphy and open hinged objects.">
+  <meta property="og:description" content="Coding agents learn programmatic policies for dexterous bimanual manipulation. SOTA on Bench2Dex (score 72.9); DexJoCo 81.0% under full randomization; on a real bimanual platform, frozen programs put cubes in a basket, stack cubes, play the piano, write calligraphy and open hinged objects.">
   <meta property="og:url" content="https://vme0522.github.io/PyRUA-Dex/">
   <meta property="og:image" content="https://vme0522.github.io/PyRUA-Dex/static/images/og-teaser.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg?v=3">
-  <link rel="stylesheet" href="static/css/site.css?v=20261124c">
+  <link rel="stylesheet" href="static/css/site.css?v=20261124d">
 </head>
 <body>
 
@@ -37,9 +37,9 @@
   <symbol id="i-robot" viewBox="0 0 24 24"><path d="M4 21h9M8.5 21v-3"/><circle cx="8.5" cy="15.5" r="2.5"/><path d="m10.3 13.7 4.2-5.2"/><circle cx="15.8" cy="7" r="2"/><path d="M17.6 8l2.4 2.2M20 10.2l1-2M20 10.2l.6 2.2"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20.5 20.5-4.9-4.9"/></symbol>
   <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".9" fill="currentColor"/></symbol>
-  <symbol id="i-gate" viewBox="0 0 24 24"><path d="M12 2.5 19.5 5.5v6.2c0 4.5-3.1 7.9-7.5 9.8-4.4-1.9-7.5-5.3-7.5-9.8V5.5z"/><path d="m8.8 12.2 2.3 2.3 4.3-4.6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5 19.5 5.5v6.2c0 4.5-3.1 7.9-7.5 9.8-4.4-1.9-7.5-5.3-7.5-9.8V5.5z"/><path d="m8.8 12.2 2.3 2.3 4.3-4.6"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17.2" cy="9" r="2.6"/><path d="M16 14.1a5 5 0 0 1 5.5 5"/></symbol>
-  <symbol id="i-rewind" viewBox="0 0 24 24"><path d="M11.5 6.5 5 12l6.5 5.5zM19.5 6.5 13 12l6.5 5.5z"/></symbol>
+  <symbol id="i-restore" viewBox="0 0 24 24"><path d="M5.65 14.83A7.4 7.4 0 1 0 6.54 8.06L4.7 10.7"/><path d="M4.7 5.9v4.8h4.8"/><path d="M12.6 8.4v4l2.7 1.7"/></symbol>
   <symbol id="i-notes" viewBox="0 0 24 24"><path d="M4 5h16v11h-9l-5 4v-4H4z"/><path d="M8 9h8M8 12.5h5"/></symbol>
   <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2.5v19M3.8 7.3l16.4 9.4M3.8 16.7l16.4-9.4"/><path d="m9.5 4 2.5 2 2.5-2M9.5 20l2.5-2 2.5 2"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M9 7h6"/></symbol>
@@ -111,6 +111,7 @@
       <span>Lekai Wang<sup>1</sup></span>,
       <span>Rui Ni<sup>1</sup></span>,
       <span>Weicheng Duan<sup>4</sup></span>,
+      <span>Qiang Wang<sup>1</sup></span>,
       <span><a href="https://jxbi1010.github.io/" target="_blank" rel="noopener">Jianxin Bi</a><sup>1,2</sup></span>,
       <span>Zeliang Fu<sup>4</sup></span>,
       <span>Jiankun Zhang<sup>5</sup></span>,
@@ -138,7 +139,7 @@
       <button class="hero-snd" type="button" data-hero-sound aria-pressed="false" aria-controls="hero-piano">Sound off</button>
     </div>
   </div>
-  <p class="tldr">Coding agents <b>explore</b> a task in simulation, <b>practice</b> it link by link, and hand over a frozen programmatic policy that runs with no language model at test time.</p>
+  <p class="tldr">Coding agents <b>explore</b> a task in simulation, <b>refine</b> the resulting program link by link, and hand over a frozen programmatic policy that runs with no language model at test time.</p>
 
   <figure class="teaser">
     <div class="clips-h"><svg class="ic"><use href="#i-hand"/></svg><b>Real robot</b><span>two FR3 arms, two Sharpa Wave hands · third-person cameras</span></div>
@@ -174,7 +175,7 @@
       <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_hammer.jpg" aria-label="Hammer nail, DexJoCo, one arm, full randomization"><source src="static/videos/dexjoco/dj_hammer.mp4" type="video/mp4"></video><div class="clip-tag"><b>Hammer nail</b>one arm · rand-full 88.0%</div></div>
       <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_water.jpg" aria-label="Water plant, DexJoCo, one arm, full randomization"><source src="static/videos/dexjoco/dj_water.mp4" type="video/mp4"></video><div class="clip-tag"><b>Water plant</b>one arm · rand-full 79.3%</div></div>
     </div>
-    <figcaption class="cap">Frozen programs at work: on our real rig, in formal Bench2Dex episodes and in formal DexJoCo episodes under full randomization.</figcaption>
+    <figcaption class="cap">Frozen programs at work: on our real robot, in Bench2Dex test episodes and in DexJoCo test episodes under full randomization.</figcaption>
   </figure>
 
   <div class="stats">
@@ -188,7 +189,7 @@
     <div class="stat">
       <div class="badge"><svg class="ic"><use href="#i-trend"/></svg></div>
       <div class="stat-v sm">44.6<small>%</small> <span class="arrow">→</span> 60.6<small>%</small></div>
-      <div class="stat-k">Success rate, explore → practice</div>
+      <div class="stat-k">Success rate, exploration → refinement</div>
       <div class="stat-t">latched stage completion 67.0% → 82.3%</div>
     </div>
     <div class="stat">
@@ -216,13 +217,13 @@
     <div class="abs-grid">
       <div class="card abstract rv">
         <h3><svg class="ic"><use href="#i-paper"/></svg>Abstract</h3>
-        <p>Dexterous bimanual manipulation is usually learned from demonstrations, which are costly to collect for multi-fingered hands and do not transfer between hands. We show that coding agents can instead learn a <em>programmatic policy</em> for each task from their own trials in simulation: a program that runs frozen at test time, without demonstrations, trained weights or language-model calls. <b>PyRUA-Dex</b> learns it in two stages. In the <em>explore</em> stage, eight GPT-6 Astra agents search in parallel for a way through the task, with rewinds and stage feedback, and a distilling agent turns what scored into a task library and a champion. In the <em>practice</em> stage, one agent makes that way hold by strengthening its weakest link over many layouts, keeping a new champion only if it does no worse on unseen development layouts. <b>PyRUA-Dex sets a new SOTA on Bench2Dex.</b> On Bench2Dex (26 bimanual tasks on 12 arm–hand embodiments), practicing lifts the score from 59.1 to <b>72.9</b>, ahead of every trained policy on the benchmark, and the frozen programs succeed 2.4 times as often as the same model acting online at the same step budget. On DexJoCo, they succeed in <b>88.5%</b> of episodes under object randomization and <b>81.0%</b> under full randomization, against 54.1% and 40.3% for the strongest trained policy, and above the online agent at the benchmark's step budget. On a real bimanual rig with two 22-DoF hands, the same procedure learns in a calibrated twin refined by the robot's feedback, its frozen programs run on the robot, and with a skill shared within a task family, a new task typically takes under an hour.</p>
+        <p>Learning for dexterous manipulation is limited by the scarcity of high-quality demonstrations: retargeting from human video is imprecise, teleoperation gives no force feedback to the operator, and exoskeleton-based collection is hard to scale. We present <b>PyRUA-Dex</b>, a framework that enables coding agents to develop dexterous manipulation through <em>programmatic policy</em>, without the need of demonstrations. The programmatic policy is developed in two stages: during <em>exploration</em>, multiple agents explore in parallel for task skills and ways to compose them, and a distilling agent condenses the successful attempts into a task library and a reward program. During <em>refinement</em>, the skills and the reward program are jointly improved through randomized layouts for enhanced robustness and execution efficiency. In simulated environments, PyRUA-Dex achieves SOTA on Bench2Dex with a score of 72.9 and reaches 81.0% success on DexJoCo under full randomization, ahead of every trained policy on both benchmarks. In real world experiments on a bimanual platform with two 22-DoF hands, PyRUA-Dex learns to play piano, write calligraphy, and other tasks efficiently: learning a new piece from sheet music takes as little as 30 minutes. These results suggest that PyRUA-Dex is an effective framework for developing dexterous manipulation policies with coding agents in the absence of high quality dexterous manipulation demonstrations.</p>
       </div>
       <div class="glance">
-        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-repeat"/></svg></div><div><b>Learned from the agents' own trials</b><span>Agents learn from their own trials in simulation, with rewinds and the simulator's stage count.</span></div></div>
-        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-file-code"/></svg></div><div><b>A programmatic policy, not weights</b><span>Each task's policy is a Python program on a shared codebox; the task-12 champion is 2,241 lines in 22 files.</span></div></div>
-        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-chip-off"/></svg></div><div><b>No language model at test time</b><span>The champion runs frozen at the control rate, under the benchmark's own protocol and inputs.</span></div></div>
-        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-robot"/></svg></div><div><b>Two benchmarks and a real rig</b><span>Bench2Dex's 12 arm–hand pairs, from 6 to 22 hand joints; DexJoCo's Franka arms with Allegro hands; our FR3 rig with two Sharpa hands.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-repeat"/></svg></div><div><b>Learned from the agents' own trials</b><span>Agents learn from their own trials in simulation, with checkpoints and the simulator's stage count.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-file-code"/></svg></div><div><b>A programmatic policy, not weights</b><span>Each task's policy is a Python program on a shared codebox; the final program of task 12 is 2,241 lines in 22 files.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-chip-off"/></svg></div><div><b>No language model at test time</b><span>The program runs frozen at the control rate, under the benchmark's own protocol and inputs.</span></div></div>
+        <div class="g-item rv"><div class="badge"><svg class="ic"><use href="#i-robot"/></svg></div><div><b>Two benchmarks and a real robot</b><span>Bench2Dex's 12 arm–hand pairs, with 6 to 22 driven joints per hand; DexJoCo's Franka arms with Allegro hands; our FR3 platform with two Sharpa hands.</span></div></div>
       </div>
     </div>
   </div>
@@ -233,41 +234,40 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow"><svg class="ic"><use href="#i-flow"/></svg>Method</span>
-      <h2>Explore, then practice</h2>
-      <p class="lead">Both stages are run by general coding agents, Codex CLI sessions of GPT-6 Astra, each with a shell, a simulator of its own and the codebox. Stage 1 finds a way through the task; Stage 2 makes the way hold on layouts it has never seen.</p>
+      <h2>Exploration, then refinement</h2>
+      <p class="lead">PyRUA-Dex learns one programmatic policy per task in simulation and deploys it as a frozen program. Both stages are carried out by general coding agents, Codex CLI sessions of GPT-6 Astra, each with a shell, its own simulator instance and the codebox. Exploration (Stage 1) searches for a program that completes the task at all; refinement (Stage 2) improves how reliably that program completes the task on unseen layouts.</p>
     </div>
 
     <figure class="fig rv">
-      <a class="zoom" href="static/images/paper/fig-method.svg?v=20261124b"><img src="static/images/paper/fig-method.svg?v=20261124b" alt="Overview of PyRUA-Dex: the inputs; Stage 1, exploring with rewinds, round notes, frozen replay and distillation; Stage 2, the report, practice runs, second tries, batches and choosing the version; the dev gate; the frozen champion" width="2400" height="845" loading="lazy"></a>
-      <figcaption><b>PyRUA-Dex.</b> Every box is named after the paragraph of the paper's method section that describes it. <b>Stage 1</b> (explore): eight agents explore one task in parallel with rewinds, round notes tell every episode to all of them at once, and the programs that scored are replayed frozen and distilled into a task library and a champion. <b>Stage 2</b> (practice): one agent reads the champion's report link by link, practices the weakest link on many layouts, lets failed stages try again, measures each version in batches and keeps the one with the best held-out record. <b>Dev gate</b>: a new champion replaces the old one only if it is no worse on 32 dev layouts. The champion runs frozen, with no language model.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-method.svg?v=20261124e"><img src="static/images/paper/fig-method.svg?v=20261124e" alt="Overview of PyRUA-Dex: the inputs; learning in simulation, with Stage 1, exploration (exploring with checkpoints, shared notes, agent-free replay and distillation) and Stage 2, refinement (per-link report, refining the weakest link, version selection); the frozen program, tested on Bench2Dex and DexJoCo and deployed on the real robot (sim-to-real), whose feedback updates the simulation (real-to-sim)" width="2400" height="1007" loading="lazy"></a>
+      <figcaption><b>Overview of PyRUA-Dex.</b> All learning takes place in simulation. <b>Stage 1</b> (exploration): parallel agents explore the task with checkpoints and shared notes; their programs are replayed without the agents and distilled into a task library and one program. <b>Stage 2</b> (refinement): one agent refines the program link by link on randomized layouts and keeps the version with the best held-out record. The resulting program runs frozen, without a language model. For a real robot, the simulation is built from the robot's scene (real-to-sim), the frozen program is deployed (sim-to-real), and the robot's feedback updates the simulation for the next round of refinement.</figcaption>
     </figure>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-layers"/></svg>Two stages, one gate</h3>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-layers"/></svg>Two stages, both in simulation</h3>
     <div class="stages">
       <div class="card stage rv">
-        <div class="stage-top"><div class="stage-num">1</div><div><h3>Explore</h3><p class="stage-goal">find a way through the task</p></div></div>
+        <div class="stage-top"><div class="stage-num">1</div><div><h3>Exploration</h3><p class="stage-goal">find a program that completes the task at all</p></div></div>
         <ul class="steps">
-          <li><svg class="ic"><use href="#i-users"/></svg><span><b>Eight seeds in parallel.</b> Each agent gets the task library, a fresh layout and a stage not yet solved.</span></li>
-          <li><svg class="ic"><use href="#i-rewind"/></svg><span><b>Exploring with rewinds.</b> Eight rewinds per layout: the agent tries one stage many times and asks for the stage count after every attempt.</span></li>
-          <li><svg class="ic"><use href="#i-notes"/></svg><span><b>Round notes.</b> Every episode a seed closes is told to all of them as it ends, a stage reached for the first time on top; the round's note keeper keeps the notes and the code they point to.</span></li>
-          <li><svg class="ic"><use href="#i-snow"/></svg><span><b>Frozen replay.</b> Each seed writes the program that redoes what scored; it runs alone on eight fresh layouts.</span></li>
-          <li><svg class="ic"><use href="#i-book"/></svg><span><b>Distillation.</b> A distilling agent writes the task library from frozen rates only, and names the champion.</span></li>
+          <li><svg class="ic"><use href="#i-users"/></svg><span><b>Eight agents in parallel.</b> Each receives the task library, a training layout of its own and one of the stages not yet solved.</span></li>
+          <li><svg class="ic"><use href="#i-restore"/></svg><span><b>Exploring with checkpoints.</b> An agent saves checkpoints of an episode and restores them, eight times per layout: it retries one stage many times without repeating the stages before it, and queries the stage count after each attempt.</span></li>
+          <li><svg class="ic"><use href="#i-notes"/></svg><span><b>Shared notes.</b> Every attempt an agent finishes is added to notes shared by all agents of the task, with the stages it reached and the code that reached them; a note-keeping agent curates the notes.</span></li>
+          <li><svg class="ic"><use href="#i-snow"/></svg><span><b>Agent-free replay.</b> Each agent writes a program that reproduces what it achieved; it is replayed without the agent on eight fresh training layouts.</span></li>
+          <li><svg class="ic"><use href="#i-book"/></svg><span><b>Distillation.</b> A distilling agent writes the task library from the replay records and selects the task's program.</span></li>
         </ul>
       </div>
       <div class="card stage s2 rv">
-        <div class="stage-top"><div class="stage-num">2</div><div><h3>Practice</h3><p class="stage-goal">make the way hold</p></div></div>
+        <div class="stage-top"><div class="stage-num">2</div><div><h3>Refinement</h3><p class="stage-goal">make the program reliable on unseen layouts</p></div></div>
         <ul class="steps">
-          <li><svg class="ic"><use href="#i-search"/></svg><span><b>The report.</b> The champion on 32 fresh layouts, stage by stage, so the weakest link shows before any work begins.</span></li>
-          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Practice runs.</b> The program up to one stage over tens of fresh layouts, with twice the benchmark's steps.</span></li>
-          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Second tries.</b> With <code>AGAIN = True</code>, a stage function that did not end ok is called again while steps remain.</span></li>
-          <li><svg class="ic"><use href="#i-layers"/></svg><span><b>Batches.</b> Each version on 32 fresh and 32 held-out layouts, at the benchmark's steps; one is due every 160 practice layouts.</span></li>
-          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Choosing the version.</b> Within a round of 1,500 layouts, the version with the best held-out record goes to the gate.</span></li>
+          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Per-link report.</b> The program on 32 fresh training layouts, reported per link, so the weakest link is visible before any change is made.</span></li>
+          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Refining the weakest link.</b> The agent repairs the stage function with the help of checkpoints, then measures it with partial rollouts: the program runs only up to that stage on tens of fresh layouts, with twice the benchmark's step budget.</span></li>
+          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Retries.</b> With <code>AGAIN = True</code>, a stage function that did not end ok is called again while steps remain.</span></li>
+          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Version selection.</b> After every 160 training layouts the current version is evaluated without the agent on 32 fresh and 32 held-out layouts, at the benchmark's step budget; of at most 1,500 layouts, the version with the best held-out record is selected.</span></li>
         </ul>
       </div>
     </div>
-    <div class="gate rv">
-      <div class="badge"><svg class="ic"><use href="#i-gate"/></svg></div>
-      <div><b>The dev gate</b><span>After each stage, a candidate replaces the champion only if it completes no fewer of the task's 32 development layouts, and then reaches stages no less often. Development layouts are never explored, summarized or shown to an agent; the champion that stands is evaluated frozen under the benchmark's protocol. Learn, dev and formal layouts are disjoint: agents work only on learn layouts, and the benchmark's formal seeds are run once, after the program is fixed, so no formal result feeds back into development.</span></div>
+    <div class="keep-rule rv">
+      <div class="badge"><svg class="ic"><use href="#i-check"/></svg></div>
+      <div><b>Kept only if no worse on validation layouts</b><span>After each stage, the selected program replaces the current one only if it completes no fewer of the task's 32 validation layouts, and then reaches stages no less often. Validation layouts are never shown to an agent; the final program is evaluated frozen under the benchmark's protocol. Training, validation and test layouts are disjoint: agents work only on training layouts, and the benchmark's test layouts are run once, after the program is fixed, so no test result feeds back into development.</span></div>
     </div>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-chain"/></svg>A task is a chain of links</h3>
@@ -275,25 +275,25 @@
       <div class="card rv">
         <span class="k-label">Success factorizes along the chain</span>
         <div class="formula">SR(<i>π</i>) = <i>s</i>(<i>π</i>) <span class="big">∏</span><span class="lim"><i>K</i><span><i>k</i>=1</span></span><i>r</i><sub><i>k</i></sub>(<i>π</i>)</div>
-        <p class="formula-note"><i>r<sub>k</sub></i>: layouts that reach stage <i>k</i> among those that entered it</p>
+        <p class="formula-note"><i>r<sub>k</sub></i>, the link rate: the fraction of layouts that reach stage <i>k</i> among those that reached the stage before</p>
         <div class="chainviz" role="img" aria-label="Five links of 0.6 each give a success rate of 0.08">
           <span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk">0.6</span><span class="lk-eq">= 0.08</span>
         </div>
-        <p class="chain-text">Five links that each hold on six layouts of ten complete one layout in thirteen, so a program that worked once fails on most layouts.</p>
-        <p class="chain-text">The gain from a link grows as the link weakens, ∂ log SR / ∂<i>r<sub>k</sub></i> = 1 / <i>r<sub>k</sub></i>: Stage 2 finds the weakest link and raises it.</p>
+        <p class="chain-text">Five links that each hold on 60% of the layouts complete fewer than 8% of them, so a program that worked once fails on most layouts.</p>
+        <p class="chain-text">Because ∂ log SR / ∂<i>r<sub>k</sub></i> = 1 / <i>r<sub>k</sub></i>, the largest gain comes from the weakest link: refinement finds it and raises it.</p>
       </div>
       <div class="card rv">
         <span class="k-label">Why two stages</span>
         <ul class="ticks">
-          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Explore</b> searches for some motion that gets each stage counted at all, <i>r<sub>k</sub></i> &gt; 0: grasps, orders and motions, many attempts on few layouts.</span></li>
-          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Practice</b> needs link rates measured over many layouts: once every link works, the product governs.</span></li>
-          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Second tries</b> raise a link directly. In 68% of the explored champions' failed dev runs on the 22 tasks they completed at least once, the program had returned with three tenths or more of the step budget unused.</span></li>
-          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>Every measurement</b> is reported link by link, stage functions of different agents fit together, and a single link can be practiced alone.</span></li>
+          <li><svg class="ic"><use href="#i-search"/></svg><span><b>Exploration</b> makes every link rate positive, <i>r<sub>k</sub></i> &gt; 0: a search over grasps, hand orders and motions on a few layouts.</span></li>
+          <li><svg class="ic"><use href="#i-target"/></svg><span><b>Refinement</b> needs link rates estimated over many layouts: once every link rate is positive, the product dominates.</span></li>
+          <li><svg class="ic"><use href="#i-repeat"/></svg><span><b>Retries</b> raise a link directly. In 68% of the failed validation runs of the programs after exploration, on the 22 tasks they completed at least once, the program had returned with at least 30% of the step budget unused.</span></li>
+          <li><svg class="ic"><use href="#i-podium"/></svg><span><b>The staged form</b> lets every measurement be reported per link, lets functions written by different agents be combined, and lets a single link be executed in isolation.</span></li>
         </ul>
       </div>
     </div>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-file-code"/></svg>The shape of every program</h3>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-file-code"/></svg>The form of every program</h3>
     <div class="prog-grid">
       <div class="card code-card rv">
         <div class="code-head"><span class="dots"><i></i><i></i><i></i></span>program.py · written by the agents for one task</div>
@@ -320,16 +320,16 @@
     codebox.release(<span class="s">"right"</span>)
     seen = codebox.relocate(<span class="s">"screwdriver"</span>)   <span class="c"># measure again</span>
     <span class="k">return</span> Outcome(inside(seen, context[<span class="s">"box"</span>]), <span class="s">"in box"</span>)</code></pre>
-        <div class="code-cap">The template every program fills in, here with two stages: <code>setup</code> measures once what the stages need, and each stage function measures, acts and checks, and returns an outcome. The agents' programs fill each stage with many more calls. <code>codebox</code>: the hand, arm and sensing calls below; <code>context</code>: what the functions measured.</div>
+        <div class="code-cap">The template every program fills in, here with two stages: <code>setup</code> measures once what the stages need, and each stage function measures, acts and checks, and returns an outcome. The agents' programs fill each stage with many more calls. <code>codebox</code>: the hand, arm and perception calls below; <code>context</code>: what the functions measured.</div>
       </div>
       <div class="card task-card rv">
-        <video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_12.jpg" aria-label="Task 12, screwdriver box and hammer, formal episode of the Stage 2 champion"><source src="static/videos/bench2dex/b2d_12.mp4" type="video/mp4"></video>
+        <video data-auto muted loop playsinline preload="none" poster="static/images/bench2dex/b2d_12.jpg" aria-label="Task 12, screwdriver box and hammer, test episode of the program after refinement"><source src="static/videos/bench2dex/b2d_12.mp4" type="video/mp4"></video>
         <div class="task-body">
           <h4>Task 12 · Screwdriver box and hammer</h4>
-          <p>UR5 + RH56DFX · formal episode of its Stage 2 champion, 2,241 lines in 22 files · <span class="speed">4×</span></p>
+          <p>UR5 + RH56DFX · test episode of its final program, 2,241 lines in 22 files · <span class="speed">4×</span></p>
           <div class="mini">
-            <div><b>0% → 37.0%</b><span>success rate, Stage 1 → Stage 2</span></div>
-            <div><b>0 → 12 / 32</b><span>dev layouts completed</span></div>
+            <div><b>0% → 37.0%</b><span>success rate, exploration → refinement</span></div>
+            <div><b>0 → 12 / 32</b><span>validation layouts completed</span></div>
           </div>
         </div>
       </div>
@@ -352,7 +352,7 @@
             <span class="k">break</span>
         todo = [n <span class="k">for</span> n <span class="k">in</span> program.STAGES <span class="k">if</span> <span class="k">not</span> last[n].ok]
         context[<span class="s">"again"</span>] = last    <span class="c"># how each last ended</span></code></pre>
-        <div class="code-cap">Condensed from its code. It calls <code>setup</code>, then the stage functions in order. A failed stage does not stop the ones after it, because each checks on entry what it needs. With <code>AGAIN = True</code>, the stages that did not end ok are called again while steps remain and a pass still uses steps.</div>
+        <div class="code-cap">Condensed from its code. It calls <code>setup</code>, then the stage functions in order. A failed stage does not stop the ones after it, because each checks on entry what it needs. With <code>AGAIN = True</code>, the stage functions that did not end ok are called again while steps remain and a pass still uses steps.</div>
       </div>
       <div class="card code-card rv">
         <div class="code-head"><span class="dots"><i></i><i></i><i></i></span>episode.log · an example</div>
@@ -362,18 +362,18 @@
 <span class="c">[stage]</span> pass 2: again for grasp, place
 <span class="c">[stage]</span> grasp: held (<span class="s">ok</span>)
 <span class="c">[stage]</span> place: in box (<span class="s">ok</span>)</code></pre>
-        <div class="code-cap">The first try of <code>grasp</code> fails, <code>place</code> returns at once, and the second pass completes both.</div>
+        <div class="code-cap">The first call of <code>grasp</code> fails, <code>place</code> returns at once, and the second pass completes both.</div>
       </div>
     </div>
 
     <h3 class="h3 rv"><svg class="ic"><use href="#i-code"/></svg>Driving dexterous hands: the codebox</h3>
-    <p class="h3-lead rv">A multi-fingered hand is what makes these tasks hard to program. The hands of the twelve Bench2Dex robots have 6 to 22 joints, named and arranged differently on every robot, and whether a grasp worked shows only in what the fingers feel. Agents and programs therefore drive every robot through the codebox, calls that speak of a hand the way a person would: shape the hand, grasp this object between thumb and index, close until it is held, check that it is still held. The codebox turns each call into joint targets for the hand in use, and it knows nothing of any object or task.</p>
+    <p class="h3-lead rv">Hands are what makes these tasks hard to program: the twelve hands of Bench2Dex have 6 to 22 driven joints, named and arranged differently on each robot, and whether a grasp holds is revealed only by touch. Agents and programs therefore control every robot through the codebox, which is built automatically from the robot's description file. It models each hand as fingers and a thumb whose joints are grouped by function, derives which object widths each set of fingers can hold, and exposes hand primitives at that level: shape the hand, grasp an object of a measured size, close until it is held, check that it is still held. Every primitive returns an outcome with its reason, so a program can check each step and retry.</p>
     <div class="cb-grid">
-      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-hand"/></svg></div><h4>Grasps instead of joint angles</h4><p>A model of each hand, built once from the robot's public description without reading any link or joint name: fingers and thumb, and joints grouped by what they do (bend, curl, spread). From it the codebox knows which widths each set of fingers holds; a program asks to grasp an object it has measured, and the codebox picks the fingers and how far to open them. The same calls drive all 12 Bench2Dex hands, from 6 to 22 joints, and our Sharpa hands.</p><div class="chips"><span class="chip">shape</span><span class="chip">close</span><span class="chip">grasp</span><span class="chip">release</span></div></div>
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-hand"/></svg></div><h4>Grasps instead of joint angles</h4><p>A model of each hand, built once from the robot's public description without reading any link or joint name: fingers and thumb, and joints grouped by what they do (bend, curl, spread). From it the codebox knows which widths each set of fingers holds; a program asks to grasp an object it has measured, and the codebox picks the fingers and how far to open them. The same calls drive the hands of all 12 Bench2Dex robots, with 6 to 22 driven joints, and the Sharpa hands of our real platform.</p><div class="chips"><span class="chip">shape</span><span class="chip">close</span><span class="chip">grasp</span><span class="chip">release</span></div></div>
       <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-route"/></svg></div><h4>Arms: plan whole, then move</h4><p>Arm calls put a frame of the hand at a point, with an approach direction and via points, and solve every pose before anything moves; a call says why a motion cannot run: unreachable, below the measured table, or in need of an arm reconfiguration. All motions run at the joints' speed limits.</p><div class="chips"><span class="chip">move_to</span><span class="chip">arc</span><span class="chip">together</span></div></div>
-      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-eye"/></svg></div><h4>Seeing objects</h4><p>SAM 3 masks for a ladder of prompts, combined across the calibrated fixed cameras into position, footprint, height and yaw; wrist cameras measure again from close by.</p><div class="chips"><span class="chip">segment</span><span class="chip">locate</span><span class="chip">relocate</span><span class="chip">look</span><span class="chip">probe</span></div></div>
+      <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-eye"/></svg></div><h4>Perception</h4><p>SAM 3 masks for a ladder of prompts, combined across the calibrated fixed cameras into position, footprint, height and yaw; wrist cameras measure again from close by.</p><div class="chips"><span class="chip">segment</span><span class="chip">locate</span><span class="chip">relocate</span><span class="chip">look</span><span class="chip">probe</span></div></div>
       <div class="cb rv"><div class="badge"><svg class="ic"><use href="#i-pulse"/></svg></div><h4>Touch</h4><p>A program does not assume that a grasp held; it checks. Touch comes from the fingertip maps and from joint lag, the gap between a joint's command and its measured position, read against each robot's measured drive response. Every call returns an outcome with its reason, data and steps, so a program checks each step and retries, adjusts or moves on.</p><div class="chips"><span class="chip">holding</span><span class="chip">feel</span><span class="chip">Outcome(ok, reason, data, steps)</span></div></div>
-      <div class="cb cb-wide rv"><div class="badge"><svg class="ic"><use href="#i-film"/></svg></div><div><h4>From an episode to a program</h4><p>When an exploring layout reaches a stage, the harness compiles the path the agent kept into a recipe, the palm's waypoints relative to the located objects split at every grasp and release, and a draft program in the staged form. The agent turns the draft into a program by closing the loop: measuring again before contact, checking that a hand holds, and stating how each stage function fails.</p></div><div class="chips"><span class="chip">play</span><span class="chip">take</span></div></div>
+      <div class="cb cb-wide rv"><div class="badge"><svg class="ic"><use href="#i-film"/></svg></div><div><h4>From an episode to a program</h4><p>When an explored layout that reached a stage is closed, the harness compiles the path the agent kept into a recipe, the palm's waypoints relative to the located objects split at every grasp and release, and a draft program in the staged form. The agent turns the draft into a program by closing the loop: measuring again before contact, checking that a hand holds, and stating how each stage function fails.</p></div><div class="chips"><span class="chip">play</span><span class="chip">take</span></div></div>
     </div>
   </div>
 </section>
@@ -383,19 +383,19 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow"><svg class="ic"><use href="#i-hand"/></svg>Real robot</span>
-      <h2>From the twin to the real robot</h2>
-      <p class="lead">All learning happens in a simulated twin of our rig. Stage 1 runs as on Bench2Dex; Stage 2 runs round after round, and what the robot shows adjusts the twin for the next round. What reaches the robot is the frozen program, with no language-model call.</p>
+      <h2>From simulation to the real robot</h2>
+      <p class="lead">All learning takes place in a simulation of our platform, and only frozen programs are executed on the robot, with no language-model call. Exploration runs once, as on the benchmarks; refinement is repeated in rounds, and what the robot reveals is written back into the simulation for the next round.</p>
     </div>
-    <div class="rig rv">
+    <div class="platform rv">
       <span><svg class="ic"><use href="#i-robot"/></svg>2 × Franka FR3 arms</span>
       <span><svg class="ic"><use href="#i-hand"/></svg>2 × Sharpa Wave SE hands, 22 joints each</span>
       <span><svg class="ic"><use href="#i-camera"/></svg>ZED-M stereo camera above the table</span>
       <span><svg class="ic"><use href="#i-camera"/></svg>RealSense D405 on each wrist</span>
-      <span><svg class="ic"><use href="#i-sim"/></svg>MuJoCo twin from the rig's calibration</span>
+      <span><svg class="ic"><use href="#i-sim"/></svg>MuJoCo simulation from the platform's calibration</span>
     </div>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-film"/></svg>On the real robot</h3>
-    <p class="h3-lead rv">Frozen programs on the rig play the piano, put cubes in a basket, stack cubes, write calligraphy with a brush and open hinged objects.</p>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-film"/></svg>Frozen programs on the real robot</h3>
+    <p class="h3-lead rv">On the real robot, the frozen programs play the piano, put cubes in a basket, stack cubes, write calligraphy with a brush and open hinged objects. They perceive the scene only through the platform's cameras and the hands' sensors.</p>
     <div class="theater rv" data-theater>
       <div class="th-tabs" role="tablist" aria-label="Task families on the real robot">
         <button class="th-tab on" type="button" role="tab" id="th-tab-piano" aria-controls="th-fam-piano" aria-selected="true"><svg class="ic"><use href="#i-piano"/></svg><span>Piano</span><em>5</em></button>
@@ -481,7 +481,7 @@
           </div>
         </section>
         <section class="th-fam" id="th-fam-brush" role="tabpanel" aria-labelledby="th-tab-brush" data-n="1" hidden>
-          <p class="th-desc"><svg class="ic"><use href="#i-brush"/></svg>A brush picked up from its rest writes on a practice cloth.</p>
+          <p class="th-desc"><svg class="ic"><use href="#i-brush"/></svg>A brush picked up from its rest writes on a calligraphy cloth.</p>
           <div class="th-track">
             <figure class="th-slide" data-i="0">
               <div class="th-media">
@@ -507,42 +507,42 @@
       </div>
     </div>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-hand"/></svg>The twin and its hands</h3>
-    <p class="h3-lead rv">The twin is a MuJoCo model of the rig built from its calibration: the cameras, the wrist cameras' hand-eye transforms, the table, the transform between the arms and each hand's mount. Its hands start from the manufacturer's model of the Sharpa Wave SE and are identified on the real hands, under the controller the robot runs them with: each joint takes the controller's stiffness and damping, its friction and armature are fitted to single-joint motions at 10, 50 and 150°/s, and its range and limits are the ones the hand reports. The controller's dither is not simulated, and contact stiffness is not identified. Every layout then draws what the calibration leaves open, from the hands' gains and frictions to the camera poses, the lighting, distractors and the objects' masses.</p>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-hand"/></svg>Real-to-sim: a calibrated simulation of the platform</h3>
+    <p class="h3-lead rv">The simulation is a MuJoCo model built from the platform's calibration: the cameras' intrinsics and poses, the hand-eye transforms of the wrist cameras, the table, the transform between the arms and each hand's mount. Objects are reconstructed from photographs or a phone video and a few measured sizes. The hands start from the manufacturer's model of the Sharpa Wave SE and are identified on the real hands, under the controller the robot uses: each joint takes the controller's stiffness and damping, its friction and armature are fitted to single-joint motions at 10, 50 and 150°/s, and its range and limits are the ones the hand reports. The controller's dither is not simulated, and contact stiffness is not identified. What the calibration leaves uncertain, from the hands' gains and friction to camera poses, lighting, distractor objects and object masses, is randomized in every layout.</p>
     <div class="num-grid three">
-      <div class="nbox rv"><b>0.12–0.18°</b><span>the twin's joints against the real ones, on motions the fit never saw (median, both hands)</span></div>
+      <div class="nbox rv"><b>0.12–0.18°</b><span>the simulated joints against the real ones, on motions held out from the fit (median, both hands)</span></div>
       <div class="nbox rv"><b>0.80–3.1°</b><span>the manufacturer's model on the same motions</span></div>
       <div class="nbox rv"><b>0.11–0.22°</b><span>the real hand following its own commands</span></div>
     </div>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Real to sim to real</h3>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Real-to-sim-to-real on our platform</h3>
     <figure class="fig rv">
-      <a class="zoom" href="static/images/paper/fig-r2s2r.webp?v=20261124c"><img src="static/images/paper/fig-r2s2r.webp?v=20261124c" alt="Real to sim to real on the rig: what the twin shares with the robot (head and wrist cameras with the twin's outlines, the identification of the hands' drives, fingertip touch, objects, an instruction of the user), learning in the twin, the frozen programs on the robot, and the dev layouts completed after each round" width="1959" height="898" loading="lazy"></a>
-      <figcaption><b>Real to sim to real on the rig.</b> (a) What the twin shares with the robot, the robot first: cameras, the hands' drives (the system identification), fingertip touch, objects and the user's instructions. (b) Learning in the twin, Stage 1 once and Stage 2 round after round. (c) The frozen programs on the robot; between (b) and (c), one round. (d) Dev layouts completed (of 32) after Stage 1 and after each round of Stage 2, one chart per task; ×: the champion measured again after the twin was adjusted.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-r2s2r.webp?v=20261124e"><img src="static/images/paper/fig-r2s2r.webp?v=20261124e" alt="Real-to-sim-to-real on our platform: what the simulation shares with the robot (head and wrist cameras with the simulation's outlines, the identification of the hands' drives, fingertip touch, objects, an instruction of the user), learning in simulation, the frozen programs on the robot, and the validation layouts completed after each round of refinement" width="1959" height="898" loading="lazy"></a>
+      <figcaption><b>Real-to-sim-to-real on our platform.</b> (a) What the simulation shares with the robot: cameras, the hands' drives, fingertip touch, objects and the user's instructions. (b) Learning in simulation: exploration once, refinement in rounds. (c) The frozen programs on the robot; one pass from (b) to (c) and back is one round. (d) Validation layouts completed in simulation (of 32) after exploration and after each round of refinement, one chart per task; ×: the program measured again after the simulation was recalibrated.</figcaption>
     </figure>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Learning on the rig</h3>
-    <p class="h3-lead rv">Dev layouts completed in the twin (of 32) by the champion after Stage 1 and after the last round of Stage 2. Between rounds, what the robot shows enters the twin: the table's measured height, the thumb's coupled swing, softer contacts, a wrist camera kept clear of the table, and the instructions the user gives at the robot. When such an adjustment breaks a champion, the next round restores it: Ode to Joy 32 → 0 → 31, Twinkle 32 → 0 → 31, Little Jumping Frog 23 → 0 → 29.</p>
-    <div class="card twin-card rv">
-      <div class="twin-top">
-        <div class="legend"><span class="key"><i></i>Stage 1 champion</span><span class="key"><i class="s2"></i>Stage 2 champion, last round</span></div>
-        <div class="twin-total">All 6 tasks: <b>119 → 168</b> of 192 dev layouts (62% → 88%)</div>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-sim"/></svg>Sim-to-real: refinement with real-robot feedback</h3>
+    <p class="h3-lead rv">Validation layouts completed in simulation (of 32) by the program after exploration and after the last round of refinement. After each round the program is executed on the robot, where a server rejects any motion that comes within a few millimetres of a joint limit, the table or the other arm, and what the robot reveals is written back into the simulation: the measured table height, the thumb's coupled swing, softer contacts, a wrist camera kept clear of the table, and the instructions the user gives at the robot. When such an update breaks a program, the next round restores it: Ode to Joy 32 → 0 → 31, Twinkle, Twinkle 32 → 0 → 31, Little Jumping Frog 23 → 0 → 29.</p>
+    <div class="card rs-card rv">
+      <div class="rs-top">
+        <div class="legend"><span class="key"><i></i>after exploration</span><span class="key"><i class="s2"></i>after the last round of refinement</span></div>
+        <div class="rs-total">All 6 tasks: <b>119 → 168</b> of 192 validation layouts (62% → 88%)</div>
       </div>
       <div class="dumb">
-        <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Cube to basket</b><small>each hand puts its cube in the basket · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Cube to basket · Stage 1"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Cube to basket · Stage 2"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
-        <div class="dumb-row" style="--a:6;--b:30"><div class="dumb-name"><b>Stack cubes</b><small>a tower of three cubes · 4 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="6 / 32" data-l="Stack cubes · Stage 1"></span><span class="pt s2" tabindex="0" data-v="30 / 32" data-l="Stack cubes · Stage 2"></span></div><div class="dumb-v">6 → <b>30</b></div></div>
-        <div class="dumb-row" style="--a:3;--b:14"><div class="dumb-name"><b>Write “Dex”</b><small>take the brush and write “Dex” on the cloth · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="3 / 32" data-l="Write “Dex” · Stage 1"></span><span class="pt s2" tabindex="0" data-v="14 / 32" data-l="Write “Dex” · Stage 2"></span></div><div class="dumb-v">3 → <b>14</b></div></div>
+        <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Cube to basket</b><small>each hand puts its cube in the basket · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Cube to basket · after exploration"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Cube to basket · after refinement"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
+        <div class="dumb-row" style="--a:6;--b:30"><div class="dumb-name"><b>Stack cubes</b><small>a tower of three cubes · 4 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="6 / 32" data-l="Stack cubes · after exploration"></span><span class="pt s2" tabindex="0" data-v="30 / 32" data-l="Stack cubes · after refinement"></span></div><div class="dumb-v">6 → <b>30</b></div></div>
+        <div class="dumb-row" style="--a:3;--b:14"><div class="dumb-name"><b>Write “Dex”</b><small>take the brush and write “Dex” on the cloth · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="3 / 32" data-l="Write “Dex” · after exploration"></span><span class="pt s2" tabindex="0" data-v="14 / 32" data-l="Write “Dex” · after refinement"></span></div><div class="dumb-v">3 → <b>14</b></div></div>
         <div class="dumb-group">Piano</div>
-        <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Ode to Joy</b><small>the right hand, eight phrases · 5 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Ode to Joy · Stage 1"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Piano, Ode to Joy · Stage 2"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
-        <div class="dumb-row" style="--a:29;--b:31"><div class="dumb-name"><b>Twinkle, Twinkle</b><small>two hands, tune and bass, six phrases · 4 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Twinkle, Twinkle · Stage 1"></span><span class="pt s2" tabindex="0" data-v="31 / 32" data-l="Piano, Twinkle, Twinkle · Stage 2"></span></div><div class="dumb-v">29 → <b>31</b></div></div>
-        <div class="dumb-row" style="--a:23;--b:29"><div class="dumb-name"><b>Little Jumping Frog</b><small>two hands, tune and bass, eight phrases · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="23 / 32" data-l="Piano, Little Jumping Frog · Stage 1"></span><span class="pt s2" tabindex="0" data-v="29 / 32" data-l="Piano, Little Jumping Frog · Stage 2"></span></div><div class="dumb-v">23 → <b>29</b></div></div>
+        <div class="dumb-row" style="--a:29;--b:32"><div class="dumb-name"><b>Ode to Joy</b><small>the right hand, eight phrases · 5 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Ode to Joy · after exploration"></span><span class="pt s2" tabindex="0" data-v="32 / 32" data-l="Piano, Ode to Joy · after refinement"></span></div><div class="dumb-v">29 → <b>32</b></div></div>
+        <div class="dumb-row" style="--a:29;--b:31"><div class="dumb-name"><b>Twinkle, Twinkle</b><small>two hands, tune and bass, six phrases · 4 rounds</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="29 / 32" data-l="Piano, Twinkle, Twinkle · after exploration"></span><span class="pt s2" tabindex="0" data-v="31 / 32" data-l="Piano, Twinkle, Twinkle · after refinement"></span></div><div class="dumb-v">29 → <b>31</b></div></div>
+        <div class="dumb-row" style="--a:23;--b:29"><div class="dumb-name"><b>Little Jumping Frog</b><small>two hands, tune and bass, eight phrases · 1 round</small></div><div class="track2"><span class="seg"></span><span class="pt" tabindex="0" data-v="23 / 32" data-l="Piano, Little Jumping Frog · after exploration"></span><span class="pt s2" tabindex="0" data-v="29 / 32" data-l="Piano, Little Jumping Frog · after refinement"></span></div><div class="dumb-v">23 → <b>29</b></div></div>
         <div class="dumb-axis" aria-hidden="true"><span class="axis-pad"></span><div class="axis-ticks"><span style="left:0%">0</span><span style="left:25%">8</span><span style="left:50%">16</span><span style="left:75%">24</span><span style="left:100%">32</span></div><span class="axis-unit">of 32</span></div>
       </div>
-      <div class="skill-note"><span class="pill"><svg class="ic"><use href="#i-piano"/></svg>Piano · same-family skill</span><span>A new piece typically takes 30 minutes to an hour of iteration: Jasmine, Night Cruise, Secret Base, Little Jumping Frog (whole), Canon.</span></div>
+      <div class="skill-note"><span class="pill"><svg class="ic"><use href="#i-piano"/></svg>Piano · one skill for the family</span><span>A skill learned once transfers within a task family: with the player distilled from the learned programs, a new piece typically takes 30 minutes to an hour of iteration. Jasmine, Night Cruise, Secret Base, the whole Little Jumping Frog and Canon were produced this way.</span></div>
       <details class="table-toggle">
         <summary>Show as a table</summary>
-        <table class="twin-table">
-          <thead><tr><th>Task</th><th>Goal</th><th class="num">Steps (30 Hz)</th><th class="num">Stage 1</th><th class="num">Stage 2</th><th class="num">Rounds</th></tr></thead>
+        <table class="rs-table">
+          <thead><tr><th>Task</th><th>Goal</th><th class="num">Steps (30 Hz)</th><th class="num">Exploration</th><th class="num">Refinement</th><th class="num">Rounds</th></tr></thead>
           <tbody>
             <tr><td>Cube to basket</td><td>each hand puts its cube in the basket</td><td class="num">1200</td><td class="num">29</td><td class="num">32</td><td class="num">1</td></tr>
             <tr><td>Stack cubes</td><td>a tower of three cubes</td><td class="num">1000</td><td class="num">6</td><td class="num">30</td><td class="num">4</td></tr>
@@ -552,8 +552,8 @@
             <tr><td>Twinkle, Twinkle</td><td>two hands, tune and bass, six phrases</td><td class="num">4500</td><td class="num">29</td><td class="num">31</td><td class="num">4</td></tr>
             <tr><td>Little Jumping Frog</td><td>two hands, tune and bass, eight phrases</td><td class="num">6000</td><td class="num">23</td><td class="num">29</td><td class="num">1</td></tr>
             <tr><td><b>Total</b></td><td></td><td></td><td class="num"><b>119 / 192</b></td><td class="num"><b>168 / 192</b></td><td></td></tr>
-            <tr class="grp"><td colspan="6">Piano, same-family skill (30 min to 1 h of iteration)</td></tr>
-            <tr><td colspan="6">Jasmine, Night Cruise, Secret Base, Little Jumping Frog (whole), Canon</td></tr>
+            <tr class="grp"><td colspan="6">Piano, with the family's skill (30 min to 1 h of iteration)</td></tr>
+            <tr><td colspan="6">Jasmine, Night Cruise, Secret Base, the whole Little Jumping Frog, Canon</td></tr>
           </tbody>
         </table>
       </details>
@@ -566,8 +566,8 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow"><svg class="ic"><use href="#i-podium"/></svg>Results · Bench2Dex</span>
-      <h2>SOTA on Bench2Dex</h2>
-      <p class="lead">26 bimanual tasks, 12 arm–hand embodiments and 4 perturbation channels, 5,200 formal episodes under the benchmark's own protocol. Score = 0.45 SR + 0.45 LSCR + 10 Eff.</p>
+      <h2>PyRUA-Dex sets a new SOTA on Bench2Dex</h2>
+      <p class="lead">26 bimanual tasks, 12 arm–hand embodiments and 4 perturbation channels, 5,200 test episodes under the benchmark's own protocol. Score = 0.45 SR + 0.45 LSCR + 10 Eff.</p>
     </div>
 
     <div class="card lb-card rv">
@@ -596,8 +596,8 @@
 
     <div class="ins-grid">
       <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-trophy"/></svg></div><div><b>Ahead of every trained policy</b><span>60.6% success and 82.3% stage completion, against 58.6% and 76.3% for ME-Dex 1.5, which fine-tunes a checkpoint per task.</span></div></div>
-      <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-gate"/></svg></div><div><b>Steady under perturbation</b><span>Success varies by 4.1 points across the four channels, and equivariance is the programs' best: a program measures the scene in every episode.</span></div></div>
-      <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-podium"/></svg></div><div><b>Above the best trained policy on 15 of 26 tasks</b><span>Widest where the difficulty is precision and order: piano melody 99.5% vs 32.0%, ball sorting 81.5% vs 37.5%.</span></div></div>
+      <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-shield"/></svg></div><div><b>Robust to perturbations</b><span>Success varies by only 4.1 points across the four channels, and equivariance is the programs' best: a program measures the scene in every episode and computes its motions from that measurement.</span></div></div>
+      <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-podium"/></svg></div><div><b>Above the best trained policy on 15 of 26 tasks</b><span>The margin is widest where precision and order decide the task: piano melody 99.5% vs 32.0%, ball sorting 81.5% vs 37.5%.</span></div></div>
     </div>
 
     <figure class="fig rv" style="margin-top:22px">
@@ -609,19 +609,19 @@
       <figcaption><b>Per-task results.</b> (a) Success rate and (b) latched stage completion of PyRUA-Dex on each task, with the best trained policy on the task (grey tick). Triangles: PyRUA-Dex above the best trained policy (15 of 26 tasks in success rate, 14 in stage completion).</figcaption>
     </figure>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-target"/></svg>What practicing adds</h3>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-target"/></svg>Refinement makes explored programs reliable</h3>
     <div class="num-grid">
-      <div class="nbox rv"><b>+13.8</b><span>score points from practicing, 59.1 → 72.9</span></div>
+      <div class="nbox rv"><b>+13.8</b><span>score points from refinement, 59.1 → 72.9</span></div>
       <div class="nbox rv"><b>20 / 26</b><span>tasks raise their success rate; stage completion 67.0% → 82.3%</span></div>
-      <div class="nbox rv"><b>68%</b><span>of Stage 1's failed dev runs had returned with three tenths of the steps or more unused (341 runs, on the 22 tasks it completed at least once)</span></div>
-      <div class="nbox rv"><b>43.6% → 61.7%</b><span>dev layouts completed, against formal success 44.6% → 60.6%: the gate predicts the benchmark</span></div>
+      <div class="nbox rv"><b>68%</b><span>of the failed validation runs after exploration had returned with at least 30% of the step budget unused (341 runs, on the 22 tasks exploration completed at least once)</span></div>
+      <div class="nbox rv"><b>43.6% → 61.7%</b><span>validation layouts completed, against test success 44.6% → 60.6%: validation layouts predict test performance</span></div>
     </div>
     <figure class="fig rv">
-      <a class="zoom" href="static/images/paper/fig-stage2.webp?v=20261124"><img src="static/images/paper/fig-stage2.webp?v=20261124" alt="Why practicing works: how Stage 1 programs failed, held-out completions batch by batch, and task 12 link by link" width="1959" height="645" loading="lazy"></a>
-      <figcaption><b>Why practicing works.</b> (a) How the 341 failed dev runs of the Stage 1 champions ended, on the 22 tasks Stage 1 completed at least once (704 runs); the 128 runs of the 4 tasks it never completed are not included. Dark bars: the two main ways. (b) Held-out completions (of 32), batch by batch through Stage 2: batch 0 is the Stage 1 champion (light dot, dotted line at its level), small dots are Stage 2 batches, and the large dot is the batch that became the champion. (c) Task 12: held-out layouts that reached each stage, Stage 1 and Stage 2 champion.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-stage2.webp?v=20261124e"><img src="static/images/paper/fig-stage2.webp?v=20261124e" alt="Why refinement works: how the programs after exploration failed, held-out completions of the versions evaluated during refinement, and task 12 link by link" width="1959" height="645" loading="lazy"></a>
+      <figcaption><b>Why refinement works.</b> (a) How the 341 failed validation runs of the programs after exploration ended, on the 22 tasks that exploration completed at least once. (b) Held-out completions (of 32) of the versions evaluated during refinement; version 0 is the program after exploration, and the large dot is the version that was selected. (c) Task 12: held-out layouts that reached each stage, after exploration and after refinement.</figcaption>
     </figure>
 
-    <h3 class="h3 rv"><svg class="ic"><use href="#i-bolt"/></svg>Frozen programs against the same model online</h3>
+    <h3 class="h3 rv"><svg class="ic"><use href="#i-bolt"/></svg>Frozen programs outperform the same model acting online</h3>
     <div class="online-grid">
       <div class="card rv">
         <span class="k-label">Full channel, at the benchmark's step budget</span>
@@ -632,15 +632,15 @@
         </div>
         <ul class="ticks">
           <li><svg class="ic"><use href="#i-clock"/></svg><span>The online agent reaches 61.5% only at ten times the budget (32.1% at 2×, 50.0% at 5×), with 33.7M tokens per episode.</span></li>
-          <li><svg class="ic"><use href="#i-coins"/></svg><span>Developing all 26 tasks took less than a third of the online agent's 58B tokens for the benchmark's 5,200 episodes at 1×: 11.7B in Stage 1, and 6.6B in Stage 2 on the 23 tasks with recorded counts.</span></li>
+          <li><svg class="ic"><use href="#i-coins"/></svg><span>Developing all 26 tasks took less than a third of the online agent's 58B tokens for the benchmark's 5,200 episodes at 1×: 11.7B in exploration, and 6.6B in refinement on the 23 tasks with recorded counts.</span></li>
           <li><svg class="ic"><use href="#i-snow"/></svg><span>Every further episode of a frozen program costs no tokens and runs at the control rate.</span></li>
-          <li><svg class="ic"><use href="#i-paper"/></svg><span>The online agent's numbers are one batch of 78 episodes from its report, run at every budget; its separate leaderboard entry of 260 episodes at 1× has 26.2%.</span></li>
+          <li><svg class="ic"><use href="#i-paper"/></svg><span>The online agent's numbers are the 78 episodes that its report runs at every budget; its separate leaderboard entry of 260 episodes at 1× has 26.2%.</span></li>
         </ul>
       </div>
       <div class="card rv">
-        <span class="k-label">What learning a task costs</span>
+        <span class="k-label">Development is paid once</span>
         <table class="cost">
-          <thead><tr><th></th><th>Stage 1 · explore</th><th>Stage 2 · practice</th></tr></thead>
+          <thead><tr><th></th><th>Exploration</th><th>Refinement</th></tr></thead>
           <tbody>
             <tr><td>Tasks with recorded counts</td><td>26</td><td>23</td></tr>
             <tr><td>Agents</td><td>208 sessions</td><td>one per task</td></tr>
@@ -649,7 +649,7 @@
             <tr><td>Median per task</td><td>427M · 21.6 h</td><td>214M · 14.8 h</td></tr>
           </tbody>
         </table>
-        <p class="cost-note">Tasks that were nearly solved submitted after one batch (about four agent hours); the hardest used all or nearly all 1,500 layouts and 21–38 agent hours. Stage 2 for all 26 tasks ran in about three days of wall-clock time on shared GPU clusters.</p>
+        <p class="cost-note">Tasks that were nearly solved were submitted after one evaluation (about four agent hours); the hardest used all or nearly all 1,500 layouts and 21–38 agent hours. Refinement for all 26 tasks ran in about three days of wall-clock time on shared GPU clusters.</p>
       </div>
     </div>
   </div>
@@ -660,8 +660,8 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="eyebrow"><svg class="ic"><use href="#i-cube"/></svg>Results · DexJoCo</span>
-      <h2>Above the benchmark's trained policies on all 11 DexJoCo tasks</h2>
-      <p class="lead">The same two stages on DexJoCo's 11 tasks for Franka arms with 16-DoF Allegro hands, in MuJoCo, under the official protocol: three seeds of 50 episodes per task and setting. DexJoCo defines no stages, so during development an agent learns only whether an episode succeeded, and its programs see the cameras without calibration; both stages run in rand-full. One frozen program per task serves both settings: rand-obj randomizes object placement and table height, rand-full also camera poses, lighting and tabletop texture. Practicing lifts the success rate from 58.7% to 88.5% under rand-obj and from 64.1% to 81.0% under rand-full.</p>
+      <h2>The findings transfer to a second benchmark</h2>
+      <p class="lead">The same two stages on DexJoCo's 11 tasks for Franka arms with 16-DoF Allegro hands, in MuJoCo, under the official protocol: three seeds of 50 episodes per task and setting. DexJoCo defines no stages, so during development an agent learns only whether an episode succeeded, and its programs see the cameras without calibration; both stages run in rand-full. One frozen program per task serves both settings: rand-obj randomizes object placement and table height, rand-full also camera poses, lighting and tabletop texture. PyRUA-Dex exceeds the best of the benchmark's trained policies on all 11 tasks in both settings, and refinement lifts its success rate from 58.7% to 88.5% under rand-obj and from 64.1% to 81.0% under rand-full.</p>
     </div>
 
     <figure class="dj-clips rv">
@@ -675,7 +675,7 @@
         <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_water.jpg" aria-label="Water plant, DexJoCo, one arm, full randomization"><source src="static/videos/dexjoco/dj_water.mp4" type="video/mp4"></video><div class="clip-tag"><b>Water plant</b>one arm · rand-full 79.3%</div></div>
         <div class="clip"><video data-auto muted loop playsinline preload="none" poster="static/images/dexjoco/dj_tongs.jpg" aria-label="Pinch tongs, DexJoCo, one arm, full randomization"><source src="static/videos/dexjoco/dj_tongs.mp4" type="video/mp4"></video><div class="clip-tag"><b>Pinch tongs</b>one arm · rand-full 91.3%</div></div>
       </div>
-      <figcaption class="cap"><span class="speed">4×</span>Frozen Stage 2 programs in formal DexJoCo episodes under full randomization; each seed draws its own camera pose, lighting and table texture (third-person camera).</figcaption>
+      <figcaption class="cap"><span class="speed">4×</span>Frozen programs in DexJoCo test episodes under full randomization; each seed draws its own camera pose, lighting and table texture (third-person camera).</figcaption>
     </figure>
 
     <div class="card lb-card rv">
@@ -683,9 +683,9 @@
         <table class="lb dj-lb">
           <thead><tr><th>Method</th><th>Type</th><th>Demos</th><th>LLM at test</th><th class="num">rand-obj (%)</th><th>rand-full (%)</th></tr></thead>
           <tbody>
-            <tr class="ours top"><td class="m">PyRUA-Dex, Stage 2</td><td><span class="type"><svg class="ic"><use href="#i-code"/></svg>Agent</span></td><td class="no-demo">none</td><td class="no-demo">none</td><td class="num"><b>88.5</b></td><td><div class="score"><span class="track"><span class="fill" style="--v:81.0"></span></span><b>81.0</b></div></td></tr>
+            <tr class="ours top"><td class="m">PyRUA-Dex</td><td><span class="type"><svg class="ic"><use href="#i-code"/></svg>Agent</span></td><td class="no-demo">none</td><td class="no-demo">none</td><td class="num"><b>88.5</b></td><td><div class="score"><span class="track"><span class="fill" style="--v:81.0"></span></span><b>81.0</b></div></td></tr>
             <tr><td class="m">GPT-6 Astra agent, 1× budget</td><td><span class="type"><svg class="ic"><use href="#i-bolt"/></svg>Agent</span></td><td class="yes">ICL</td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="num">–</td><td><div class="score"><span class="track"><span class="fill" style="--v:78.2"></span></span><b>78.2</b></div></td></tr>
-            <tr class="ours s1"><td class="m">PyRUA-Dex, Stage 1</td><td><span class="type"><svg class="ic"><use href="#i-code"/></svg>Agent</span></td><td class="no-demo">none</td><td class="no-demo">none</td><td class="num">58.7</td><td><div class="score"><span class="track"><span class="fill" style="--v:64.1"></span></span><b>64.1</b></div></td></tr>
+            <tr class="ours s1"><td class="m">PyRUA-Dex, exploration only</td><td><span class="type"><svg class="ic"><use href="#i-code"/></svg>Agent</span></td><td class="no-demo">none</td><td class="no-demo">none</td><td class="num">58.7</td><td><div class="score"><span class="track"><span class="fill" style="--v:64.1"></span></span><b>64.1</b></div></td></tr>
             <tr><td class="m">π<sub>0.5</sub></td><td><span class="type"><svg class="ic"><use href="#i-eye"/></svg>VLA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="yes">none</td><td class="num">54.1</td><td><div class="score"><span class="track"><span class="fill" style="--v:40.3"></span></span><b>40.3</b></div></td></tr>
             <tr><td class="m">GR00T N1.5</td><td><span class="type"><svg class="ic"><use href="#i-eye"/></svg>VLA</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="yes">none</td><td class="num">40.2</td><td><div class="score"><span class="track"><span class="fill" style="--v:30.5"></span></span><b>30.5</b></div></td></tr>
             <tr><td class="m">DP-C</td><td><span class="type"><svg class="ic"><use href="#i-film"/></svg>IL</span></td><td class="yes"><svg class="ic"><use href="#i-check"/></svg></td><td class="yes">none</td><td class="num">47.6</td><td><div class="score"><span class="track"><span class="fill" style="--v:28.4"></span></span><b>28.4</b></div></td></tr>
@@ -700,20 +700,21 @@
 
     <div class="ins-grid">
       <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-podium"/></svg></div><div><b>Above the best trained policy on all 11 tasks</b><span>In both settings. Widest on the bimanual tasks under full randomization: unlocking the iPad 99.3% vs 32.7%, the Tower of Hanoi 95.3% vs 33.3%.</span></div></div>
-      <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-gate"/></svg></div><div><b>One program for both settings</b><span>Full randomization costs the programs 7.5 points and the trained policies 9.7–30.4, each trained on demonstrations of its own setting.</span></div></div>
+      <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-shield"/></svg></div><div><b>One program for both settings</b><span>Full randomization costs the programs 7.5 points and the trained policies 9.7–30.4, each trained on demonstrations of its own setting.</span></div></div>
       <div class="card ins rv"><div class="badge"><svg class="ic"><use href="#i-bolt"/></svg></div><div><b>The same model, online</b><span>At the benchmark's step budget the online agent succeeds in 78.2% with 7.5M tokens per episode, the frozen programs in 81.0% with none; the agent needs twice the budget to match them.</span></div></div>
     </div>
 
     <figure class="fig rv" style="margin-top:22px">
-      <a class="zoom" href="static/images/paper/fig-dexjoco.webp?v=20261124"><img src="static/images/paper/fig-dexjoco.webp?v=20261124" alt="DexJoCo results: per-task success rate of the Stage 1 and Stage 2 programs, two bars per task, under rand-obj and rand-full, and rand-full success rate against the execution budget" width="1959" height="726" loading="lazy"></a>
-      <figcaption><b>DexJoCo results.</b> (a) rand-obj and (b) rand-full success rate per task: the Stage 1 program (light bar) above the Stage 2 program (dark bar), with the averages in the panel titles, and the best trained policy on the task (grey tick). Triangles: Stage 2 above it, on all ten tasks it ran on; “not run”: Stage 2 did not run on the photograph task. (c) rand-full success rate against the execution budget; the frozen programs spend no tokens at test time, the dotted line marks where the online agent matches them, and the diamond is the best trained policy, π<sub>0.5</sub>.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-dexjoco.webp?v=20261124e"><img src="static/images/paper/fig-dexjoco.webp?v=20261124e" alt="DexJoCo results per task: success rate of the programs after exploration and after refinement, two bars per task, under rand-obj and rand-full, and rand-full success rate against the execution budget" width="1959" height="726" loading="lazy"></a>
+      <figcaption><b>DexJoCo results per task.</b> (a) rand-obj and (b) rand-full success rate: the program after exploration (light bar) above the program after refinement (dark bar), with the averages in the panel titles, and the best trained policy on the task (grey tick). Triangles: PyRUA-Dex above it, on all ten tasks that were refined; “not run”: the photograph task was not refined. (c) rand-full success rate against the execution budget; the frozen programs spend no tokens at test time, the dotted line marks where the online agent matches them, and the diamond is the best trained policy, π<sub>0.5</sub>.</figcaption>
     </figure>
 
-    <div class="card twin-card rv">
+    <div class="card rs-card rv">
       <details class="table-toggle">
         <summary>Per-task results</summary>
-        <table class="twin-table">
-          <thead><tr><th>Task</th><th class="num">Arms</th><th class="num">rand-obj S1</th><th class="num">rand-obj S2</th><th class="num">Trained</th><th class="num">rand-full S1</th><th class="num">rand-full S2</th><th class="num">Trained</th></tr></thead>
+        <table class="rs-table">
+          <thead><tr><th rowspan="2">Task</th><th class="num" rowspan="2">Arms</th><th class="span" colspan="3">rand-obj</th><th class="span" colspan="3">rand-full</th></tr>
+          <tr><th class="num">Exploration</th><th class="num">Refinement</th><th class="num">Trained</th><th class="num">Exploration</th><th class="num">Refinement</th><th class="num">Trained</th></tr></thead>
           <tbody>
             <tr><td>Hammer nail</td><td class="num">1</td><td class="num">70.7</td><td class="num"><b>98.0</b></td><td class="num">84.7 (π<sub>0.5</sub>)</td><td class="num">49.3</td><td class="num"><b>88.0</b></td><td class="num">38.7 (GR00T)</td></tr>
             <tr><td>Click mouse<sup>†</sup></td><td class="num">1</td><td class="num">97.3</td><td class="num"><b>98.7</b></td><td class="num">85.3 (GR00T)</td><td class="num">93.3</td><td class="num"><b>98.0</b></td><td class="num">74.0 (GR00T)</td></tr>
@@ -729,7 +730,7 @@
             <tr><td><b>Average</b></td><td></td><td class="num">58.7</td><td class="num"><b>88.5</b></td><td class="num">54.1 (π<sub>0.5</sub>)</td><td class="num">64.1</td><td class="num"><b>81.0</b></td><td class="num">40.3 (π<sub>0.5</sub>)</td></tr>
           </tbody>
         </table>
-        <p class="dj-note">Mean over three seeds of 50 episodes. Trained: the best of the benchmark's five trained policies on the task. <sup>*</sup>Stage 2 did not run. <sup>†</sup>With a fallback to the fixed camera when the randomized one is absent; without it, 0.0 under rand-obj, and the rand-obj averages would be 49.8 and 79.5 instead of 58.7 and 88.5.</p>
+        <p class="dj-note">Mean over three seeds of 50 episodes. Trained: the best of the benchmark's five trained policies on the task. <sup>*</sup>Not refined. <sup>†</sup>With a fallback to the fixed camera when the randomized one is absent; without it, 0.0 under rand-obj, and the rand-obj averages would be 49.8 and 79.5 instead of 58.7 and 88.5.</p>
       </details>
     </div>
   </div>
@@ -749,8 +750,9 @@
              Manipulation with Coding Agents},
   author  = {Ruan, Feixiang and Lv, Guodong and Zhang, Kewei and Huang, Wenbo and
              Zhang, Yintianrun and Si, Ruiyang and Yang, Shunyu and Wang, Lekai and
-             Ni, Rui and Duan, Weicheng and Bi, Jianxin and Fu, Zeliang and
-             Zhang, Jiankun and Wang, Duomin and Xie, Enze and Zhou, Daquan},
+             Ni, Rui and Duan, Weicheng and Wang, Qiang and Bi, Jianxin and
+             Fu, Zeliang and Zhang, Jiankun and Wang, Duomin and Xie, Enze and
+             Zhou, Daquan},
   journal = {arXiv preprint},
   year    = {2026}
 }</pre>
