@@ -4,7 +4,7 @@
 :root {
   --red: #9A0000;
   --red-dk: #730000;
-  --rose: #D99A9A;        /* Stage 1 in charts; with --red an ordinal pair (validated light->dark, one hue) */
+  --rose: #D99A9A;        /* the program after exploration, in charts; with --red an ordinal pair (validated light->dark, one hue) */
   --red-50: #FCF6F6;
   --red-100: #F7EAEA;
   --red-200: #EDD2D2;
@@ -222,11 +222,11 @@ code { font-family: var(--mono); font-size: .9em; color: var(--red-dk); backgrou
 .steps { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 13px; }
 .steps li { display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: start; font-size: 15px; line-height: 1.55; }
 .steps li > .ic { margin-top: 1px; font-size: 21px; color: var(--red); }
-.gate { display: flex; align-items: center; gap: 18px; margin-top: 20px; padding: 18px 22px; border-radius: var(--r);
+.keep-rule { display: flex; align-items: center; gap: 18px; margin-top: 20px; padding: 18px 22px; border-radius: var(--r);
   border: 1px solid var(--red-200); background: linear-gradient(90deg, var(--red-100), var(--red-50) 45%, #fff); }
-.gate .badge { width: 48px; height: 48px; font-size: 25px; background: var(--red); color: #fff; }
-.gate b { display: block; font-size: 16.5px; }
-.gate span { display: block; font-size: 14.5px; line-height: 1.55; color: var(--text); }
+.keep-rule .badge { width: 48px; height: 48px; font-size: 25px; background: var(--red); color: #fff; }
+.keep-rule b { display: block; font-size: 16.5px; }
+.keep-rule span { display: block; font-size: 14.5px; line-height: 1.55; color: var(--text); }
 
 /* ---------- method: chain of links ---------- */
 .chain-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 22px; align-items: stretch; }
@@ -318,7 +318,7 @@ tr.ours.s1 .score .fill { background: var(--rose); }
 .ins b { display: block; font-size: 16px; line-height: 1.35; }
 .ins span { display: block; margin-top: 3px; font-size: 14px; line-height: 1.55; color: var(--sub); }
 
-/* ---------- results: practise and online ---------- */
+/* ---------- results: refinement and online ---------- */
 .num-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
 .nbox { padding: 16px 18px; border-radius: var(--r); background: #fff; border: 1px solid var(--line); }
 .nbox b { display: block; font-size: 28px; font-weight: 750; line-height: 1.1; letter-spacing: -.015em; color: var(--red); }
@@ -340,9 +340,9 @@ tr.ours.s1 .score .fill { background: var(--rose); }
 .cost-note { margin: 12px 0 0; font-size: 13.5px; color: var(--sub); }
 
 /* ---------- real robot ---------- */
-.rig { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: -14px 0 34px; }
-.rig span { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-size: 14px; color: var(--text); }
-.rig .ic { font-size: 17px; color: var(--red); }
+.platform { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: -14px 0 34px; }
+.platform span { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-size: 14px; color: var(--text); }
+.platform .ic { font-size: 17px; color: var(--red); }
 .real-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 22px; align-items: stretch; margin-top: 22px; }
 .film { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
 .film video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #1A1416; }
@@ -362,19 +362,19 @@ tr.ours.s1 .score .fill { background: var(--rose); }
 .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: var(--red-100); color: var(--red); font-size: 12.5px; font-weight: 700; }
 .pill .ic { font-size: 14px; }
 
-/* twin results: one row per task, Stage 1 -> Stage 2 (dev layouts of 32) */
-.twin-card { padding: 22px 26px 18px; }
-.twin-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; margin-bottom: 8px; }
+/* real-robot results: one row per task, exploration -> refinement (validation layouts of 32) */
+.rs-card { padding: 22px 26px 18px; }
+.rs-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 24px; margin-bottom: 8px; }
 .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13.5px; color: var(--sub); }
 .key { display: inline-flex; align-items: center; gap: 7px; }
 .key i { width: 12px; height: 12px; border-radius: 50%; background: var(--rose); }
 .key i.s2 { background: var(--red); }
-.twin-total { font-size: 14.5px; color: var(--sub); }
-.twin-total b { color: var(--ink); }
+.rs-total { font-size: 14.5px; color: var(--sub); }
+.rs-total b { color: var(--ink); }
 .skill-note { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 14px; font-size: 13.5px; line-height: 1.5; color: var(--sub); }
 .dumb { position: relative; }
 .dumb-group { padding: 12px 0 2px; font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--red); }
-.twin-table tr.grp td { padding-top: 10px; font-weight: 700; color: var(--red); }
+.rs-table tr.grp td { padding-top: 10px; font-weight: 700; color: var(--red); }
 .dumb-row { display: grid; grid-template-columns: minmax(180px, 1.05fr) 2fr 78px; grid-template-areas: "name track val"; gap: 16px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--line); }
 .dumb-name { grid-area: name; min-width: 0; }
 .dumb-name b { display: block; font-size: 14.5px; font-weight: 650; line-height: 1.25; }
@@ -394,12 +394,13 @@ tr.ours.s1 .score .fill { background: var(--rose); }
 .axis-unit { grid-area: val; text-align: right; }
 .table-toggle { margin-top: 12px; font-size: 13.5px; color: var(--sub); }
 .table-toggle summary { cursor: pointer; color: var(--red); font-weight: 600; }
-.twin-table { width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 13.5px; }
-.twin-table th, .twin-table td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; }
-.twin-table td.num, .twin-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
-.twin-table th { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+.rs-table { width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 13.5px; }
+.rs-table th, .rs-table td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+.rs-table td.num, .rs-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.rs-table th { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+.rs-table th.span { text-align: center; }   /* a header over several columns */
 
-/* reserved slots: tasks on the rig */
+/* reserved slots: tasks on the real robot */
 .slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .slot { display: flex; flex-direction: column; overflow: hidden; border-radius: var(--r); background: #fff; border: 1px solid var(--line); transition: transform .2s, box-shadow .2s, border-color .2s; }
 .slot:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--red-200); }
@@ -415,7 +416,7 @@ tr.ours.s1 .score .fill { background: var(--rose); }
 .slot-body { padding: 14px 16px 16px; }
 .slot-body b { font-size: 15.5px; }
 .slot-body p { margin: 3px 0 0; font-size: 13.5px; color: var(--sub); }
-.twin-chip { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 3px 8px; border-radius: 6px; background: var(--red-50); border: 1px solid var(--red-100);
+.rs-chip { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; padding: 3px 8px; border-radius: 6px; background: var(--red-50); border: 1px solid var(--red-100);
   color: var(--red-dk); font-size: 12.5px; font-weight: 650; font-variant-numeric: tabular-nums; }
 
 .tag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: var(--bg-2); border: 1px solid var(--line); color: var(--sub); font-size: 11.5px; font-weight: 700; letter-spacing: .03em; }
@@ -623,6 +624,6 @@ html:not(.js) .th-tab.on { background: var(--red); }
   .th-fam.enter-l .th-thumbs, .th-fam.enter-r .th-slide[data-pos="0"], .th-fam.enter-l .th-slide[data-pos="0"] { animation: none; }
 }
 
-/* three number boxes in a row (the twin's system identification); one column on phones */
+/* three number boxes in a row (the simulation's system identification); one column on phones */
 .num-grid.three { grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 720px) { .num-grid.three { grid-template-columns: 1fr; } }
