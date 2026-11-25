@@ -676,3 +676,7 @@ html:not(.js) .th-tab.on { background: var(--red); }
   .dumb-axis { grid-template-columns: 1fr 64px; }
   .th-desc .ic { display: none; }
 }
+
+/* ---------- footer (2026-11-25): project names never broken at their hyphen, lines of even length ---------- */
+.foot p { text-wrap: balance; }
+.foot p a { white-space: nowrap; }
