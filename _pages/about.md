@@ -442,6 +442,12 @@ latest_posts:
 <section id="news" class="home-section">
   <h2>News</h2>
   <p>
+    <time datetime="2026-11"><strong>2026-11</strong></time> —
+    <a href="https://vme0522.github.io/PyRUA-Dex/"><strong>PyRUA-Dex</strong></a> achieves
+    <strong class="pub-spotlight">SOTA</strong> on the
+    <a href="https://bench2dex.github.io/Bench2Dex-Leaderboard/">Bench2Dex leaderboard</a>.
+  </p>
+  <p>
     <time datetime="2026-10"><strong>2026-10</strong></time> —
     <a href="https://dagroup-pku.github.io/PyRUA-Lean/"><strong>PyRUA-Lean</strong></a> achieves the
     <strong class="pub-spotlight">TOP</strong> overall ranking on the
