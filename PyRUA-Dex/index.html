@@ -718,8 +718,8 @@
     </div>
 
     <figure class="fig rv" style="margin-top:22px">
-      <a class="zoom" href="static/images/paper/fig-dexjoco.webp?v=20261125"><img src="static/images/paper/fig-dexjoco.webp?v=20261125" alt="DexJoCo results per task: success rate of the programs after exploration and after refinement, two bars per task, under rand-obj and rand-full, and rand-full success rate against the execution budget" width="1959" height="726" loading="lazy"></a>
-      <figcaption><b>DexJoCo results per task.</b> (a) rand-obj and (b) rand-full success rate: the program after exploration (light bar) above the program after refinement (dark bar), with the averages in the panel titles, and the best trained policy on the task (tick). Triangles: PyRUA-Dex above it, on all ten tasks that were refined; the photograph task was not refined and has one bar. (c) rand-full success rate against the execution budget; the frozen programs spend no tokens at test time, the dotted line marks where the online agent matches them, and the diamond is the best trained policy, π<sub>0.5</sub>.</figcaption>
+      <a class="zoom" href="static/images/paper/fig-dexjoco.webp?v=20261126"><img src="static/images/paper/fig-dexjoco.webp?v=20261126" alt="DexJoCo results per task: success rate of the programs after exploration and after refinement, two bars per task, under rand-obj and rand-full, and rand-full success rate against the execution budget" width="1959" height="726" loading="lazy"></a>
+      <figcaption><b>DexJoCo results per task.</b> (a) rand-obj and (b) rand-full success rate: the program after exploration (light bar) above the program after refinement (dark bar), with the averages in the panel titles, and the best trained policy on the task (tick). Hollow bar: refinement kept the program from exploration (photograph). Triangles: PyRUA-Dex above it, on all 11 tasks. (c) rand-full success rate against the execution budget; the frozen programs spend no tokens at test time, the dotted line marks where the online agent matches them, and the diamond is the best trained policy, π<sub>0.5</sub>.</figcaption>
     </figure>
 
     <div class="card rs-card rv">
@@ -743,7 +743,7 @@
             <tr><td><b>Average</b></td><td></td><td class="num">58.7</td><td class="num"><b>88.5</b></td><td class="num">54.1 (π<sub>0.5</sub>)</td><td class="num">64.1</td><td class="num"><b>81.0</b></td><td class="num">40.3 (π<sub>0.5</sub>)</td></tr>
           </tbody>
         </table>
-        <p class="dj-note">Mean over three seeds of 50 episodes. Trained: the best of the benchmark's five trained policies on the task. <sup>*</sup>Not refined. <sup>†</sup>With a fallback to the fixed camera when the randomized one is absent; without it, 0.0 under rand-obj, and the rand-obj averages would be 49.8 and 79.5 instead of 58.7 and 88.5.</p>
+        <p class="dj-note">Mean over three seeds of 50 episodes. Trained: the best of the benchmark's five trained policies on the task. <sup>*</sup>Refinement kept the program from exploration. <sup>†</sup>With a fallback to the fixed camera when the randomized one is absent; without it, 0.0 under rand-obj, and the rand-obj averages would be 49.8 and 79.5 instead of 58.7 and 88.5.</p>
       </details>
     </div>
   </div>
